@@ -47,12 +47,16 @@ def _find_listing(con: sqlite3.Connection, obs: ListingObs, fp: str) -> sqlite3.
 def _same_site_conflict(con: sqlite3.Connection, row: sqlite3.Row, obs: ListingObs) -> bool:
     """True when the fingerprint matched a listing that the SAME site already carries under a DIFFERENT ad id.
     Sites like nhatot place unpinned ads at shared approximate coordinates, so two 100 m² lots at one point would
-    otherwise merge. Cross-site matches (the same lot on two sites) still merge."""
+    otherwise merge. Cross-site matches (the same lot on two sites) still merge, and so does a same-site repost at the
+    identical price."""
     if not obs.site_id:
         return False
-    r = con.execute("SELECT 1 FROM listing_obs WHERE listing_id = ? AND site = ? AND site_id IS NOT NULL AND site_id != ? LIMIT 1",
-                    (row["id"], obs.site, obs.site_id)).fetchone()
-    return r is not None
+    r = con.execute("SELECT price FROM listing_obs WHERE listing_id = ? AND site = ? AND site_id IS NOT NULL AND site_id != ? "
+                    "ORDER BY seen_at DESC LIMIT 1", (row["id"], obs.site, obs.site_id)).fetchone()
+    if r is None:
+        return False
+    # a repost: same site, new ad id, but the same fingerprint AND the same asking price → the same property
+    return not (obs.price is not None and r["price"] is not None and abs(r["price"] - obs.price) < 0.5)
 
 
 def ingest(con: sqlite3.Connection, obs_list: list[ListingObs], raw_ref: str | None = None) -> dict:

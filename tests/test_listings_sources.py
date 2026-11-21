@@ -151,3 +151,43 @@ class TestStructuredItems(unittest.TestCase):
         self.assertAlmostEqual(a.price_m2, 2.29e7)
         self.assertEqual((b.ptype, b.floors, b.bedrooms, b.area_m2), ("house", 3, 4, 80))
         self.assertEqual(b.alley_m, 0.0)   # "mặt phố" = street frontage
+
+
+class TestDataQuality(unittest.TestCase):
+    def _cap(self, items):
+        return {"site": "chotot", "url": "https://www.nhatot.com/x", "seen_at": "2026-11-21T10:00:00+07:00", "kind": "search", "deal": "sale", "items": items}
+
+    def test_placeholder_price_is_no_price(self):
+        from vnrealty.listings.sources import from_capture
+        (o,) = from_capture(self._cap([{"site_id": "1", "ptype": "land", "price_text": "1234567890", "area_m2": 100}]))
+        self.assertIsNone(o.price)
+        self.assertEqual(o.extra["placeholder_price"], 1234567890)
+
+    def test_social_housing_and_serviced_units_get_their_own_type(self):
+        from vnrealty.listings.sources import from_capture
+        a, b = from_capture(self._cap([
+            {"site_id": "2", "ptype": "apartment", "price_text": "885000000", "area_m2": 50, "project": "Khu chung cư nhà ở xã hội KCN Test"},
+            {"site_id": "3", "ptype": "apartment", "price_text": "6000000", "area_m2": 30, "apartment_type": "Căn hộ dịch vụ"}]))
+        self.assertEqual((a.ptype, b.ptype), ("social_housing", "chdv"))
+
+    def test_same_site_repost_at_same_price_merges(self):
+        from vnrealty.listings.ingest import ingest
+        from vnrealty.listings.sources import from_capture
+        from vnrealty.store.db import connect
+        con = connect(":memory:")
+        base = {"ptype": "land", "price_text": "2500000000", "area_m2": 100, "lat": 16.0, "lng": 108.2}
+        ingest(con, from_capture(self._cap([dict(base, site_id="10"), dict(base, site_id="11"),
+                                            dict(base, site_id="12", price_text="2700000000")])))
+        self.assertEqual(con.execute("SELECT COUNT(*) FROM listing").fetchone()[0], 2)
+        con.close()
+
+
+class TestMainStreetFlag(unittest.TestCase):
+    def test_main_street_true_means_street_frontage(self):
+        from vnrealty.listings.sources import from_capture
+        cap = {"site": "chotot", "url": "https://www.nhatot.com/x", "seen_at": "2026-11-21T10:00:00+07:00", "kind": "search", "deal": "sale",
+               "items": [{"site_id": "7", "ptype": "land", "price_text": "3000000000", "area_m2": 100, "main_street": True},
+                         {"site_id": "8", "ptype": "land", "price_text": "3000000000", "area_m2": 100}]}
+        a, b = from_capture(cap)
+        self.assertEqual(a.alley_m, 0.0)
+        self.assertIsNone(b.alley_m)

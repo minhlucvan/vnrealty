@@ -73,7 +73,13 @@ def _labels_to_fields(labels: dict) -> dict:
     return {mapping[k]: v for k, v in (labels or {}).items() if k in mapping and v}
 
 
-PTYPE_CODES = {"land", "house", "apartment", "shophouse", "villa", "chdv", "room", "homestay"}
+PTYPE_CODES = {"land", "house", "apartment", "shophouse", "villa", "chdv", "room", "homestay", "social_housing"}
+
+
+def is_placeholder_price(v: float) -> bool:
+    """Prices sellers type to get past a required field: 1234567890, 123456789, 999999999, 1111111111 …"""
+    d = str(int(round(v)))
+    return len(d) >= 8 and ("123456789" in d or len(set(d)) == 1)
 LEGAL_CODES = {"so_hong", "so_do", "co_so", "so_chung", "cho_so", "hdmb", "giay_tay"}
 
 
@@ -107,8 +113,19 @@ def normalize(site: str, seen_at: str, fields: dict, deal: str | None = None, ex
         ptype = P.detect_ptype(src)
         if ptype != "other":
             break
+    cls_text = P.fold(" ".join(str(f.get(k) or "") for k in ("apartment_type", "project", "category_raw", "title")))
+    if re.search(r"nha o xa hoi|\bnoxh\b", cls_text):
+        ptype = "social_housing"      # price-capped, eligibility-restricted: never a market-rate comparable
+    elif ptype == "apartment" and "can ho dich vu" in P.fold(str(f.get("apartment_type") or "")):
+        ptype = "chdv"                # a serviced unit is priced per key, not alongside chung cư
+    if price is not None and is_placeholder_price(price):
+        x_placeholder, price, price_m2 = price, None, None
+    else:
+        x_placeholder = None
     acc = P.parse_access(f"{text_all} {f.get('house_type') or ''}")   # "Nhà mặt phố" = street frontage
     alley = metres(f.get("alley_text")) if f.get("alley_text") else acc["alley_m"]
+    if alley is None and f.get("main_street") in (True, "true", "True", 1, "1"):
+        alley = 0.0                   # the site's own flag: the lot fronts a street (mặt tiền), not a kiệt
     frontage = metres(f.get("frontage_text")) if f.get("frontage_text") else (_num(f.get("frontage_m")) or (dims[0] if dims else None))
     depth = metres(f.get("depth_text")) if f.get("depth_text") else (_num(f.get("depth_m")) or (dims[1] if dims else None))
     if area is None:
@@ -130,6 +147,8 @@ def normalize(site: str, seen_at: str, fields: dict, deal: str | None = None, ex
         x["car_access"] = True
     if phone:
         x["phone_hash"] = phone
+    if x_placeholder is not None:
+        x["placeholder_price"] = x_placeholder
     for k in ("project", "street", "district_raw", "land_type", "house_type", "apartment_type", "furnishing", "category_raw"):
         if f.get(k):
             x[k] = f[k]
