@@ -96,6 +96,24 @@ CREATE TABLE IF NOT EXISTS search (
 
 CREATE TABLE IF NOT EXISTS journal (id INTEGER PRIMARY KEY, at TEXT NOT NULL, kind TEXT NOT NULL, subject TEXT, body TEXT);
 
+-- external and derived price series: a published area price chart, a research-house report, or our own index
+CREATE TABLE IF NOT EXISTS price_series (
+  id INTEGER PRIMARY KEY, source TEXT NOT NULL,     -- e.g. batdongsan-chart | guland-street | dkra-report | own-repeat | own-hedonic
+  scope_kind TEXT NOT NULL,                         -- city | ward | old_district | street | project
+  scope TEXT NOT NULL, ptype TEXT, kind TEXT NOT NULL DEFAULT 'asking',
+  month TEXT NOT NULL,                              -- YYYY-MM
+  value REAL NOT NULL, unit TEXT NOT NULL,          -- e.g. vnd_m2 | index
+  url TEXT, seen_at TEXT NOT NULL, notes TEXT,
+  UNIQUE (source, scope_kind, scope, ptype, kind, month, seen_at));
+
+-- every forecast published, so it can be graded against what happened
+CREATE TABLE IF NOT EXISTS forecast (
+  id INTEGER PRIMARY KEY, subject TEXT NOT NULL,    -- 'series:<source>:<scope>:<ptype>' | 'listing:<id>' | 'unit:<id>'
+  as_of TEXT NOT NULL, model TEXT NOT NULL, horizon_months INTEGER NOT NULL, target_month TEXT NOT NULL,
+  p10 REAL, p50 REAL, p90 REAL, inputs TEXT, created_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS ix_series ON price_series(scope_kind, scope, ptype, month);
+CREATE INDEX IF NOT EXISTS ix_forecast ON forecast(subject, as_of);
+
 CREATE INDEX IF NOT EXISTS ix_obs_listing ON listing_obs(listing_id, seen_at);
 CREATE INDEX IF NOT EXISTS ix_listing_ward ON listing(ward_code, ptype);
 CREATE INDEX IF NOT EXISTS ix_val_subject ON valuation(subject, as_of);
