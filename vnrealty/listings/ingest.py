@@ -44,6 +44,17 @@ def _find_listing(con: sqlite3.Connection, obs: ListingObs, fp: str) -> sqlite3.
     return con.execute("SELECT * FROM listing WHERE fingerprint = ?", (fp,)).fetchone()
 
 
+def _same_site_conflict(con: sqlite3.Connection, row: sqlite3.Row, obs: ListingObs) -> bool:
+    """True when the fingerprint matched a listing that the SAME site already carries under a DIFFERENT ad id.
+    Sites like nhatot place unpinned ads at shared approximate coordinates, so two 100 m² lots at one point would
+    otherwise merge. Cross-site matches (the same lot on two sites) still merge."""
+    if not obs.site_id:
+        return False
+    r = con.execute("SELECT 1 FROM listing_obs WHERE listing_id = ? AND site = ? AND site_id IS NOT NULL AND site_id != ? LIMIT 1",
+                    (row["id"], obs.site, obs.site_id)).fetchone()
+    return r is not None
+
+
 def ingest(con: sqlite3.Connection, obs_list: list[ListingObs], raw_ref: str | None = None) -> dict:
     """Store observations → ``{new_listings, new_obs, updated, duplicate_obs}``. Commits once at the end."""
     wards = _known_wards(con)
@@ -60,6 +71,9 @@ def ingest(con: sqlite3.Connection, obs_list: list[ListingObs], raw_ref: str | N
         deal = "rent" if obs.kind == "rent" else "sale"
         fp = fingerprint(obs)
         row = _find_listing(con, obs, fp)
+        if row is not None and row["fingerprint"] == fp and _same_site_conflict(con, row, obs):
+            fp, row = f"site:{obs.site}:{obs.site_id}", None
+            row = con.execute("SELECT * FROM listing WHERE fingerprint = ?", (fp,)).fetchone()
         attrs = {k: getattr(obs, k) for k in _FILL}
         if attrs["corner"] is not None:
             attrs["corner"] = int(attrs["corner"])

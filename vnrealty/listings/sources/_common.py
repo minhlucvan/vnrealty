@@ -73,6 +73,10 @@ def _labels_to_fields(labels: dict) -> dict:
     return {mapping[k]: v for k, v in (labels or {}).items() if k in mapping and v}
 
 
+PTYPE_CODES = {"land", "house", "apartment", "shophouse", "villa", "chdv", "room", "homestay"}
+LEGAL_CODES = {"so_hong", "so_do", "co_so", "so_chung", "cho_so", "hdmb", "giay_tay"}
+
+
 def normalize(site: str, seen_at: str, fields: dict, deal: str | None = None, extra: dict | None = None) -> ListingObs:
     """Raw fields → ListingObs. Price per m² is multiplied out only when the area is known; a rent quoted per year is
     divided by 12 (``extra.price_per`` keeps what was printed). ``ward_code``/``street`` are left to ingest."""
@@ -97,18 +101,25 @@ def normalize(site: str, seen_at: str, fields: dict, deal: str | None = None, ex
             price_m2, price = pm["value"], pm["value"] * area
     if price is not None and price_m2 is None and area:
         price_m2 = price / area
-    ptype = "other"
-    for src in (f.get("ptype_text"), f.get("title"), (url or "").replace("-", " "), f.get("description")):
+    ptype = f.get("ptype") if f.get("ptype") in PTYPE_CODES else "other"   # an extractor that already knows the type wins
+    for src in (() if ptype != "other" else (f.get("ptype_text"), f.get("house_type"), f.get("land_type"), f.get("category_raw"),
+                                              f.get("title"), (url or "").replace("-", " "), f.get("description"))):
         ptype = P.detect_ptype(src)
         if ptype != "other":
             break
-    acc = P.parse_access(text_all)
+    acc = P.parse_access(f"{text_all} {f.get('house_type') or ''}")   # "Nhà mặt phố" = street frontage
     alley = metres(f.get("alley_text")) if f.get("alley_text") else acc["alley_m"]
-    frontage = metres(f.get("frontage_text")) if f.get("frontage_text") else (dims[0] if dims else None)
-    depth = metres(f.get("depth_text")) if f.get("depth_text") else (dims[1] if dims else None)
-    legal = P.detect_legal(f.get("legal_text"))
-    if legal == "unknown":
-        legal = P.detect_legal(text_all)
+    frontage = metres(f.get("frontage_text")) if f.get("frontage_text") else (_num(f.get("frontage_m")) or (dims[0] if dims else None))
+    depth = metres(f.get("depth_text")) if f.get("depth_text") else (_num(f.get("depth_m")) or (dims[1] if dims else None))
+    if area is None:
+        area = _num(f.get("area_m2"))
+        if price is not None and area and price_m2 is None:
+            price_m2 = price / area
+    legal = f.get("legal") if f.get("legal") in LEGAL_CODES else P.detect_legal(f.get("legal_text") or f.get("legal"))
+    if legal in ("unknown", "co_so"):   # the description may name the certificate type the label leaves out
+        better = P.detect_legal(text_all)
+        if better != "unknown" and not (legal == "co_so" and better == "co_so"):
+            legal = better
     direction = P.detect_direction(f.get("direction_text")) or P.detect_direction(text_all)
     lat, lng = _num(f.get("lat")), _num(f.get("lng"))
     phone = f.get("phone_hash") or (P.find_phone_hashes(text_all) or [None])[0]
@@ -119,15 +130,19 @@ def normalize(site: str, seen_at: str, fields: dict, deal: str | None = None, ex
         x["car_access"] = True
     if phone:
         x["phone_hash"] = phone
+    for k in ("project", "street", "district_raw", "land_type", "house_type", "apartment_type", "furnishing", "category_raw"):
+        if f.get(k):
+            x[k] = f[k]
     x.update(extra or {})
     return ListingObs(
         site=site, seen_at=seen_at, kind="rent" if deal == "rent" else "asking", ptype=ptype,
         price=price, price_m2=price_m2, url=url, site_id=str(f["site_id"]).strip() if f.get("site_id") else site_id_from_url(url, site),
         title=P.redact_phones(f.get("title")) if f.get("title") else None,
-        address=f.get("address"), ward_raw=f.get("ward_raw") or f.get("address"),
+        address=f.get("address"), street=f.get("street"), ward_raw=f.get("ward_raw") or f.get("address"),
         lat=lat, lng=lng, area_m2=area, floor_area_m2=P.parse_area(f.get("floor_area_text")),
         frontage_m=frontage, depth_m=depth, alley_m=alley,
-        floors=P.parse_int(f.get("floors_text")), bedrooms=P.parse_int(f.get("bedrooms_text")),
+        floors=P.parse_int(f.get("floors_text")) if f.get("floors_text") else _num(f.get("floors")),
+        bedrooms=P.parse_int(f.get("bedrooms_text")) if f.get("bedrooms_text") else _num(f.get("bedrooms")),
         corner=P.detect_corner(text_all), direction=direction, legal=legal,
         posted_at=P.parse_posted(f.get("posted_text"), seen_at), phone_hash=phone, extra=x)
 

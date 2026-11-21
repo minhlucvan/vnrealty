@@ -211,14 +211,19 @@ def parse_alley(s: str | None) -> float | None:
 # ---------------------------------------------------------------- categorical detection
 
 def detect_legal(s: str | None) -> str:
-    """so_hong | so_do | hdmb | giay_tay | unknown. A combined "Sổ đỏ/Sổ hồng" (one certificate type since 2009)
+    """so_hong | so_do | co_so (has a title, type unstated) | so_chung (shared title) | cho_so (title pending) | hdmb |
+    giay_tay | unknown. A combined "Sổ đỏ/Sổ hồng" (one certificate type since 2009)
     is so_hong. A bare "có sổ" names no type and is unknown."""
     f = fold(s)
     if not f:
         return "unknown"
-    if re.search(r"giay tay|vi bang|so chung|so tay", f):
+    if re.search(r"giay tay|viet tay|vi bang|so tay", f):
         return "giay_tay"
-    if re.search(r"\bhdmb\b|hop dong mua ban", f):
+    if re.search(r"so chung", f):
+        return "so_chung"         # a shared certificate: transferable only with the co-holders, harder to finance
+    if re.search(r"cho so|dang lam so|chua co so", f):
+        return "cho_so"           # title pending: the buyer carries the risk it never issues
+    if re.search(r"\bhdmb\b|hop dong mua ban|\bhd mua ban", f):
         return "hdmb"
     hong = bool(re.search(r"so hong|shr\b|so rieng hong", f))
     do = bool(re.search(r"so do\b|so do\/|\bsdcc|so do chinh chu", f))
@@ -226,6 +231,8 @@ def detect_legal(s: str | None) -> str:
         return "so_hong"
     if do:
         return "so_do"
+    if re.search(r"\b(da )?co so\b|so san|so dep", f):
+        return "co_so"            # "has a certificate", type not stated
     return "unknown"
 
 

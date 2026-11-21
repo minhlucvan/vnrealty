@@ -131,3 +131,23 @@ class TestJsonCaptures(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestStructuredItems(unittest.TestCase):
+    """Extractors that read a site's own JSON (e.g. nhatot __NEXT_DATA__) already know type, legal and numbers."""
+
+    def test_structured_fields_win(self):
+        from vnrealty.listings.sources import from_capture
+        cap = {"site": "chotot", "url": "https://www.nhatot.com/mua-ban-dat-da-nang", "seen_at": "2026-11-21T10:00:00+07:00",
+               "kind": "search", "deal": "sale", "items": [
+                   {"site_id": "999001", "ptype": "land", "price_text": "2290000000", "area_text": "100", "area_m2": 100,
+                    "ward_raw": "Phường Ngũ Hành Sơn", "lat": 16.0, "lng": 108.25, "frontage_m": 5, "depth_m": 20,
+                    "legal": "so_hong", "street": "Đường Test", "land_type": "Đất thổ cư"},
+                   {"site_id": "999002", "ptype": "house", "price_text": "5500000000", "area_m2": 80, "floors": 3, "bedrooms": 4,
+                    "house_type": "Nhà mặt phố, mặt tiền", "ward_raw": "Phường Hải Châu"}]}
+        a, b = from_capture(cap)
+        self.assertEqual((a.ptype, a.legal, a.frontage_m, a.depth_m, a.street), ("land", "so_hong", 5.0, 20.0, "Đường Test"))
+        self.assertAlmostEqual(a.price, 2.29e9)
+        self.assertAlmostEqual(a.price_m2, 2.29e7)
+        self.assertEqual((b.ptype, b.floors, b.bedrooms, b.area_m2), ("house", 3, 4, 80))
+        self.assertEqual(b.alley_m, 0.0)   # "mặt phố" = street frontage

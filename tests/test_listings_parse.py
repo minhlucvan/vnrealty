@@ -83,7 +83,7 @@ class TestDetect(unittest.TestCase):
         self.assertEqual(P.detect_legal("Hợp đồng mua bán"), "hdmb")
         self.assertEqual(P.detect_legal("HĐMB"), "hdmb")
         self.assertEqual(P.detect_legal("giấy tay, vi bằng"), "giay_tay")
-        self.assertEqual(P.detect_legal("Đã có sổ"), "unknown")
+        self.assertEqual(P.detect_legal("Đã có sổ"), "co_so")
 
     def test_ptype(self):
         cases = {"Bán đất nền KĐT FPT": "land", "Bán nhà riêng kiệt 3m": "house", "Bán căn hộ chung cư": "apartment",
