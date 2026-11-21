@@ -28,7 +28,8 @@ CATEGORIES = {"rent", "deposit", "repair", "tax", "fee", "utility", "loan_intere
               "sale", "capex", "other"}
 NON_OPERATING = {"deposit", "loan_interest", "loan_principal", "purchase", "sale", "capex"}
 _UNIT_COLS = {"name", "ptype", "ward_code", "address", "lat", "lng", "area_m2", "bought_at", "cost", "share", "loan",
-              "loan_rate", "loan_term_years", "value", "value_at", "legal", "status", "listing_id", "notes"}
+              "loan_rate", "loan_term_years", "value", "value_at", "legal", "status", "listing_id", "notes",
+              "frontage_m", "depth_m", "alley_m", "road_width_m", "corner"}
 _LEASE_COLS = {"tenant", "start", "end", "rent", "deposit", "due_day", "status", "notes"}
 
 

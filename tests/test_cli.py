@@ -355,3 +355,26 @@ class CLI(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestUnitAccess(unittest.TestCase):
+    def test_unit_access_columns_and_migration(self):
+        import sqlite3
+        import tempfile
+        from pathlib import Path
+        from vnrealty.cli import main
+        from vnrealty.store.db import connect
+        d = Path(tempfile.mkdtemp()) / "old.sqlite"
+        old = sqlite3.connect(d)   # a database created before the access columns existed
+        old.execute("CREATE TABLE unit (id TEXT PRIMARY KEY, name TEXT NOT NULL, ptype TEXT, ward_code TEXT, address TEXT, lat REAL, "
+                    "lng REAL, area_m2 REAL, bought_at TEXT, cost REAL, share REAL NOT NULL DEFAULT 1.0, loan REAL DEFAULT 0, "
+                    "loan_rate REAL, loan_term_years REAL, value REAL, value_at TEXT, legal TEXT, status TEXT DEFAULT 'held', "
+                    "listing_id INTEGER, notes TEXT)")
+        old.commit(); old.close()
+        connect(d).close()
+        cols = {r[1] for r in sqlite3.connect(d).execute("PRAGMA table_info(unit)")}
+        self.assertTrue({"alley_m", "frontage_m", "corner", "road_width_m", "depth_m"} <= cols)
+        self.assertEqual(main(["--db", str(d), "--json", "unit", "add", "u1", "Lot", "--ptype", "land", "--area", "100",
+                               "--alley", "4", "--frontage", "5", "--corner", "1"]), 0)
+        r = sqlite3.connect(d).execute("SELECT alley_m, frontage_m, corner FROM unit WHERE id='u1'").fetchone()
+        self.assertEqual(r, (4.0, 5.0, 1))

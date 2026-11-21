@@ -806,7 +806,8 @@ def cmd_finplan(ctx, a):
 _UNIT_FLAGS = {"ptype": "ptype", "ward": "ward_code", "address": "address", "lat": "lat", "lng": "lng",
                "area": "area_m2", "bought_at": "bought_at", "cost": "cost", "share": "share", "loan": "loan",
                "loan_rate": "loan_rate", "loan_term": "loan_term_years", "value": "value", "value_at": "value_at",
-               "legal": "legal", "status": "status", "listing": "listing_id", "notes": "notes", "name": "name"}
+               "legal": "legal", "status": "status", "listing": "listing_id", "notes": "notes", "name": "name",
+               "frontage": "frontage_m", "depth": "depth_m", "alley": "alley_m", "road_width": "road_width_m", "corner": "corner"}
 _MONEY_FLAGS = {"cost", "loan", "value"}
 
 
@@ -1600,8 +1601,10 @@ def build_parser() -> argparse.ArgumentParser:
         for f in ("ptype", "ward", "address", "bought_at", "legal", "status", "notes", "value_at", "listing",
                   "cost", "loan", "value"):
             p.add_argument("--" + f.replace("_", "-"), dest=f)
-        for f in ("lat", "lng", "area", "share", "loan_rate", "loan_term"):
+        for f in ("lat", "lng", "area", "share", "loan_rate", "loan_term", "frontage", "depth", "road_width"):
             p.add_argument("--" + f.replace("_", "-"), dest=f, type=float)
+        p.add_argument("--alley", dest="alley", type=float, help="alley (kiệt/hẻm) width in metres; 0 = street frontage")
+        p.add_argument("--corner", dest="corner", type=int, choices=[0, 1])
     x = cmd(u, "add", cmd_unit_add)
     x.add_argument("id")
     x.add_argument("unit_name", metavar="name")

@@ -70,7 +70,8 @@ CREATE TABLE IF NOT EXISTS project_evidence (
 CREATE TABLE IF NOT EXISTS unit (
   id TEXT PRIMARY KEY, name TEXT NOT NULL, ptype TEXT, ward_code TEXT, address TEXT, lat REAL, lng REAL, area_m2 REAL,
   bought_at TEXT, cost REAL, share REAL NOT NULL DEFAULT 1.0, loan REAL DEFAULT 0, loan_rate REAL, loan_term_years REAL,
-  value REAL, value_at TEXT, legal TEXT, status TEXT DEFAULT 'held', listing_id INTEGER, notes TEXT);
+  value REAL, value_at TEXT, legal TEXT, status TEXT DEFAULT 'held', listing_id INTEGER, notes TEXT,
+  frontage_m REAL, depth_m REAL, alley_m REAL, road_width_m REAL, corner INTEGER);   -- access: alley_m 0 = street frontage
 CREATE TABLE IF NOT EXISTS lease (
   id INTEGER PRIMARY KEY, unit_id TEXT NOT NULL REFERENCES unit(id), tenant TEXT, start TEXT NOT NULL, end TEXT,
   rent REAL NOT NULL, deposit REAL, due_day INTEGER DEFAULT 5, status TEXT DEFAULT 'active', notes TEXT);
@@ -135,9 +136,23 @@ def connect(path: str | Path | None = None) -> sqlite3.Connection:
     con.row_factory = sqlite3.Row
     con.execute("PRAGMA foreign_keys = ON")
     con.executescript(SCHEMA)
+    _migrate(con)
     con.execute("INSERT OR IGNORE INTO meta(key, value) VALUES ('schema_version', ?)", (str(SCHEMA_VERSION),))
     con.commit()
     return con
+
+
+# columns added after a table first shipped: (table, column, type). CREATE TABLE IF NOT EXISTS never alters an existing
+# table, so older databases get them here, additively and idempotently.
+_ADDED_COLUMNS = [("unit", "frontage_m", "REAL"), ("unit", "depth_m", "REAL"), ("unit", "alley_m", "REAL"),
+                  ("unit", "road_width_m", "REAL"), ("unit", "corner", "INTEGER")]
+
+
+def _migrate(con: sqlite3.Connection) -> None:
+    for table, col, typ in _ADDED_COLUMNS:
+        have = {r[1] for r in con.execute(f"PRAGMA table_info({table})")}
+        if col not in have:
+            con.execute(f"ALTER TABLE {table} ADD COLUMN {col} {typ}")
 
 
 def rows(con: sqlite3.Connection, sql: str, args: tuple = ()) -> list[dict]:
