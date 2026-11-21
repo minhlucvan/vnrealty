@@ -1,0 +1,31 @@
+{
+  "_about": "How Vietnamese banks size a home loan, as used by vnrealty/plan/finplan.py. There is no State Bank of Vietnam rule that fixes a debt-to-income cap for mortgages: each bank sets its own. The values below are typical bank practice as published by banks and the financial press, checked on the date below. Pass your own bank's figures into Household when you have a term sheet.",
+  "verified_at": "2026-11-21",
+  "max_dti": {
+    "typical": 0.40,
+    "range": [0.40, 0.50],
+    "meaning": "total monthly debt payments (all loans, incl. the new mortgage) / gross monthly income",
+    "status": "sourced (bank practice, not regulation)",
+    "evidence": [
+      {"claim": "banks usually accept a file when DTI is under 40%; VIB recommends keeping DTI under 40% for home loans", "url": "https://www.vib.com.vn/vn/cam-nang/vay/vay-the-chap/dti-trong-ngan-hang-la-gi"},
+      {"claim": "VPBank explainer of DTI and how banks use it", "url": "https://www.vpbank.com.vn/bi-kip-va-chia-se/retail-story-and-tips/others/dti-trong-ngan-hang-la-gi"},
+      {"claim": "DTI is typically considered under ~40-50% depending on the bank and the period", "url": "https://www.careerlink.vn/cam-nang-viec-lam/kien-thuc-kinh-te/dti-la-gi"},
+      {"claim": "above 50% is high risk and very hard to borrow", "url": "https://www.dnse.com.vn/hoc/ty-le-no-tren-thu-nhap"},
+      {"claim": "VIB guidance: total instalments should not exceed 50% of monthly income", "url": "https://www.vib.com.vn/vn/cam-nang/vay/vay-bat-dong-san/luong-15-trieu-co-nen-mua-nha-tra-gop"}
+    ]
+  },
+  "regulation": {
+    "note": "SBV prudential rules (Thông tư 22/2023/TT-NHNN amending Thông tư 41/2016) set mortgage RISK WEIGHTS by LTV and debt-service coverage, which makes high-LTV loans costlier for banks; they do not cap a borrower's DTI or LTV directly.",
+    "status": "sourced",
+    "sources": [
+      "https://english.luatvietnam.vn/tai-chinh/circular-22-2023-tt-nhnn-prudential-ratios-for-operations-of-banks-and-foreign-bank-branches-288187-d1.html",
+      "https://theinvestor.vn/vietnam-central-bank-circular-does-not-prohibit-loans-to-buy-future-formed-houses-d8500.html"
+    ]
+  },
+  "max_ltv": {
+    "typical": 0.70,
+    "meaning": "loan / the bank's appraised value of the collateral (often below the purchase price)",
+    "status": "judgement",
+    "note": "70% of appraised value is the commonly quoted ceiling in bank marketing; not verified against a bank's written policy in this pass. Treat as a starting point and replace with a term sheet."
+  }
+}

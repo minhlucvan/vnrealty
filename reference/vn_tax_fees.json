@@ -1,0 +1,81 @@
+{
+  "_about": "Taxes and fees on a Vietnamese residential property transfer, as used by vnrealty/legal/checklist.py::transaction_costs. Rates are fractions. Every item carries its legal basis and the URLs it was checked against on the date below; secondary legal sites were used where the official gazette was not reachable, so confirm with the local tax office (Chi cục Thuế) and a notary before relying on a number. Not legal or tax advice.",
+  "verified_at": "2026-11-21",
+  "registration_fee": {
+    "vi": "Lệ phí trước bạ nhà, đất",
+    "rate": 0.005,
+    "payer": "buyer",
+    "base_rule": "0.5% of the transfer price when that is above the provincial land/house price table value; otherwise of the table value (so: max(contract price, official value) when the official value is known).",
+    "legal_basis": "Nghị định 10/2022/NĐ-CP, Điều 8 khoản 1 (amended by Nghị định 175/2025/NĐ-CP — check the consolidated text)",
+    "status": "sourced",
+    "sources": [
+      "https://thuvienphapluat.vn/ma-so-thue/phap-luat-thue/cach-tinh-le-phi-truoc-ba-chuyen-nhuong-nha-dat-2026-519732-220691.html",
+      "https://thuvienphapluat.vn/phap-luat-nha-dat/cac-loai-phi-phai-nop-khi-chuyen-nhuong-quyen-su-dung-dat-nam-2025-2250.html"
+    ]
+  },
+  "seller_pit": {
+    "vi": "Thuế thu nhập cá nhân từ chuyển nhượng bất động sản",
+    "rate": 0.02,
+    "payer": "seller",
+    "base_rule": "2% of the transfer price. Since 2025 the tax authority's guidance (Công văn 5921/TCT-CS, 16/12/2024) ties the taxable price for land-use-right transfers to the land price table when the contract price is lower; vnrealty uses max(contract price, official value) when the official value is known.",
+    "legal_basis": "Luật Thuế TNCN 109/2025/QH15, Điều 14 (in force 01/07/2026; keeps 2% for residents and non-residents; amended by Luật 09/2026/QH16 — amendment not checked); before 01/07/2026: Luật Thuế TNCN 2007 as amended",
+    "status": "sourced",
+    "sources": [
+      "https://thuvienphapluat.vn/phap-luat-nha-dat/thue-chuyen-nhuong-bat-dong-san-2026-tiep-tuc-ap-dung-2-dung-khong-14085.html",
+      "https://thuvienphapluat.vn/phap-luat-nha-dat/cach-tinh-thue-chuyen-nhuong-dat-moi-nhat-2026-theo-luat-thue-tncn-2025-14086.html",
+      "https://thuvienphapluat.vn/cong-van/Thue-Phi-Le-Phi/Cong-van-5921-TCT-CS-2024-gia-tinh-thue-thu-nhap-ca-nhan-636017.aspx",
+      "https://thuvienphapluat.vn/van-ban/thue-phi-le-phi/van-ban-hop-nhat-112-vbhn-vpqh-2026-luat-thue-thu-nhap-ca-nhan-706726.aspx"
+    ]
+  },
+  "notary_fee": {
+    "vi": "Phí công chứng hợp đồng mua bán, chuyển nhượng nhà đất",
+    "payer": "buyer",
+    "payer_note": "by convention; the contract can assign it to either party",
+    "base_rule": "on the contract value (land use right plus the house on it). Each tier: fixed + rate x (value - over). Capped at 70,000,000 VND per case. Notary 'thù lao' (drafting, copies) is extra and set by each office.",
+    "tiers": [
+      {"upto": 50000000, "fixed": 50000, "rate": 0.0, "over": 0},
+      {"upto": 100000000, "fixed": 100000, "rate": 0.0, "over": 0},
+      {"upto": 1000000000, "fixed": 0, "rate": 0.001, "over": 0},
+      {"upto": 3000000000, "fixed": 1000000, "rate": 0.0006, "over": 1000000000},
+      {"upto": 5000000000, "fixed": 2200000, "rate": 0.0005, "over": 3000000000},
+      {"upto": 10000000000, "fixed": 3200000, "rate": 0.0004, "over": 5000000000},
+      {"upto": 100000000000, "fixed": 5200000, "rate": 0.0003, "over": 10000000000},
+      {"upto": null, "fixed": 32200000, "rate": 0.0002, "over": 100000000000}
+    ],
+    "cap": 70000000,
+    "legal_basis": "Thông tư 257/2016/TT-BTC, Điều 4 khoản 2 điểm a2 (amended by Thông tư 111/2017/TT-BTC; Thông tư 64/2025/TT-BTC's temporary 50% cuts were not found to cover this fee)",
+    "status": "sourced",
+    "sources": [
+      "https://thuviennhadat.vn/phap-ly-nha-dat/phi-cong-chung-hop-dong-mua-ban-nha-dat-moi-nhat-2025-687178.html",
+      "https://thuvienphapluat.vn/van-ban/thue-phi-le-phi/thong-tu-257-2016-tt-btc-phi-cong-chung-thuc-tham-dinh-hanh-nghe-cong-chung-the-cong-chung-vien-333295.aspx",
+      "https://luatvietnam.vn/tin-van-ban-moi/giam-50-nhieu-loai-phi-va-le-phi-tu-01-7-2025-den-het-31-12-2026-186-102767-article.html"
+    ]
+  },
+  "developer_vat": {
+    "vi": "Thuế GTGT khi mua từ chủ đầu tư",
+    "rate": 0.10,
+    "payer": "buyer (normally already inside the developer's quoted price)",
+    "base_rule": "10% of the sale price before VAT minus the land use fee (tiền sử dụng đất) or land rent paid to the State. Without the land-use-fee figure the VAT amount cannot be computed; it is reported as insufficient.",
+    "legal_basis": "Luật Thuế GTGT 48/2024/QH15, Điều 7 khoản 1 điểm h; real estate is outside the temporary 2-point VAT cut",
+    "status": "sourced",
+    "sources": [
+      "https://thuvienphapluat.vn/cong-van/Thue-Phi-Le-Phi/Cong-van-5149-CT-CS-2026-thue-gia-tri-gia-tang-716314.aspx",
+      "https://tuvanphapluat.hcmulaw.edu.vn/Resources/Docs/SubDomain/tuvanphapluat/Luật Thuế GTGT 2024.pdf",
+      "https://luatvietnam.vn/thue/cong-van-2499-dna-qldn2-2025-cua-thue-da-nang-ve-gia-tinh-thue-gtgt-chuyen-nhuong-bds-419004-d6.html"
+    ]
+  },
+  "broker_fee": {
+    "vi": "Phí môi giới",
+    "rate": null,
+    "payer": "seller (by market convention; negotiable)",
+    "base_rule": "a negotiated share of the price; passed in as broker_rate. Commonly quoted 1-2% in Đà Nẵng listings.",
+    "status": "judgement",
+    "note": "No legal rate exists; 1-2% is market lore, not a sourced number, which is why the function takes it as a parameter and has no default."
+  },
+  "not_included": [
+    "Phí thẩm định hồ sơ cấp giấy chứng nhận (set by each province's People's Council resolution)",
+    "Lệ phí cấp giấy chứng nhận (province-set, small)",
+    "Notary thù lao (drafting, copying) beyond the fee",
+    "Maintenance fund 2% for new apartments (phí bảo trì, Luật Nhà ở 2023) — payable to the developer on a new condo"
+  ]
+}
