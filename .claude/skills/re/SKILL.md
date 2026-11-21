@@ -19,9 +19,11 @@ number may be.
 | find listings matching criteria; open a site; mine a search page | `re-find` |
 | what moved since last time; price cuts; new supply; watched listings | `re-track` |
 | what is this worth; comparables; is it overpriced | `re-value` (comps, hedonic, official table, index) |
+| is it cheap *for its type*; rank many listings; price per room / buildable m² / frontage metre | `re-pricing` |
+| every way to profit on one property (hold, rent, flip, build, subdivide, rental arbitrage, JV); allocate my capital | `re-strategy` |
 | how did prices get here; history of a lot or ward | `re-history` |
 | zoning, quy hoạch, nearby projects, infrastructure | `re-infra` |
-| where will the price go; scenarios; hold or sell timing | `re-project` |
+| where will the price go; scenarios; hold or sell timing | `re-forecast` (fitted, backtested model) or `re-project` (quick scenarios) |
 | model a purchase or build; EV; break-evens; stress | `re-deal` |
 | compare listings or options side by side | `re-compare` |
 | find opportunities; screen; undervalued; high yield; motivated sellers | `re-opportunities` |
