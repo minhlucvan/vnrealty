@@ -105,3 +105,23 @@ def gfa(area_m2: float | None, alley_m: float | None, road_width_m: float | None
     return {"gfa_m2": fp * fl["floors"], "footprint_m2": fp, "buildable_ratio": br, "floors": fl["floors"],
             "bound": fl["bound"], "basis": f"{area_m2:g} m² × {br:.2f} (QCVN 01:2021) × {fl['floors']} floors; "
                                             + fl["basis"]}
+
+
+def floor_area(row: dict, params: dict | None = None) -> tuple[float, bool] | None:
+    """(floor area m², estimated?) for a house/villa/shophouse row. The listing's own floor area when stated; else an
+    ESTIMATE = land area × floors × the QCVN maximum site coverage for that lot size (Vietnamese town houses are
+    usually built to the allowed footprint). None when floors or land area are unknown. Apartments use their own
+    area. Estimates are labelled wherever they are used and never written back to the database."""
+    fa = row.get("floor_area_m2")
+    if fa and fa > 0:
+        return float(fa), False
+    if row.get("ptype") in ("apartment", "chdv", "social_housing"):
+        a = row.get("area_m2")
+        return (float(a), False) if a and a > 0 else None
+    a, n = row.get("area_m2"), row.get("floors")
+    if not a or a <= 0 or not n or n <= 0:
+        return None
+    r = buildable_ratio(a, params)
+    if not isinstance(r, (int, float)):
+        return None
+    return float(a) * float(n) * float(r), True

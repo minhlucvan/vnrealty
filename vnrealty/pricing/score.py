@@ -36,7 +36,7 @@ RULES = {
     "price_per_room": "peer_low", "price_per_buildable_m2": "peer_low", "rent_m2": "peer_low",
     "residual_vs_asking": "ratio_high", "cost_value_vs_asking": "ratio_high", "income_value_vs_asking": "ratio_high",
     "gross_yield_vs_ward": "ratio_high", "net_yield": "ratio_high", "value_gap": "ratio_high",
-    "price_to_rent": "ratio_low", "hedonic_residual": "log_resid",
+    "price_to_rent": "ratio_low", "building_cost_ratio": "ratio_low", "hedonic_residual": "log_resid",
 }
 
 

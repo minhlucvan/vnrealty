@@ -12,6 +12,8 @@ SUBJECT is ``listing:<id>`` or a bare id (a listing), ``unit:<id>`` (an owned un
 """
 from __future__ import annotations
 
+import math
+
 import argparse
 import dataclasses
 import json
@@ -1025,7 +1027,7 @@ def _screen_undervalued(ctx, rows, threshold, ward=None):
         if isinstance(e, Insufficient) or e > threshold:
             continue
         hits.append({**_hit(r), "rule": "undervalued", "residual_log": e,
-                     "why": f"asking price/m² {e:+.1%} (log) vs the hedonic model {model.detail.get('cli_filters')} (n={model.n}, r²={model.r2:.2f})"})
+                     "why": f"asking price/m² {math.exp(e) - 1:+.0%} vs the hedonic model's price (log residual {e:+.2f}; model {model.detail.get('cli_filters') or 'pooled'}, n={model.n}, r²={model.r2:.2f})"})
     if not hits and fails and len(fails) == len(models):
         return Insufficient("undervalued", "; ".join(f"{k}: {v}" for k, v in fails.items()))
     return sorted(hits, key=lambda h: h["residual_log"])
@@ -1040,6 +1042,8 @@ def _screen_yield(ctx, rows, margin):
             cache[k] = (rent_ppm2(ctx.con, *k, ctx.as_of), gross_yield(ctx.con, *k, ctx.as_of))
         rent, gy = cache[k]
         if isinstance(rent, Insufficient) or isinstance(gy, Insufficient):
+            continue
+        if (rent.get("n") or 0) < YIELD_MIN_RENTS:   # a ward rent median from a handful of ads is noise, not a yield
             continue
         y = C.listing_yield(r, rent["median"])
         if y is None or y < gy["yield"] * (1 + margin):
@@ -1144,6 +1148,9 @@ def cmd_screen(ctx, a):
     return out
 
 
+YIELD_MIN_RENTS = 20   # rentals of the same ward and type needed before the yield screen trusts their median
+
+
 def cmd_price(ctx, a):
     from vnrealty.pricing.metrics import evaluate, make_ctx
     from vnrealty.pricing.peers import snapshot
@@ -1161,6 +1168,11 @@ def cmd_price(ctx, a):
         v = C.run_value(ctx.con, s, ctx.as_of, record=False)["combined"]
         if isinstance(v, Estimate):
             kw.setdefault("valuation", v)
+    if "hedonic" not in kw:   # the same pooled model the screen fits, so `price` and `screen` give one score
+        from vnrealty.valuation import hedonic as _hed
+        _m = _hed.fit(ctx.con, ctx.as_of)
+        if not isinstance(_m, Insufficient):
+            kw["hedonic"] = _m
     mctx = make_ctx(ctx.con, ctx.as_of, **kw)
     metrics = evaluate(listing, mctx)
     ptype = "rent" if listing.get("deal") == "rent" else (listing.get("ptype") or "other")

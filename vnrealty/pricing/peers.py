@@ -101,8 +101,8 @@ def unit_value(row: dict, unit: str, params: dict | None = None) -> float | None
         a = row.get("area_m2")
         return p / a if a and a > 0 else None
     if unit == "price_m2_floor":
-        a = row.get("floor_area_m2") or (row.get("area_m2") if row.get("ptype") == "apartment" else None)
-        return p / a if a and a > 0 else None
+        fa = zoning.floor_area(row, params)
+        return p / fa[0] if fa else None
     if unit in ("price_per_frontage_m", "rent_per_frontage_m"):
         f = row.get("frontage_m")
         return p / f if f and f > 0 else None

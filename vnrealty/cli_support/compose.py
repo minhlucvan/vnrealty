@@ -20,6 +20,8 @@ from vnrealty.types import Estimate, Insufficient
 
 from .common import CliError, load_json
 
+COMPS_RADIUS_KM = 3.0   # judgement: walkable-market radius for comps when the subject has coordinates
+
 __all__ = ["run_value", "fit_hedonic", "index_series", "drift_vol", "gap_to_ask", "official_position", "official_floor",
            "load_deal", "deal_from_dict", "PRESETS", "preset_template", "listing_rows", "listing_yield",
            "days_before", "load_profile", "load_household", "sell_costs"]
@@ -126,7 +128,10 @@ def run_value(con, subject: dict, as_of: str, record: bool = True) -> dict:
     floor beside the result."""
     from vnrealty.valuation import calibrate, comps, hedonic, index_moved, triangulate
     ests: list = []
-    c = comps.value_by_comps(con, subject, as_of)
+    # since the 2025 merger a "ward" can span several old wards: with coordinates, try comps within 3 km first
+    c = comps.value_by_comps(con, subject, as_of, radius_km=COMPS_RADIUS_KM) if subject.get("lat") is not None else None
+    if c is None or isinstance(c, Insufficient):
+        c = comps.value_by_comps(con, subject, as_of)
     ests.append(c)
     model = fit_hedonic(con, as_of, subject.get("ptype"))
     h = hedonic.predict(model, subject) if not isinstance(model, Insufficient) else \

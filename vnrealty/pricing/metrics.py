@@ -327,6 +327,17 @@ def house(listing: dict, ctx: dict) -> dict:
         ib = price - lv[0]
         out["implied_building_value"] = ok(ib, "VND", "asking − land value" +
                                            (" (negative: asking below land value)" if ib < 0 else ""))
+        fa = zoning.floor_area(listing, p)
+        if fa is None:
+            out["building_cost_ratio"] = na("floor area unknown (needs floor area, or land area and floors)")
+        else:
+            bcm2, bcb = _build_cost_m2(ctx)
+            new_cost = fa[0] * bcm2
+            r = ib / new_cost
+            out["building_cost_ratio"] = ok(r, "×", f"(asking − land value) ÷ (floor area {fa[0]:,.0f} m²"
+                                            f"{' estimated: land × floors × max coverage' if fa[1] else ''} × {bcb}); "
+                                            "below 1 = paying less for the building than building it new",
+                                            ratio=r, floor_area_estimated=fa[1])
         bld = _building_value(listing, ctx)
         if isinstance(bld, Insufficient):
             out["building_value"] = na(bld.reason)

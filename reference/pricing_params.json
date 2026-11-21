@@ -80,48 +80,134 @@
   },
   "params": {
     "buildable_ratio_by_lot": {
-      "points": [[90, 1.0], [100, 0.9], [200, 0.7], [300, 0.6], [500, 0.5], [1000, 0.4]],
+      "points": [
+        [
+          90,
+          1.0
+        ],
+        [
+          100,
+          0.9
+        ],
+        [
+          200,
+          0.7
+        ],
+        [
+          300,
+          0.6
+        ],
+        [
+          500,
+          0.5
+        ],
+        [
+          1000,
+          0.4
+        ]
+      ],
       "unit": "fraction of lot area (footprint / lot) vs lot area m²; linear between points, flat outside",
       "basis": "sourced: QCVN 01:2021/BXD table for individual houses, interpolation allowed by the code. The ≤100 m² / ≤25 m 100% exception is not applied (conservative). A detailed plan (QHCT) can be stricter — verify per lot.",
       "basis_kind": "sourced",
-      "sources": ["qcvn01_2021_luatvietnam", "qcvn01_2021_thuviennhadat"]
+      "sources": [
+        "qcvn01_2021_luatvietnam",
+        "qcvn01_2021_thuviennhadat"
+      ]
     },
     "floors_by_alley": {
-      "bands": [[0.0, 2.5, 3, 13.0], [2.5, 7.0, 4, 16.5], [7.0, null, 5, 20.0]],
+      "bands": [
+        [
+          0.0,
+          2.5,
+          3,
+          13.0
+        ],
+        [
+          2.5,
+          7.0,
+          4,
+          16.5
+        ],
+        [
+          7.0,
+          null,
+          5,
+          20.0
+        ]
+      ],
       "unit": "[min_width_m inclusive, max_width_m exclusive (null = no max), max floors, max height m] for a lot in a kiệt/hẻm (alley_m > 0)",
       "basis": "sourced (press report of QĐ 07/2026/QĐ-UBND amending QĐ 63/2023/QĐ-UBND, effective 2026-01-25). The rule keys on lộ giới (planned width); listings state the current width, which is used as the proxy — verify the lộ giới at the ward office.",
       "basis_kind": "sourced",
-      "sources": ["tuoitre_qd07_2026", "vneconomy_qd07_2026", "vbpl_qd07_2026"]
+      "sources": [
+        "tuoitre_qd07_2026",
+        "vneconomy_qd07_2026",
+        "vbpl_qd07_2026"
+      ]
     },
     "floors_by_street": {
-      "bands": [[0.0, 5.5, 6], [5.5, 7.5, 7], [7.5, 10.5, 9]],
+      "bands": [
+        [
+          0.0,
+          5.5,
+          6
+        ],
+        [
+          5.5,
+          7.5,
+          7
+        ],
+        [
+          7.5,
+          10.5,
+          9
+        ]
+      ],
       "unit": "[min carriageway m, max carriageway m (exclusive), max floors] for street frontage (alley_m = 0); ≥10.5 m set by the zoning plan (Insufficient)",
       "street_unknown_floors": 6,
       "street_unknown_meaning": "When a street-front lot's carriageway width is unknown, the rule's LOWEST street band (6 floors) is used as a lower bound and the metric's basis says so (bound='lower'). It understates GFA, so residual values err low.",
       "basis": "sourced (press report of QĐ 07/2026/QĐ-UBND); the press bands overlap near 5.5 / 7.5 m — check the decision before relying on a boundary.",
       "basis_kind": "sourced",
-      "sources": ["tuoitre_qd07_2026", "vneconomy_qd07_2026"]
+      "sources": [
+        "tuoitre_qd07_2026",
+        "vneconomy_qd07_2026"
+      ]
     },
     "build_cost_m2": {
-      "basic": 6000000, "standard": 7000000, "premium": 9000000, "default_level": "standard",
+      "basic": 6000000,
+      "standard": 7000000,
+      "premium": 9000000,
+      "default_level": "standard",
       "unit": "VND per m² of gross floor area, turnkey (trọn gói), 2026",
       "basis": "partly sourced: quoted ranges 5.5–8.0 M (vtc_build_cost_2025), 5.7–7.2 M basic (baohatinh_xay_nha_danang), 5.8–9.2 M 2026 (realhouse_2026_quote, contractor marketing). Level points inside those ranges are judgement.",
       "basis_kind": "partly_sourced",
-      "sources": ["vtc_build_cost_2025", "baohatinh_xay_nha_danang", "realhouse_2026_quote"]
+      "sources": [
+        "vtc_build_cost_2025",
+        "baohatinh_xay_nha_danang",
+        "realhouse_2026_quote"
+      ]
     },
     "soft_cost_share": {
       "value": 0.05,
       "unit": "fraction of build cost (design, permit, supervision, connections)",
       "basis": "partly sourced: design 150–250 k VND/m² ≈ 2–4% of build cost (baohatinh_xay_nha_danang); permits and supervision judgement.",
       "basis_kind": "partly_sourced",
-      "sources": ["baohatinh_xay_nha_danang"]
+      "sources": [
+        "baohatinh_xay_nha_danang"
+      ]
     },
     "building_life_years": {
-      "house": 40, "shophouse": 40, "villa": 40, "chdv": 30, "room": 25, "apartment": 50,
+      "house": 40,
+      "shophouse": 40,
+      "villa": 40,
+      "chdv": 30,
+      "room": 25,
+      "apartment": 50,
       "unit": "years, straight-line economic life for the depreciated replacement cost",
       "basis": "partly sourced: tax depreciation life for permanent buildings is 25–50 years (tt45_2013_mof); the per-type point is judgement (intensively used rooms/CHDV wear faster).",
       "basis_kind": "partly_sourced",
-      "sources": ["tt45_2013_mof"]
+      "sources": [
+        "tt45_2013_mof"
+      ]
     },
     "developer_margin": {
       "value": 0.15,
@@ -152,49 +238,70 @@
       "sources": []
     },
     "studio": {
-      "unit_size_m2": 25, "efficiency": 0.75, "vacancy": 0.10, "opex_share": 0.20,
+      "unit_size_m2": 25,
+      "efficiency": 0.75,
+      "vacancy": 0.1,
+      "opex_share": 0.2,
       "unit": "studio build for the land residual: net m² per studio, lettable/gross, vacancy fraction, opex as a fraction of effective rent (management, upkeep, rent tax)",
       "basis": "judgement: efficiency/vacancy as plan.options.Lot; opex 20% = 10% rent tax (TT 40/2021, sourced in strategy_params.json) + 10% upkeep/management (judgement).",
       "basis_kind": "judgement",
       "sources": []
     },
     "cap_rate": {
-      "house": 0.045, "apartment": 0.05, "shophouse": 0.05, "chdv": 0.08, "room": 0.08, "homestay": 0.10, "studio_build": 0.08,
+      "house": 0.045,
+      "apartment": 0.05,
+      "shophouse": 0.05,
+      "chdv": 0.08,
+      "room": 0.08,
+      "homestay": 0.1,
+      "studio_build": 0.08,
       "unit": "net operating income / value, annual fraction",
       "basis": "partly sourced: Đà Nẵng apartment gross yield ≈4.5% (bds_q3_2026_yield) and 8–9% for prime examples (cbre_danang_yield); short-stay 6–7% (bds_q3_2026_yield); CHDV yields are operator-quoted (nhadautu_chdv_danang). Net cap rates per type are judgement inside those ranges, with an operating-risk premium for homestay. Always reported beside the implied cap rate (NOI / asking), which is the comparable number.",
       "basis_kind": "partly_sourced",
-      "sources": ["bds_q3_2026_yield", "cbre_danang_yield", "nhadautu_chdv_danang"]
+      "sources": [
+        "bds_q3_2026_yield",
+        "cbre_danang_yield",
+        "nhadautu_chdv_danang"
+      ]
     },
     "ota_fee_share": {
       "value": 0.15,
       "unit": "fraction of room revenue paid to OTAs",
       "basis": "sourced: Booking.com 15% typical (guesty_booking_fees), Agoda 15–25% (vietnambooking_ota).",
       "basis_kind": "sourced",
-      "sources": ["guesty_booking_fees", "vietnambooking_ota"]
+      "sources": [
+        "guesty_booking_fees",
+        "vietnambooking_ota"
+      ]
     },
     "opex_share": {
-      "homestay": 0.35, "chdv": 0.25,
+      "homestay": 0.35,
+      "chdv": 0.25,
       "unit": "fraction of revenue (after OTA fee for homestay) for staff, utilities, cleaning, upkeep, business tax",
       "basis": "judgement: includes 7% accommodation business tax (TT 40/2021, sourced in strategy_params.json); the rest is the desk's prior.",
       "basis_kind": "judgement",
       "sources": []
     },
     "chdv_vacancy": {
-      "value": 0.10,
+      "value": 0.1,
       "unit": "fraction of room-months unlet",
       "basis": "judgement.",
       "basis_kind": "judgement",
       "sources": []
     },
     "apartment_mgmt_fee_m2": {
-      "value": 8800, "lo": 4400, "hi": 13200,
+      "value": 8800,
+      "lo": 4400,
+      "hi": 13200,
       "unit": "VND per m² per month (building with lift); value = midpoint of the official band",
       "basis": "sourced band (QĐ 78/2026/QĐ-UBND: with lift 4,400–13,200; without lift 1,600–7,500); the midpoint is judgement.",
       "basis_kind": "sourced",
-      "sources": ["qd78_2026_baophapluat"]
+      "sources": [
+        "qd78_2026_baophapluat"
+      ]
     },
     "rent_tax": {
-      "value": 0.10,
+      "value": 0.1,
       "unit": "fraction of rent (individual lessor 5% VAT + 5% PIT, Thông tư 40/2021/TT-BTC — same citation as strategy_params.json)",
       "basis": "sourced.",
       "basis_kind": "sourced",
@@ -236,18 +343,71 @@
       "sources": []
     },
     "score_weights": {
-      "land": {"price_m2": 0.25, "price_per_buildable_m2": 0.20, "residual_vs_asking": 0.30, "price_per_frontage_m": 0.10, "hedonic_residual": 0.10, "value_gap": 0.05},
-      "house": {"price_m2": 0.20, "price_m2_floor": 0.15, "cost_value_vs_asking": 0.25, "gross_yield_vs_ward": 0.15, "hedonic_residual": 0.15, "value_gap": 0.10},
-      "villa": {"price_m2": 0.25, "price_m2_floor": 0.15, "cost_value_vs_asking": 0.25, "gross_yield_vs_ward": 0.10, "hedonic_residual": 0.15, "value_gap": 0.10},
-      "apartment": {"price_m2_floor": 0.40, "price_to_rent": 0.15, "net_yield": 0.15, "gross_yield_vs_ward": 0.10, "hedonic_residual": 0.10, "value_gap": 0.10},
-      "shophouse": {"price_per_frontage_m": 0.35, "price_m2": 0.20, "gross_yield_vs_ward": 0.25, "hedonic_residual": 0.10, "value_gap": 0.10},
-      "chdv": {"price_per_room": 0.35, "income_value_vs_asking": 0.35, "gross_yield_vs_ward": 0.10, "hedonic_residual": 0.10, "value_gap": 0.10},
-      "room": {"price_per_room": 0.35, "income_value_vs_asking": 0.35, "gross_yield_vs_ward": 0.10, "hedonic_residual": 0.10, "value_gap": 0.10},
-      "rent": {"rent_m2": 1.0},
+      "land": {
+        "price_m2": 0.25,
+        "price_per_buildable_m2": 0.2,
+        "residual_vs_asking": 0.3,
+        "price_per_frontage_m": 0.1,
+        "hedonic_residual": 0.1,
+        "value_gap": 0.05
+      },
+      "house": {
+        "price_m2": 0.2,
+        "price_m2_floor": 0.15,
+        "cost_value_vs_asking": 0.1,
+        "gross_yield_vs_ward": 0.15,
+        "hedonic_residual": 0.15,
+        "value_gap": 0.1,
+        "building_cost_ratio": 0.2
+      },
+      "villa": {
+        "price_m2": 0.25,
+        "price_m2_floor": 0.15,
+        "cost_value_vs_asking": 0.1,
+        "gross_yield_vs_ward": 0.1,
+        "hedonic_residual": 0.15,
+        "value_gap": 0.1,
+        "building_cost_ratio": 0.2
+      },
+      "apartment": {
+        "price_m2_floor": 0.4,
+        "price_to_rent": 0.15,
+        "net_yield": 0.15,
+        "gross_yield_vs_ward": 0.1,
+        "hedonic_residual": 0.1,
+        "value_gap": 0.1
+      },
+      "shophouse": {
+        "price_per_frontage_m": 0.35,
+        "price_m2": 0.2,
+        "gross_yield_vs_ward": 0.25,
+        "hedonic_residual": 0.1,
+        "value_gap": 0.1
+      },
+      "chdv": {
+        "price_per_room": 0.35,
+        "income_value_vs_asking": 0.35,
+        "gross_yield_vs_ward": 0.1,
+        "hedonic_residual": 0.1,
+        "value_gap": 0.1
+      },
+      "room": {
+        "price_per_room": 0.35,
+        "income_value_vs_asking": 0.35,
+        "gross_yield_vs_ward": 0.1,
+        "hedonic_residual": 0.1,
+        "value_gap": 0.1
+      },
+      "rent": {
+        "rent_m2": 1.0
+      },
       "unit": "relative weights per metric per property type (normalised by the scorer)",
       "basis": "judgement: the type's key unit price and its fundamental cross-check (residual / cost / income approach) carry most weight; independent model checks (hedonic, triangulated) smaller. Not scored (shown only): price_to_land_value, revenue_multiple, implied_cap_rate (each restates a scored metric), official_ratio (ambiguous: a flag when < 1), days on market and price cuts (motivation signals).",
       "basis_kind": "judgement",
-      "sources": []
+      "sources": [],
+      "_changes": [
+        "2026-11-21: house/villa add building_cost_ratio 0.20 (judgement) and cut cost_value_vs_asking to 0.10, because building age — which the full cost approach needs — is almost never listed"
+      ]
     }
   }
 }

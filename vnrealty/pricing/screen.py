@@ -145,14 +145,32 @@ def rank_listings(con: sqlite3.Connection, as_of: str, filters: dict | None = No
         ke = mets.get(key) or {}
         peer = ke.get("peer") or {}
         rows.append({"id": lid, "ptype": lst.get("ptype"), "ward": lst.get("ward_code"), "price": pr,
-                     "title": lst.get("title"),
+                     "title": lst.get("title"), "lat": lst.get("lat"), "lng": lst.get("lng"), "area_m2": lst.get("area_m2"),
                      "key_metric": {"name": key, "value": ke.get("value"), "unit": ke.get("unit"),
                                     "percentile": peer.get("percentile"), "z": peer.get("z"), "scope": peer.get("scope"),
+                                    "peer_median": peer.get("median"), "peer_n": peer.get("n"),
                                     "insufficient": ke.get("insufficient")},
+                     "rank_score": rank_score(sc["score"], sc["confidence"]),
                      "score": sc["score"], "confidence": sc["confidence"], "withheld_reason": sc["withheld_reason"],
                      "flags": sc["flags"], "why": sc["why"], "_lst": lst, "_val": v})
-    rows.sort(key=lambda r: (r["score"] is None, -(r["score"] if r["score"] is not None else r["confidence"])))
+    # rank on the confidence-shrunk score, so a 100 built from half the evidence does not outrank a well-evidenced 70;
+    # and rank each listing within its own type, because the metrics (and their peers) differ by type
+    rows.sort(key=lambda r: (r["rank_score"] is None, -(r["rank_score"] if r["rank_score"] is not None else r["confidence"])))
+    by_type: dict[str, list[dict]] = {}
+    for r in rows:
+        if r["rank_score"] is not None:
+            by_type.setdefault(r["ptype"] or "other", []).append(r)
+    for t, rs in by_type.items():
+        for i, r in enumerate(rs, 1):
+            r["type_rank"], r["type_n"] = i, len(rs)
     out = rows[:top]
+    picked = {r["id"] for r in out}
+    for t, rs in by_type.items():   # the strategy column is computed for every row returned, overall or per type
+        for r in rs[:top]:
+            if r["id"] not in picked:
+                out_extra = r
+                picked.add(r["id"])
+                out.append(out_extra)
     layer = None
     for r in out:
         bs = best_strategy(r.pop("_lst"), r.pop("_val"), s_assume)
@@ -163,7 +181,21 @@ def rank_listings(con: sqlite3.Connection, as_of: str, filters: dict | None = No
     if layer is None:
         layer = best_strategy({"price": 1.0}, None, None)["reason"] if out == [] else "available"
         layer = "available" if layer != "strategy layer not available" else layer
-    return {"as_of": as_of, "n_active": len(ids), "n_evaluated": len(rows),
-            "n_scored": sum(r["score"] is not None for r in rows), "rows": out, "strategy_layer": layer,
+    overall = [r for r in out if r["id"] in {x["id"] for x in rows[:top]}]
+    type_top = {t: [r["id"] for r in rs[:top]] for t, rs in by_type.items()}
+    out_by_id = {r["id"]: r for r in out}
+    return {"as_of": as_of, "n_active": len(ids), "n_evaluated": len(rows), "rows": overall,
+            "by_type": {t: [out_by_id[i] for i in idx] for t, idx in type_top.items()},
+            "n_scored_by_type": {t: len(rs) for t, rs in by_type.items()},
+            "n_scored": sum(r["score"] is not None for r in rows), "strategy_layer": layer,
             "hedonic": hed_note, "formula": "score = Σ w·points / Σ w (see vnrealty.pricing.score); withheld when "
-                                            "confidence < " + str(params["score_min_confidence"]["value"])}
+                                            "confidence < " + str(params["score_min_confidence"]["value"]) +
+                                            "; rank_score = 50 + (score − 50) × confidence; type_rank ranks within the listing's type"}
+
+
+def rank_score(score: float | None, confidence: float | None) -> float | None:
+    """Score shrunk toward neutral (50) by the share of evidence missing: 50 + (score − 50) × confidence.
+    A 100 on half the weight ranks as 75; a 70 on 95% of it as 69. None when the score is withheld."""
+    if score is None or confidence is None:
+        return None
+    return 50 + (score - 50) * confidence

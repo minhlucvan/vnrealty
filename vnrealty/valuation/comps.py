@@ -13,7 +13,8 @@ asking→sale haircut, a corner premium) and generalised:
 
 Units: money VND, area m², price per m² VND/m², distances km, widths m.
 
-The subject is a dict: ``ptype, ward_code, lat, lng, area_m2, frontage_m, alley_m (0 = street frontage), corner,
+The subject is a dict: ``ptype, ward_code, lat, lng, area_m2, frontage_m, alley_m (0 = street frontage), access
+('kiet' | 'street' when the class is known but the width is not), corner,
 legal``. Parameters come from ``reference/market_params.json`` (each with a ``basis`` and sources).
 """
 from __future__ import annotations
@@ -147,7 +148,15 @@ def select_comps(con: sqlite3.Connection, subject: dict, as_of: str, radius_km: 
                         adjustments={"attrs": {k: r.get(k) for k in ATTRS}},
                         source=f"{r['site']} {r['url'] or ''}".strip()))
     own = subject.get("listing_id")   # a listing is never its own comparable
-    return [c for c in out if own is None or c.listing_id != own]
+    out = [c for c in out if own is None or c.listing_id != own]
+    # access class known even when the width is not: a lot in a kiệt is never priced off street-front comps (or vice versa)
+    acc = subject.get("access") if subject.get("alley_m") is None else None
+    if acc in ("kiet", "street"):
+        def _class_ok(c: Comp) -> bool:
+            ca = (c.adjustments.get("attrs") or {}).get("alley_m")
+            return ca is None or (ca > 0 if acc == "kiet" else ca == 0)
+        out = [c for c in out if _class_ok(c)]
+    return out
 
 
 def alley_factor(alley_m: float, curve: list[list[float]]) -> float:

@@ -164,6 +164,9 @@ def _unit_subject(con, uid: str, as_of: str) -> dict:
          "value_at": r["value_at"], "listing_id": r["listing_id"], "deal": "sale", "ask": None}
     for a in _ATTRS:
         s[a] = r.get(a)
+    m = re.search(r"\baccess:(kiet|street)\b", r.get("notes") or "")   # note-token convention, like zoning:<code>
+    if m:
+        s["access"] = m.group(1)
     if r.get("listing_id"):
         try:
             ls = _listing_subject(con, int(r["listing_id"]), as_of)

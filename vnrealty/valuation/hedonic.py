@@ -37,8 +37,8 @@ def alley_bucket(alley_m: float | None) -> str:
 
 
 def legal_bucket(legal: str | None) -> str:
-    """'cert' (sổ hồng / sổ đỏ), 'hdmb', 'giay_tay' or 'unknown'."""
-    if legal in ("so_hong", "so_do"):
+    """'cert' (sổ hồng / sổ đỏ / "có sổ" with the type unstated), 'hdmb', 'giay_tay' or 'unknown'."""
+    if legal in ("so_hong", "so_do", "co_so"):
         return "cert"
     return legal if legal in ("hdmb", "giay_tay") else "unknown"
 

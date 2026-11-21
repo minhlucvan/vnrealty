@@ -294,14 +294,7 @@ def plan(p: dict, as_of: str) -> dict:
 def screen(p: dict, as_of: str) -> dict:
     secs = []
     if "pricing" in p.get("results", {}):
-        r = p["results"]["pricing"]
-        rows = r.get("rows", []) if isinstance(r, dict) else []
-        secs.append({"kind": "table", "h": "Pricing screen", "cols": ["Listing", "Type", "Ward", "Price", "Score",
-                                                                      "Confidence", "Key metric", "Flags"],
-                     "rows": [[str(x.get("id")), x.get("ptype"), x.get("ward") or "", vnd(x.get("price")),
-                               num(x.get("score"), 0), pct(x.get("confidence"), 0),
-                               (x.get("key_metric") or {}).get("name") or "", ", ".join(x.get("flags") or [])]
-                              for x in rows], "text_cols": [0, 1, 2, 6, 7]})
+        secs += _pricing_sections(p["results"]["pricing"])
     hits = p.get("hits", [])
     if hits:
         secs.append({"kind": "table", "h": "Hits", "cols": ["Listing", "Type", "Ward", "Price", "Rules", "Why"],
@@ -315,6 +308,56 @@ def screen(p: dict, as_of: str) -> dict:
         secs.append(_note(p["caveat"]))
     return {"title": f"Screen — {p.get('rule')}", "subtitle": f"universe {p.get('universe', '—')} listings",
             "meta": _meta(as_of), "sections": secs or [_note("No hits.", "warn")]}
+
+
+_UNIT_SHORT = {"VND/m² land": "/m² land", "VND/m² floor area": "/m² floor", "VND/m²": "/m²", "VND per frontage metre": "/m frontage",
+               "VND per room": "/room", "VND/m² buildable floor area": "/m² buildable"}
+
+
+def _metric_cell(km: dict) -> str:
+    if not km or km.get("value") is None:
+        return "—"
+    u = km.get("unit") or ""
+    return vnd(km["value"]) + _UNIT_SHORT.get(u, (" " + u) if u and not u.startswith("VND") else "")
+
+
+def _pricing_sections(r: dict) -> list[dict]:
+    """Pricing screen: a ranked table per property type (rank within type, on the confidence-shrunk score), the key
+    metric against its peers, the strongest reason, flags, and a map of the ranked listings."""
+    if not isinstance(r, dict):
+        return []
+    secs = [{"kind": "kpis", "h": "Universe", "items": [
+        ["Active sale listings", str(r.get("n_active", "—"))], ["Evaluated", str(r.get("n_evaluated", "—"))],
+        ["Scored", str(r.get("n_scored", "—"))]] + [[f"Scored: {t}", str(n)] for t, n in sorted((r.get("n_scored_by_type") or {}).items())]},
+        _note("Ranks are within each property type: their metrics and peers differ, so scores are not compared across types. "
+              "Rank score = 50 + (score − 50) × confidence, so a high score built on little evidence is pulled toward neutral. "
+              f"Hedonic model: {r.get('hedonic')}.")]
+    pts = []
+    for t, rows in sorted((r.get("by_type") or {}).items(), key=lambda kv: -len(kv[1])):
+        if not rows:
+            continue
+        km0 = rows[0].get("key_metric") or {}
+        secs.append({"kind": "table", "h": f"{t} — top {len(rows)} of {rows[0].get('type_n', len(rows))} scored",
+                     "p": f"Key metric: {km0.get('name')} vs peers (scope widens ward → district → city when thin).",
+                     "cols": ["#", "Listing", "Ward", "Price", "Area", "Key metric", "Peer median", "Pctile", "z",
+                              "Score", "Conf.", "Rank score", "Strongest reason", "Flags"],
+                     "rows": [[str(x.get("type_rank", "")), str(x.get("id")), x.get("ward") or "", vnd(x.get("price")),
+                               num(x.get("area_m2"), 0), _metric_cell(x.get("key_metric") or {}),
+                               _metric_cell({**(x.get("key_metric") or {}), "value": (x.get("key_metric") or {}).get("peer_median")}),
+                               num((x.get("key_metric") or {}).get("percentile"), 0), num((x.get("key_metric") or {}).get("z"), 1),
+                               num(x.get("score"), 0), pct(x.get("confidence"), 0),
+                               {"v": num(x.get("rank_score"), 0), "cls": "pos" if (x.get("rank_score") or 0) >= 65 else ""},
+                               ((x.get("why") or {}).get("strongest") or [{}])[0].get("text", ""),
+                               {"v": "; ".join(x.get("flags") or []), "cls": "warnc" if x.get("flags") else ""}]
+                              for x in rows],
+                     "text_cols": [1, 2, 12, 13]})
+        pts += [{"lat": x["lat"], "lng": x["lng"], "layer": t,
+                 "label": f"#{x.get('type_rank')} {t} · {vnd(x.get('price'))} · score {num(x.get('score'), 0)} · listing {x.get('id')}"}
+                for x in rows if x.get("lat") is not None and x.get("lng") is not None]
+    if pts:
+        secs.append({"kind": "map", "h": "Where the ranked listings are", "points": pts,
+                     "cap": "Coordinates as the site gives them; unpinned ads sit at approximate points."})
+    return secs
 
 
 # ------------------------------------------------------------------ strategy
