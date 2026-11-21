@@ -1,0 +1,7 @@
+# private: the database, raw pages, dossiers, portfolio, personal finance, reports
+data/
+!data/.keep
+__pycache__/
+*.pyc
+.DS_Store
+.venv/

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>vnrealty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fff;--panel:#f6f6f3;--ink:#111;--muted:#5b5b57;--rule:#d4d4cf;--gain:#1d3f7a;--loss:#a3201b;--warn:#8a6a12;--prop:#a0761c;--bond:#3f6b4a;
+  --serif:"Source Serif 4",Georgia,serif;--sans:"Source Sans 3","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#141413;--panel:#1d1d1b;--ink:#ecebe6;--muted:#a3a29b;--rule:#3a3a36;--gain:#8fb0e8;--loss:#ec8a84;--warn:#d9b45a;--prop:#d2a85a;--bond:#8cc49b;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#141413;--panel:#1d1d1b;--ink:#ecebe6;--muted:#a3a29b;--rule:#3a3a36;--gain:#8fb0e8;--loss:#ec8a84;--warn:#d9b45a;--prop:#d2a85a;--bond:#8cc49b;color-scheme:dark}
+*{box-sizing:border-box}body{background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 64px;display:grid;gap:30px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0}h1{font-size:clamp(26px,4vw,36px);line-height:1.15}h2{font-size:21px}h3{font-size:17px}
+.sub{color:var(--muted);font:16px/1.5 var(--serif);max-width:80ch;margin:6px 0 0}.meta{font:12.5px var(--mono);color:var(--muted)}
+section{display:grid;gap:12px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
+.kpis div{padding:10px 12px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);display:grid;gap:2px}.kpis span{font-size:12px;color:var(--muted)}.kpis b{font:500 18px var(--mono)}
+.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13.5px}th{text-align:left;font-weight:600;border-bottom:1.5px solid var(--ink);padding:6px 8px;white-space:nowrap}
+td{padding:5px 8px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:12.5px;vertical-align:top}td.t{font-family:var(--sans);font-size:13.5px}
+.pos{color:var(--gain)}.neg{color:var(--loss)}.warnc{color:var(--warn)}
+.note{border-left:2px solid var(--ink);padding:4px 0 4px 14px;font:15px/1.55 var(--serif);max-width:86ch;margin:0}
+.note.warn{border-color:var(--warn)}.note.bad{border-color:var(--loss)}
+.chart{position:relative;height:300px}.map{height:420px;border:1px solid var(--rule)}.cap{font-size:13px;color:var(--muted)}
+.grade{display:inline-block;font:600 28px var(--mono);border:2px solid var(--ink);padding:2px 12px}
+ul.cites{font-size:13px;color:var(--muted);padding-left:18px;margin:0}ul.cites a{color:inherit}
+footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);padding-top:12px}
+</style></head><body>
+<div class="wrap" id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const DATA = /*__DATA__*/{"title":"empty","sections":[]};
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+/* cells arrive pre-formatted from Python (vnrealty/report/fmt.py); {v, cls} objects carry a colour class; {html} is trusted
+   markup produced by the renderer itself (links to sources), never page text from a listing */
+const cell = c => c && typeof c === 'object' ? (c.html !== undefined ? c.html : `<span class="${esc(c.cls || '')}">${esc(c.v)}</span>`) : esc(c);
+function section(s, i) {
+  let h = s.h ? `<h2>${esc(s.h)}</h2>` : '';
+  if (s.p) h += `<p class="sub" style="margin:0">${esc(s.p)}</p>`;
+  if (s.kind === 'kpis') h += `<div class="kpis">${s.items.map(([k, v]) => `<div><span>${esc(k)}</span><b>${cell(v)}</b></div>`).join('')}</div>`;
+  if (s.kind === 'table') h += `<div class="tablewrap"><table><tr>${s.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr>${s.rows.map(r => `<tr>${r.map((c, j) => `<td class="${(s.text_cols || [0]).includes(j) ? 't' : ''}">${cell(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+  if (s.kind === 'chart') h += `<div class="chart"><canvas id="c${i}"></canvas></div>`;
+  if (s.kind === 'map') h += `<div class="map" id="m${i}"></div>`;
+  if (s.kind === 'note') h += `<p class="note ${esc(s.tone || '')}">${esc(s.text)}</p>`;
+  if (s.kind === 'grade') h += `<div><span class="grade">${esc(s.grade)}</span> <span class="meta">${esc(s.score ?? '')}</span></div><p class="note">${esc(s.text)}</p>`;
+  if (s.kind === 'cites') h += `<ul class="cites">${s.items.map(c => `<li>${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title || c.url)}</a>` : esc(c.title)}${c.date ? ' · ' + esc(c.date) : ''}</li>`).join('')}</ul>`;
+  if (s.cap) h += `<div class="cap">${esc(s.cap)}</div>`;
+  return `<section>${h}</section>`;
+}
+function render() {
+  document.title = DATA.title;
+  const head = `<header><h1>${esc(DATA.title)}</h1>${DATA.subtitle ? `<p class="sub">${esc(DATA.subtitle)}</p>` : ''}<div class="meta">${esc(DATA.meta || '')}</div></header>`;
+  document.getElementById('app').innerHTML = head + DATA.sections.map(section).join('') +
+    `<footer>${esc(DATA.footer || 'vnrealty — decision support for the owner, not financial or legal advice. Asking prices are not sale prices.')}</footer>`;
+  const pal = [css('--gain'), css('--prop'), css('--loss'), css('--bond'), css('--warn'), css('--muted')];
+  /* map: points [{lat, lng, label, layer, r?}] on OpenStreetMap tiles; layers coloured from the palette */
+  DATA.sections.forEach((s, i) => {
+    if (s.kind !== 'map' || typeof L === 'undefined' || !s.points || !s.points.length) return;
+    const m = L.map('m' + i, {scrollWheelZoom: false}), layers = [...new Set(s.points.map(p => p.layer || ''))];
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '© OpenStreetMap contributors'}).addTo(m);
+    const pts = s.points.map(p => { const col = pal[layers.indexOf(p.layer || '') % pal.length];
+      return L.circleMarker([p.lat, p.lng], {radius: p.r || 6, color: col, fillColor: col, fillOpacity: .6, weight: 1}).bindPopup(esc(p.label)).addTo(m); });
+    m.fitBounds(L.featureGroup(pts).getBounds().pad(0.2), {maxZoom: 16});
+  });
+  DATA.sections.forEach((s, i) => {
+    if (s.kind !== 'chart' || typeof Chart === 'undefined') return;
+    new Chart(document.getElementById('c' + i), {type: s.type || 'line', data: {labels: s.labels, datasets: s.series.map((d, j) => ({label: d.name, data: d.data,
+      borderColor: pal[j % pal.length], backgroundColor: d.fill ? pal[j % pal.length] + '33' : pal[j % pal.length], fill: d.fill ? (d.fill === true ? 'origin' : d.fill) : false,
+      borderDash: d.dash ? [5, 4] : [], pointRadius: 0, borderWidth: 1.8, type: d.type || undefined}))},
+      options: {responsive: true, maintainAspectRatio: false, animation: false, interaction: {mode: 'index', intersect: false},
+        plugins: {legend: {labels: {color: css('--muted'), boxWidth: 12}}}, scales: {x: {grid: {display: false}, ticks: {color: css('--muted')}},
+        y: {grid: {color: css('--rule')}, ticks: {color: css('--muted'), callback: v => s.yfmt === 'pct' ? (v * 100).toFixed(0) + '%' : s.yfmt === 'b' ? (v / 1e9).toFixed(2) + 'B' : s.yfmt === 'm' ? (v / 1e6).toFixed(0) + 'M' : v}}}}});
+  });
+}
+render();
+</script></body></html>
