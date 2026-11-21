@@ -1,0 +1,151 @@
+{
+  "_about": "Public Đà Nẵng infrastructure and large projects that can move land prices, seeded by vnrealty/infra/catalog.py::seed_projects. Facts (status, dates, sizes, budgets) carry the citation in `evidence`. `p_done` (chance it completes by `done_year`) and `uplift` (fractional price lift for land right next to it once complete, before distance decay over `radius_km`) are DESK JUDGEMENT, labelled in `basis`, not facts. Coordinates are approximate placements (labelled in basis.latlng) — no article publishes them; null where a single point is meaningless or unknown. Projects with no p_done/uplift are tracked for context only and are not turned into catalysts.",
+  "verified_at": "2026-11-21",
+  "projects": [
+    {
+      "id": "sun-709-vo-chi-cong", "name_vi": "Khu đất nền 709 lô Sun Group trên đường Võ Chí Công", "name_en": "Sun Group 709-lot estate on Võ Chí Công",
+      "kind": "estate", "status": "under_construction", "start_year": 2025, "done_year": 2028,
+      "lat": 15.985, "lng": 108.258, "radius_km": 1.5, "p_done": 0.75, "uplift": 0.08,
+      "basis": {"status": "inferred from lots being marketed by brokers in 2026; verify", "done_year": "judgement",
+                "latlng": "approximate point on Võ Chí Công in former Hòa Quý (judgement)",
+                "p_done": "judgement: large developer, lots already marketed", "uplift": "judgement: new homes and shops lift nearby land; the 709 lots are also competing supply for a few years"},
+      "evidence": [
+        {"url": "https://sungroupland.com.vn/dat-nen-sun-group-vo-chi-cong/", "title": "Sun Group Land (broker page): đất nền Sun Group Võ Chí Công", "claim": "709 lots of about 80–234 m² on the Võ Chí Công boulevard (broker marketing, not an official source)"},
+        {"url": "https://baodangland.vn/duong-vo-chi-cong-da-nang/", "title": "Bảo Đăng Land: đường Võ Chí Công Đà Nẵng", "claim": "Võ Chí Công road profile and asking prices along it (broker page)"}
+      ]
+    },
+    {
+      "id": "lang-dai-hoc-da-nang", "name_vi": "Làng Đại học Đà Nẵng", "name_en": "Đà Nẵng University Village",
+      "kind": "university", "status": "under_construction", "start_year": 2025, "done_year": 2028,
+      "lat": 15.968, "lng": 108.250, "radius_km": 2.5, "p_done": 0.6, "uplift": 0.10,
+      "basis": {"status": "sourced: clearance/infrastructure project 2025–2028 under way", "done_year": "sourced for the 31.05 ha phase (2025–2028); the whole village later",
+                "latlng": "approximate centroid of the Đà Nẵng side in former Hòa Quý (judgement)",
+                "p_done": "judgement: stalled for ~3 decades, capital for the remaining area still being requested", "uplift": "judgement: student and staff demand for rooms and shops in the same ward"},
+      "evidence": [
+        {"url": "https://thanhnien.vn/du-an-lang-dai-hoc-da-nang-treo-gan-3-thap-ky-gio-ra-sao-185260117161812717.htm", "title": "Dự án Làng Đại học Đà Nẵng treo gần 3 thập kỷ, giờ ra sao? (Thanh Niên)", "published": "2026-01-17",
+         "claim": "300 ha master plan (110 ha in Đà Nẵng); 78.95 of 110 ha cleared (71.4%); 31.05 ha clearance+infrastructure project over 794B VND scheduled 2025–2028; Quảng Nam side clearance not started"},
+        {"url": "https://tuoitre.vn/do-thi-dai-hoc-gan-voi-tam-ky-o-dau-trong-quy-hoach-da-nang-moi-20260418164458258.htm", "title": "Đô thị đại học gắn với Tam Kỳ ở đâu trong quy hoạch Đà Nẵng mới? (Tuổi Trẻ)", "published": "2026-04-18",
+         "claim": "University towns in the new Đà Nẵng plan"}
+      ]
+    },
+    {
+      "id": "song-co-co", "name_vi": "Dự án khơi thông sông Cổ Cò", "name_en": "Cổ Cò river reopening",
+      "kind": "river", "status": "under_construction", "start_year": null, "done_year": 2027,
+      "lat": 15.955, "lng": 108.262, "radius_km": 1.5, "p_done": 0.7, "uplift": 0.04,
+      "basis": {"status": "sourced", "done_year": "sourced: deadline extended to end-2027", "latlng": "approximate mid-course point (judgement)",
+                "p_done": "judgement: 64 land-clearance files still outstanding", "uplift": "judgement: drainage, less flooding, riverside landscape"},
+      "evidence": [
+        {"url": "https://vov.vn/kinh-te/du-an-song-co-co-da-nang-con-vuong-64-ho-so-mat-bang-gia-han-den-cuoi-nam-2027-post1313158.vov", "title": "Dự án sông Cổ Cò Đà Nẵng còn vướng 64 hồ sơ mặt bằng, gia hạn đến cuối năm 2027 (VOV)",
+         "claim": "64 land-clearance files outstanding; completion extended to end-2027"}
+      ]
+    },
+    {
+      "id": "duong-ven-bien-129", "name_vi": "Đường ven biển 129 (nối Võ Chí Công đi Hội An, Chu Lai)", "name_en": "Coastal road 129",
+      "kind": "road", "status": "under_construction", "start_year": null, "done_year": 2027,
+      "lat": null, "lng": null, "radius_km": 3.0, "p_done": 0.9, "uplift": 0.03,
+      "basis": {"status": "sourced", "done_year": "sourced: most sections December 2026, the rest Q4 2027", "latlng": "null: a long corridor, not a point",
+                "p_done": "judgement: largely built", "uplift": "judgement: indirect for inland alley lots"},
+      "evidence": [
+        {"url": "https://nhandan.vn/da-nang-tap-trung-hoan-thanh-duong-ven-bien-129-vo-chi-cong-post960154.html", "title": "Đà Nẵng tập trung hoàn thành đường ven biển 129 – Võ Chí Công (Nhân Dân)", "published": "2026-05",
+         "claim": "Most sections due December 2026, remaining sections Q4 2027"}
+      ]
+    },
+    {
+      "id": "cau-dong-no-2", "name_vi": "Cầu Đồng Nò 2", "name_en": "Đồng Nò 2 bridge",
+      "kind": "bridge", "status": "done", "start_year": null, "done_year": 2026,
+      "lat": null, "lng": null, "radius_km": 1.0, "budget_vnd": 128000000000, "p_done": 1.0, "uplift": null,
+      "basis": {"status": "sourced: opened 2026-07-25", "latlng": "null: exact position not published", "uplift": "none: already open, assumed in today's prices"},
+      "evidence": [
+        {"url": "https://lsvn.vn/da-nang-khoi-cong-sun-galaxy-complex-va-thong-xe-cau-dong-no-2-tao-dong-luc-moi-cho-phat-trien-do-thi-du-lich-va-ha-tang-a176469.html", "title": "Đà Nẵng khởi công Sun Galaxy Complex và thông xe cầu Đồng Nò 2 (LSVN)", "published": "2026-07-26",
+         "claim": "Opened 2026-07-25; 128.7 m, three spans, ~15 m deck, over 128B VND invested by Sun Group; crosses the Cổ Cò river in Ngũ Hành Sơn ward linking Hòa Xuân / Đồng Nò island with the centre"}
+      ]
+    },
+    {
+      "id": "ifc-da-nang-sites", "name_vi": "5 khu đất cho Trung tâm tài chính quốc tế Đà Nẵng", "name_en": "Đà Nẵng International Financial Centre sites",
+      "kind": "zoning", "status": "proposed", "start_year": null, "done_year": null,
+      "lat": null, "lng": null, "radius_km": null, "p_done": null, "uplift": null,
+      "basis": {"status": "sourced: city calling for investors", "latlng": "null: five separate sites", "p_done": "not estimated", "uplift": "not estimated: city-wide sentiment rather than a local catalyst"},
+      "evidence": [
+        {"url": "https://tuoitre.vn/da-nang-keu-goi-dau-tu-trung-tam-tai-chinh-quoc-te-tai-5-khu-dat-vang-20260313182451685.htm", "title": "Đà Nẵng kêu gọi đầu tư trung tâm tài chính quốc tế tại 5 khu đất vàng (Tuổi Trẻ)", "published": "2026-03-13",
+         "claim": "Five sites: A12–A15/A* on Võ Văn Kiệt, An Hải (64,767 m², cleared); Software Park No. 2, Hải Châu (1,200 m²); NW of the Thuận Phước bridge approach, Hải Châu (970,000 m², cleared); Như Nguyệt – Xuân Diệu, Hải Châu (198,000 m², cleared); reclamation opposite Nguyễn Tất Thành (98,000 m²)"}
+      ]
+    },
+    {
+      "id": "cang-lien-chieu", "name_vi": "Bến cảng container Liên Chiểu", "name_en": "Liên Chiểu container port",
+      "kind": "port", "status": "under_construction", "start_year": 2026, "done_year": 2030,
+      "lat": 16.125, "lng": 108.125, "radius_km": 5.0, "budget_vnd": 45268000000000, "p_done": 0.8, "uplift": 0.05,
+      "basis": {"status": "sourced: groundbreaking 2026-04-25", "done_year": "judgement from the 2027–2030 implementation phase of a 2026–2036 programme",
+                "latlng": "approximate, Liên Chiểu bay (judgement)", "p_done": "judgement: investor selected, shared infrastructure complete", "uplift": "judgement: jobs and logistics demand in the northwest; little effect far south"},
+      "evidence": [
+        {"url": "https://moc.gov.vn/vn/tin-tuc/1173/93661/pho-thu-tuong-thuong-truc-chinh-phu-pham-gia-tuc-du-khoi-cong-ben-cang-container-lien-chieu.aspx", "title": "Phó Thủ tướng Thường trực dự khởi công Bến cảng container Liên Chiểu (Bộ Xây dựng)", "published": "2026-04-25",
+         "claim": "Groundbreaking 2026-04-25 in Hải Vân ward; Hateco – APM Terminals consortium; 8 container berths, ~2,750 m of quay, ships to 18,000 TEU; ~45,268B VND"},
+        {"url": "https://nhandan.vn/ocop/da-nang-hoan-thanh-co-so-ha-tang-dung-chung-ben-cang-lien-chieu-post951596.html", "title": "Đà Nẵng: Hoàn thành cơ sở hạ tầng dùng chung bến cảng Liên Chiểu (Nhân Dân)", "published": "2026-03-28",
+         "claim": "State-funded shared infrastructure (~3,500B VND) declared complete"}
+      ]
+    },
+    {
+      "id": "khu-thuong-mai-tu-do", "name_vi": "Khu thương mại tự do Đà Nẵng", "name_en": "Đà Nẵng Free Trade Zone",
+      "kind": "zoning", "status": "approved", "start_year": 2025, "done_year": 2030,
+      "lat": 16.13, "lng": 108.10, "radius_km": 5.0, "p_done": 0.6, "uplift": 0.05,
+      "basis": {"status": "sourced: Quyết định 1142/QĐ-TTg (2025-06-13)", "done_year": "judgement", "latlng": "approximate, sites 1–3 around Hòa Hiệp Bắc (judgement); seven non-contiguous sites in all",
+                "p_done": "judgement: approved, tenants still arriving", "uplift": "judgement: jobs near Liên Chiểu / Hòa Vang"},
+      "evidence": [
+        {"url": "https://www.vcci.com.vn/tin-tuc/thu-tuong-ban-hanh-quyet-dinh-thanh-lap-khu-thuong-mai-tu-do-da-nang", "title": "Thủ tướng ban hành quyết định thành lập Khu thương mại tự do Đà Nẵng (VCCI)",
+         "claim": "Quyết định 1142/QĐ-TTg of 2025-06-13 establishes the FTZ under Nghị quyết 136/2024/QH15, tied to Liên Chiểu port"},
+        {"url": "https://thuviennhadat.vn/phap-luat/7-vi-tri-quy-hoach-khu-thuong-mai-tu-do-da-nang-694344.html", "title": "7 vị trí quy hoạch Khu thương mại tự do Đà Nẵng (thuviennhadat.vn)",
+         "claim": "About 1,881 ha over 7 non-contiguous sites, mainly Liên Chiểu (Hòa Hiệp Bắc) and Hòa Vang (Hòa Liên, Hòa Ninh, Hòa Nhơn, Hòa Phú, Bà Nà)"}
+      ]
+    },
+    {
+      "id": "san-bay-da-nang-quy-hoach", "name_vi": "Quy hoạch Cảng hàng không quốc tế Đà Nẵng 2021–2030", "name_en": "Đà Nẵng International Airport master plan",
+      "kind": "airport", "status": "approved", "start_year": null, "done_year": 2029,
+      "lat": 16.0439, "lng": 108.1994, "radius_km": 3.0, "p_done": 0.8, "uplift": 0.02,
+      "basis": {"status": "sourced: Quyết định 222/QĐ-BXD", "done_year": "sourced (one report): T1 extension in service 01/2029, renovation 08/2029",
+                "latlng": "airport location (public, approximate)", "p_done": "judgement", "uplift": "judgement: small; noise offsets access nearby"},
+      "evidence": [
+        {"url": "https://nhandan.vn/ocop/phe-duyet-quy-hoach-cang-hang-khong-quoc-te-da-nang-dat-20-trieu-khachnam-post944519.html", "title": "Phê duyệt quy hoạch Cảng hàng không quốc tế Đà Nẵng đạt 20 triệu khách/năm (Nhân Dân)",
+         "claim": "Quyết định 222/QĐ-BXD approves the 2021–2030 plan (vision 2050): ~20M passengers/yr and 100,000 t cargo by 2030, ICAO 4E; T1 extended south to ~14M pax, T2 to ~6M"}
+      ]
+    },
+    {
+      "id": "vanh-dai-tay-noi-la-son-tuy-loan", "name_vi": "Đường Vành đai phía Tây kết nối cao tốc La Sơn – Túy Loan", "name_en": "Western ring road link to the La Sơn – Túy Loan expressway",
+      "kind": "road", "status": "under_construction", "start_year": null, "done_year": 2028,
+      "lat": null, "lng": null, "radius_km": 3.0, "p_done": null, "uplift": null,
+      "basis": {"status": "sourced", "done_year": "sourced: Q3 2028", "latlng": "null: corridor", "p_done": "not estimated", "uplift": "not estimated"},
+      "evidence": [
+        {"url": "https://vneconomy.vn/da-nang-day-nhanh-tien-do-tuyen-duong-ket-noi-cao-toc-la-son-tuy-loan.htm", "title": "Đà Nẵng đẩy nhanh tiến độ tuyến đường kết nối cao tốc La Sơn – Túy Loan (VnEconomy)",
+         "claim": "6.48 km link, expected completion Q3 2028"}
+      ]
+    },
+    {
+      "id": "vanh-dai-tay-2", "name_vi": "Đường Vành đai phía Tây 2", "name_en": "Western ring road 2",
+      "kind": "road", "status": "under_construction", "start_year": 2024, "done_year": 2027,
+      "lat": null, "lng": null, "radius_km": 3.0, "budget_vnd": 1427000000000, "p_done": null, "uplift": null,
+      "basis": {"status": "sourced: restarted 2024", "done_year": "sourced: first section 2027", "latlng": "null: corridor", "p_done": "not estimated", "uplift": "not estimated"},
+      "evidence": [
+        {"url": "https://nhadautu.vn/da-nang-tai-khoi-dong-duong-vanh-dai-nghin-ty-dong-d88238.html", "title": "Đà Nẵng tái khởi động đường vành đai nghìn tỷ đồng (Nhà Đầu tư)",
+         "claim": "14.3 km, 1,427B VND investment approved; restarted 2024; first section expected 2027"}
+      ]
+    },
+    {
+      "id": "ga-duong-sat-toc-do-cao", "name_vi": "Ga đường sắt tốc độ cao Bắc – Nam tại Đà Nẵng", "name_en": "North–South high-speed rail station, Đà Nẵng",
+      "kind": "other", "status": "proposed", "start_year": null, "done_year": null,
+      "lat": null, "lng": null, "radius_km": null, "p_done": null, "uplift": null,
+      "basis": {"status": "sourced: station location still being proposed", "latlng": "null: site not settled", "p_done": "not estimated", "uplift": "not estimated"},
+      "evidence": [
+        {"url": "https://baodautu.vn/de-xuat-dieu-chinh-vi-tri-ga-duong-sat-toc-do-cao-tren-dia-ban-tp-da-nang-d646458.html", "title": "Đề xuất điều chỉnh vị trí ga đường sắt tốc độ cao trên địa bàn TP Đà Nẵng (Báo Đầu tư)",
+         "claim": "City asks the Ministry of Construction to move the northern HSR station from ~Km701 to the QL14B × Đà Nẵng–Quảng Ngãi expressway junction (~Km706+300)"}
+      ]
+    },
+    {
+      "id": "duong-sat-do-thi", "name_vi": "Tuyến đường sắt đô thị đầu tiên của Đà Nẵng", "name_en": "Đà Nẵng first urban railway line",
+      "kind": "other", "status": "proposed", "start_year": null, "done_year": null,
+      "lat": null, "lng": null, "radius_km": null, "p_done": null, "uplift": null,
+      "basis": {"status": "sourced: investor proposal, no approval found", "latlng": "null: alignment not published", "p_done": "not estimated", "uplift": "not estimated"},
+      "evidence": [
+        {"url": "https://vietnamnews.vn/society/1779954/da-nang-to-build-first-urban-railway-line-worth-10b.html", "title": "Đà Nẵng to build first urban railway line, worth $10b (Việt Nam News)", "published": "2026-04",
+         "claim": "Plan for a first urban line of about US$10B based on a Thaco proposal; two lines would cut travel to Hội An to ~20 min and Chu Lai to ~40 min"}
+      ]
+    }
+  ]
+}

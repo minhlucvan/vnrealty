@@ -1,0 +1,80 @@
+{
+  "_about": "Adjustment parameters for vnrealty/valuation/comps.py (and the haircut used by hedonic.py / calibrate.py). Every parameter carries a `basis` saying whether it is sourced, partly sourced, or judgement, and the ids of the sources behind it. No transaction-level dataset for Đà Nẵng was found: where the press gives only anecdotes or broker rules of thumb, the range here is deliberately conservative (narrower premiums, wider haircut band). Replace with calibrated values from `vnr calibrate` once sale evidence accumulates. Rates are fractions; widths in metres.",
+  "verified_at": "2026-11-21",
+  "sources": {
+    "cafef_ep_gia_2026": {
+      "title": "Sự thật đằng sau việc người mua ép giá bất động sản (CafeF, 2026-08-20)",
+      "url": "https://cafef.vn/su-that-dang-sau-viec-nguoi-mua-ep-gia-bat-dong-san-188260820084746761.chn",
+      "claim": "Negotiation happens 'at a moderate level'; one seller cut from about 15B to 12–13B VND to close quickly (≈13–20% off asking, our arithmetic; anecdote, not a statistic)."
+    },
+    "thuviennhadat_lo_goc": {
+      "title": "Đất lô góc là gì? Lưu ý quan trọng khi mua đất lô góc (thuviennhadat.vn)",
+      "url": "https://thuviennhadat.vn/cam-nang-nha-dat/dat-lo-goc-la-gi-luu-y-quan-trong-khi-mua-dat-lo-goc-676507.html",
+      "claim": "Corner lots are commonly valued about 10–30% above a single-frontage lot (broker rule of thumb)."
+    },
+    "wiki_bds_lo_dat": {
+      "title": "Lô đất là gì? (wiki.batdongsan.com.vn, 2022-08-15)",
+      "url": "https://wiki.batdongsan.com.vn/wiki/lo-dat-la-gi-109572",
+      "claim": "A corner unit sells for up to ~30% more than the adjoining unit (listing-portal claim)."
+    },
+    "baophapluat_hem_sau": {
+      "title": "Nhà đất hẻm sâu bị ép giá tiền tỷ (Báo Pháp Luật, doanh nhân)",
+      "url": "https://doanhnhan.baophapluat.vn/nha-dat-hem-sau-bi-ep-gia-tien-ty-17301.md",
+      "claim": "An expert estimates deep-alley property loses about 60% versus street frontage and is 30–40% below a car-wide alley (HCMC context)."
+    },
+    "qd46_2016_danang": {
+      "title": "Quyết định 46/2016/QĐ-UBND TP Đà Nẵng (bảng giá đất, superseded)",
+      "url": "https://luatvietnam.vn/dat-dai/quyet-dinh-46-2016-qd-ubnd-uy-ban-nhan-dan-tp-da-nang-170979-d2.html",
+      "claim": "Official position classes by kiệt width: VT2 ≥4.5 m, VT3 3–<4.5 m, VT4 1.7–<3 m. Used for the breakpoints of the alley curve."
+    },
+    "qd06_2019_danang": {
+      "title": "Quyết định 06/2019/QĐ-UBND TP Đà Nẵng (sửa đổi bảng giá đất)",
+      "url": "https://static.luatvietnam.vn/tai-file-quyet-dinh-06-2019-qd-ubnd-da-nang-sua-doi-bo-sung-gia-quy-dinh-gia-dat-170805-d2/uploaded/VIETLAWFILE/2019/2/06_2019_QD-UBND_210219140300.pdf",
+      "claim": "An Hải road: 3.5 m section 19,500 vs 5.5 m section 24,440 (thousand VND/m²), a ratio ≈0.80 — one official street, used as a sanity check on the curve's slope."
+    },
+    "luatduyhung_giay_tay": {
+      "title": "Mua đất giấy tay, vi bằng: rủi ro và hướng xử lý (Luật Duy Hưng)",
+      "url": "https://luatduyhung.com/?p=33093",
+      "claim": "Buyers choose handwritten-paper (giấy tay) deals because they are cheaper, at large legal risk. Qualitative only — no percentage."
+    }
+  },
+  "params": {
+    "asking_to_sale": {
+      "value": 0.90, "lo": 0.85, "hi": 0.95,
+      "meaning": "sale price ÷ asking price. Applied explicitly to asking comps; sale evidence is never haircut.",
+      "basis": "partly sourced: press anecdotes only (cafef_ep_gia_2026: ~13–20% cuts to close fast, 'moderate' negotiation otherwise). No Đà Nẵng transaction dataset found. Judgement band 5–15% off asking for a soft 2026 market; recalibrate from sale_evidence.",
+      "sources": ["cafef_ep_gia_2026"]
+    },
+    "corner_premium": {
+      "value": 0.05, "lo": 0.0, "hi": 0.10,
+      "meaning": "price/m² multiplier is (1 + value) for a corner lot versus an interior one.",
+      "basis": "partly sourced: broker/portal rules of thumb say 10–30% (thuviennhadat_lo_goc, wiki_bds_lo_dat). Those are seller-side claims, so the desk keeps a conservative 0–10% with a 5% central until calibrated.",
+      "sources": ["thuviennhadat_lo_goc", "wiki_bds_lo_dat"]
+    },
+    "alley_curve": {
+      "points": [[0.0, 1.00], [1.7, 0.40], [3.0, 0.50], [4.5, 0.60], [5.5, 0.65], [7.5, 0.75]],
+      "meaning": "price/m² relative to street frontage (alley_m = 0) as a function of kiệt width in metres; linear between points, flat beyond the last. The adjustment is curve(subject) / curve(comp).",
+      "basis": "partly sourced: deep alley ≈ −60% vs frontage and narrow ≈ 30–40% below a car alley (baophapluat_hem_sau, HCMC expert estimate); breakpoints at the official 1.7 / 3 / 4.5 m position classes (qd46_2016_danang); the 3.5→5.5 m slope (0.53→0.65, ratio 0.82) agrees with the An Hải official ratio 0.80 (qd06_2019_danang). The level of each point is judgement. Comps in the same width class largely cancel it.",
+      "sources": ["baophapluat_hem_sau", "qd46_2016_danang", "qd06_2019_danang"]
+    },
+    "frontage": {
+      "ref_m": 5.0, "per_m": 0.02, "cap": 0.10,
+      "meaning": "price/m² multiplier 1 + per_m × (frontage − ref_m), clamped to ±cap; adjustment is the subject's multiplier over the comp's.",
+      "basis": "judgement: no source found. Small and capped on purpose.",
+      "sources": []
+    },
+    "legal": {
+      "factors": {"so_hong": 1.0, "so_do": 1.0, "hdmb": 0.95, "giay_tay": 0.75},
+      "giay_tay_range": [0.60, 0.85],
+      "meaning": "price/m² multiplier by title status; the adjustment is factor(subject) / factor(comp). 'unknown' is not adjusted (recorded as unknown) — never guessed.",
+      "basis": "judgement: giấy tay is cheaper for legal risk (luatduyhung_giay_tay, qualitative). No percentage source found; 25% central with a wide 15–40% range. hdmb 5% is judgement.",
+      "sources": ["luatduyhung_giay_tay"]
+    },
+    "size": {
+      "elasticity": -0.10,
+      "meaning": "price/m² scales as area^elasticity: adjustment (subject_area / comp_area)^elasticity. Smaller lots ask more per m².",
+      "basis": "judgement: no source found; mild on purpose and the area band (0.75–1.3×) keeps it under ±3%.",
+      "sources": []
+    }
+  }
+}

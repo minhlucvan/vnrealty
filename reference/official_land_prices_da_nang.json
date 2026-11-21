@@ -1,0 +1,48 @@
+{
+  "_about": "Đà Nẵng official land price table (bảng giá đất), residential land (đất ở), position 1 (VT1, street frontage) only. This is the STATE table: the floor used for taxes, registration fee, compensation and land-use fees — NOT market value. Market prices are often several times higher. Only rows whose number and segment could be read from a cited page are included; positions 2–5 (alleys) were not available in any page reached, so lookups for them return Insufficient. Verify against the gazette text of the resolution before relying on a number.",
+  "verified_at": "2026-11-21",
+  "unit": "VND per m²",
+  "decision": {
+    "number": "28/2026/NQ-HĐND",
+    "issuer": "HĐND thành phố Đà Nẵng (khóa XI)",
+    "passed": "2026-05-29",
+    "effective": "2026-06-10",
+    "amended_by": ["112/2026/NQ-HĐND (2026-10-06)"],
+    "replaces": ["287/2020/NQ-HĐND (former Đà Nẵng)", "14/2019/NQ-HĐND and 32/2023/NQ-HĐND (former Quảng Nam)", "32/2025/NQ-HĐND (interim, from 2026-01-01)"],
+    "legal_basis": "Land Law 2024 with Nghị quyết 254/2025/QH15 Điều 7 (provincial council sets the land price table from 2026-01-01). The land price table is now a council resolution (NQ-HĐND), not a UBND decision; UBND issues the adjustment coefficient (Quyết định 101/2026/QĐ-UBND, effective 2026-07-15).",
+    "note": "Tiền Phong reported 37 of 94 communes/wards asked to amend the table soon after it was issued — expect revisions."
+  },
+  "sources": {
+    "muaban_bang_gia": {
+      "title": "Bảng giá đất Đà Nẵng (muaban.net blog, cites NQ 28/2026/NQ-HĐND Phụ lục IIA)",
+      "url": "https://muaban.net/blog/bang-gia-dat-da-nang-617017/",
+      "accessed": "2026-11-21"
+    },
+    "tvpl_nq28": {
+      "title": "Bảng giá đất Đà Nẵng mới nhất năm 2026 (thuvienphapluat.vn)",
+      "url": "https://thuvienphapluat.vn/phap-luat-nha-dat/bang-gia-dat-da-nang-moi-nhat-nam-2026-la-bang-gia-dat-nao-tai-ve-bang-gia-dat-da-nang-2026-day-du-13652.html",
+      "accessed": "2026-11-21"
+    },
+    "tienphong_37_xa": {
+      "title": "37 xã phường của Đà Nẵng đề nghị sửa bảng giá đất mới (Tiền Phong)",
+      "url": "https://tienphong.vn/37-xa-phuong-cua-da-nang-de-nghi-sua-bang-gia-dat-moi-post1882606.tpo",
+      "accessed": "2026-11-21"
+    },
+    "qd101_2026": {
+      "title": "Hệ số điều chỉnh giá đất năm 2026 tại Đà Nẵng (Quyết định 101/2026/QĐ-UBND)",
+      "url": "https://thuviennhadat.vn/phap-luat/he-so-dieu-chinh-gia-dat-nam-2026-tai-da-nang-quyet-dinh-101-2026-qd-ubnd-742809.html",
+      "accessed": "2026-11-21"
+    }
+  },
+  "rows": [
+    {"street": "Bạch Đằng", "segment": "Lê Duẩn – Nguyễn Văn Linh", "area": "former Đà Nẵng urban wards", "position": 1, "land": "ODT", "price_m2": 340970000, "source": "muaban_bang_gia"},
+    {"street": "Võ Nguyên Giáp", "segment": "Phạm Văn Đồng – Võ Văn Kiệt", "area": "former Đà Nẵng urban wards", "position": 1, "land": "ODT", "price_m2": 279640000, "source": "muaban_bang_gia"},
+    {"street": "Nguyễn Văn Linh", "segment": "Bạch Đằng – Phan Thanh", "area": "former Đà Nẵng urban wards", "position": 1, "land": "ODT", "price_m2": 242780000, "source": "muaban_bang_gia"},
+    {"street": "Trần Phú", "segment": "Lê Duẩn (excluding the underpass section) – Nguyễn Văn Linh", "area": "former Đà Nẵng urban wards", "position": 1, "land": "ODT", "price_m2": 237930000, "source": "muaban_bang_gia"},
+    {"street": "2 Tháng 9", "segment": "Bảo tàng Chàm – Phan Thành Tài", "area": "former Đà Nẵng urban wards", "position": 1, "land": "ODT", "price_m2": 162160000, "source": "muaban_bang_gia"},
+    {"street": "Ngô Quyền", "segment": "Nguyễn Văn Thoại – Phạm Văn Đồng", "area": "former Đà Nẵng urban wards", "position": 1, "land": "ODT", "price_m2": 70690000, "source": "muaban_bang_gia"},
+    {"street": "Nguyễn Tất Thành", "segment": "Nguyễn Lương Bằng – Trần Đình Tri", "area": "former Đà Nẵng urban wards", "position": 1, "land": "ODT", "price_m2": 32130000, "source": "muaban_bang_gia"},
+    {"street": "Trường Chinh", "segment": "Ngã 3 Huế – foot of the Ngã 3 Huế overpass (non-railway side)", "area": "former Đà Nẵng urban wards", "position": 1, "land": "ODT", "price_m2": 31430000, "source": "muaban_bang_gia"},
+    {"street": "Trần Phú", "segment": "Lê Lợi crossroads – Chùa Cầu crossroads", "area": "Hội An (former Quảng Nam)", "position": 1, "land": "ODT", "price_m2": 170670000, "source": "muaban_bang_gia"}
+  ]
+}
