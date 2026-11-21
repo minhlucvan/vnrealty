@@ -13,6 +13,7 @@ SUBJECT is ``listing:<id>`` or a bare id (a listing), ``unit:<id>`` (an owned un
 from __future__ import annotations
 
 import math
+import os
 
 import argparse
 import dataclasses
@@ -1353,12 +1354,80 @@ def cmd_report(ctx, a):
         payload = cmd_screen(ctx, ns)
     elif kind == "strategy":
         payload = _strategy_eval(ctx, subj, None, a.profile)
+    elif kind == "asset":
+        if not subj:
+            raise CliError("report asset UNIT_ID")
+        payload = _asset_payload(ctx, subj.split(":", 1)[-1], a)
+        if isinstance(payload, Insufficient):
+            return {"status": "insufficient", "asset": payload}
+        subj = subj.split(':', 1)[-1]
     else:
         raise CliError(f"unknown report kind {kind!r}")
     rep = getattr(B, kind)(jsonable(payload), as_of=ctx.as_of)
     out_dir = Path(a.out) if a.out else ctx.data_dir / "reports"
     paths = write_report(rep, kind, Path(str(subj or kind)).stem.replace(":", "-"), out_dir=out_dir)
     return {"kind": kind, "subject": subj, "paths": paths, "sections": len(rep["sections"])}
+
+
+def _asset_payload(ctx, uid: str, a):
+    """Run the libraries for one owned unit and assemble the asset page payload (vnrealty.portfolio.asset).
+    Private inputs: data/portfolio/<id>.json (timeline, actions, documents, images, funding, gaps, what-ifs,
+    project_setup) and data/portfolio/<id>.plan.json (the Lot for the plan); both optional."""
+    import shutil
+    from dataclasses import fields, replace
+    from vnrealty.infra.catalog import near
+    from vnrealty.legal.checklist import status as legal_status
+    from vnrealty.plan.options import Lot, evaluate
+    from vnrealty.portfolio.asset import assemble, load_doc
+    from vnrealty.portfolio.units import unit_debt
+    pdir = ctx.data_dir / "portfolio"
+    doc = load_doc(Path(a.asset) if getattr(a, "asset", None) else pdir / f"{uid}.json")
+    s = resolve_subject(ctx.con, f"unit:{uid}", ctx.as_of)
+    v = C.run_value(ctx.con, s, ctx.as_of, record=False)
+    row = dict(ctx.con.execute("SELECT * FROM unit WHERE id = ?", (uid,)).fetchone())
+    dbt = unit_debt(row, ctx.as_of)
+    debt = None if isinstance(dbt, Insufficient) else dbt["balance"] * (row.get("share") or 1.0)
+    plan, sens = None, []
+    plan_path = Path(a.plan) if getattr(a, "plan", None) else pdir / f"{uid}.plan.json"
+    if plan_path.exists():
+        d = load_json(str(plan_path), "lot")
+        if isinstance(v["combined"], Estimate):   # the plan prices the land at today's triangulated value
+            d["value"] = v["combined"].value
+        if row.get("alley_m") is not None:
+            d["alley_m"] = row["alley_m"]
+        names = {f.name for f in fields(Lot)}
+        try:
+            lot = Lot(**{k: x for k, x in d.items() if k in names})
+            plan = evaluate(lot)
+            for name, ov in (doc.get("plan_sensitivities") or {}).items():
+                ok = {k: x for k, x in ov.items() if k in names}
+                if not ok:
+                    continue
+                r = evaluate(replace(lot, **ok))
+                irr = lambda o: (((r.get("options") or {}).get(o) or {}).get("analysis") or {}).get("irr")  # noqa: E731
+                best = (r.get("ranking") or [None])[0]
+                sens.append({"name": name, "overrides": ok, "best": best, "irr": irr(best) if best else None,
+                             "build_studios": irr("build_studios"), "sell_deposit": irr("sell_deposit")})
+        except (TypeError, ValueError) as e:
+            plan = {"error": f"plan inputs: {e}"}
+    ps = doc.get("project_setup") or {}
+    proj = None
+    if isinstance(v["combined"], Estimate):
+        proj = cmd_project(ctx, argparse.Namespace(subject=f"unit:{uid}", years=int(ps.get("years", 5)), drift=ps.get("drift"),
+                                                   vol=ps.get("vol"), km=float(ps.get("km", 3)), n=2000,
+                                                   deposit_rate=ps.get("deposit_rate"), holding_cost=ps.get("holding_cost") or 0.0))
+    projects = near(ctx.con, row["lat"], row["lng"], float(ps.get("km", 3))) if row.get("lat") is not None else []
+    # images are copied next to the report so the page works offline and stays inside data/ (private)
+    imgs, out_dir = {}, (Path(a.out) if a.out else ctx.data_dir / "reports")
+    fdir = out_dir / f"asset-{uid}-files"
+    for k, src in (doc.get("images") or {}).items():
+        if isinstance(src, str) and Path(src).is_file():
+            fdir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, fdir / Path(src).name)
+            imgs[k] = f"{fdir.name}/{Path(src).name}"
+    doc = {**doc, "images": imgs}
+    return assemble(ctx.con, uid, ctx.as_of, value=v, plan=plan, sensitivities=sens, projection=proj, doc=doc, debt=debt,
+                    legal=legal_status(ctx.con, f"unit:{uid}", row.get("ptype") or "land"), projects=projects)
 
 
 def cmd_journal_add(ctx, a):
@@ -1738,7 +1807,7 @@ def build_parser() -> argparse.ArgumentParser:
     x.add_argument("--no-record", dest="no_record", action="store_true")
 
     x = cmd(sp, "report", cmd_report, "write an HTML + Markdown report")
-    x.add_argument("kind", choices=["market", "listing", "deal", "compare", "portfolio", "plan", "screen", "strategy"])
+    x.add_argument("kind", choices=["market", "listing", "deal", "compare", "portfolio", "plan", "screen", "strategy", "asset"])
     x.add_argument("subject", nargs="?")
     x.add_argument("more", nargs="*")
     x.add_argument("--ptype")
@@ -1747,6 +1816,8 @@ def build_parser() -> argparse.ArgumentParser:
     x.add_argument("--profile")
     x.add_argument("--cash")
     x.add_argument("--out")
+    x.add_argument("--asset", help="asset: private asset document (default data/portfolio/<id>.json)")
+    x.add_argument("--plan", help="asset: plan inputs, a Lot JSON (default data/portfolio/<id>.plan.json)")
 
     _, j = group(sp, "journal", "desk journal")
     x = cmd(j, "add", cmd_journal_add)
@@ -1790,6 +1861,8 @@ def main(argv: list[str] | None = None) -> int:
     except Unavailable as e:
         out = {"status": "unavailable", "reason": str(e)}
     except (CliError, ValueError, KeyError, TypeError, FileNotFoundError, sqlite3.Error) as e:
+        if os.environ.get("VNR_DEBUG") and not isinstance(e, CliError):
+            raise   # VNR_DEBUG=1 shows the traceback instead of the one-line error
         out = {"status": "error", "error": f"{type(e).__name__}: {e}" if not isinstance(e, CliError) else str(e)}
     try:
         if isinstance(out, Raw):

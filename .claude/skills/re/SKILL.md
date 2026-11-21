@@ -29,7 +29,7 @@ number may be.
 | find opportunities; screen; undervalued; high yield; motivated sellers | `re-opportunities` |
 | best use of a property I own (hold / lease / build / homestay / sell) | `re-plan` |
 | what can I afford; financing; a purchase ladder; growing the business | `re-finplan` |
-| my units, tenants, rent roll, monthly close, arrears | `re-portfolio` |
+| my units, tenants, rent roll, monthly close, arrears; a tracking page for one asset | `re-portfolio` (`report asset <id>`) |
 | risk, concentration, leverage, shocks | `re-risk` |
 | due diligence, title, transaction costs and taxes | `re-legal` |
 | a full analysis of one listing, with the team | `re-analyze` |

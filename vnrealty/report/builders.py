@@ -384,3 +384,119 @@ def strategy(p: dict, as_of: str) -> dict:
         secs.append(_note("Score: " + p["formula"]))
     secs.append(_note(f"Profile: {p.get('profile_source', '')}"))
     return {"title": "Strategies", "subtitle": p.get("file", ""), "meta": _meta(as_of), "sections": secs}
+
+
+# ------------------------------------------------------------------ asset (one owned unit)
+
+_BAD_STATUS = {"encroached", "disputed", "frozen", "seized", "blocked"}
+
+
+def asset(p: dict, as_of: str) -> dict:
+    """One owned unit, everything in one page: status and next actions, value and position, value methods and history,
+    plan options and what-ifs, projection and sell timing, money, leases, timeline, legal, notes, images, map, gaps."""
+    u, pos = p["unit"], p["position"]
+    secs: list[dict] = []
+    st = (u.get("status") or "held").lower()
+    todo = [a for a in p.get("actions", []) if (a.get("status") or "todo") not in ("done", "dropped")]
+    if st in _BAD_STATUS:
+        secs.append(_note(f"Status: {st}. " + (f"Open action: {todo[0].get('step')} — {todo[0].get('why', '')}" if todo else
+                                               "Resolve the status before any use or sale."), "bad"))
+    floors = None
+    if u.get("alley_m") is not None:
+        floors = "street frontage" if u["alley_m"] == 0 else f"{u['alley_m']:g} m kiệt"
+    secs.append({"kind": "kpis", "h": "Position", "items": [
+        ["Value (whole)", vnd(p.get("value"))], ["Range", f"{vnd(p.get('lo'))} – {vnd(p.get('hi'))}"],
+        [f"Your share ({pct(pos.get('share'), 1)})", vnd(pos.get("own_value"))], [f"You paid ({pos.get('paid_basis')})", vnd(pos.get("paid"))],
+        ["Gain", signed(pos.get("gain"))], ["Return a year", pct(pos.get("cagr"))],
+        ["Equity after debt", vnd(pos.get("equity"))], ["Price per m²", vnd(pos.get("price_m2"))],
+        ["Area", f"{num(u.get('area_m2'), 0)} m²"], ["Access", floors or "unknown"], ["Title", u.get("legal") or "unknown"]]})
+    if todo or p.get("actions"):
+        secs.append({"kind": "table", "h": "Actions", "cols": ["Step", "Status", "Why"],
+                     "rows": [[a.get("step", ""), {"v": a.get("status", "todo"), "cls": "warnc" if a.get("status", "todo") != "done" else "pos"},
+                               a.get("why", "")] for a in p.get("actions", [])], "text_cols": [0, 1, 2]})
+    if p.get("methods"):
+        secs.append({"kind": "table", "h": "How the value is built", "cols": ["Method", "Value", "Low", "High", "n", "Note"],
+                     "rows": [[m["method"], vnd(m.get("value")), vnd(m.get("lo")), vnd(m.get("hi")), str(m.get("n") or ""),
+                               m.get("reason", "") if m.get("status") != "ok" else ""] for m in p["methods"]],
+                     "text_cols": [0, 5], "cap": "Comparables are asking prices with the cited asking→sale haircut applied. "
+                                                  "An 'insufficient' method says what it lacks; it is never filled in."})
+    vh = [r for r in p.get("value_history", []) if r.get("method") in ("combined", "triangulated") and r.get("value")]
+    if len(vh) >= 2:
+        secs.append({"kind": "chart", "h": "Value over time (recorded valuations)", "labels": [r["as_of"] for r in vh], "yfmt": "b",
+                     "series": [{"name": "value", "data": [r["value"] for r in vh]}, {"name": "low", "data": [r["lo"] for r in vh], "dash": True},
+                                {"name": "high", "data": [r["hi"] for r in vh], "dash": True}]})
+    pl = p.get("plan") or {}
+    if pl.get("ranking"):
+        rows = []
+        for name in pl["ranking"]:
+            o = (pl.get("options") or {}).get(name) or {}
+            a = o.get("analysis") or o
+            be = o.get("break_even_rent") or {}
+            rows.append([name, pct(a.get("irr")), signed(a.get("npv")), vnd(a.get("peak_cash_out")),
+                         vnd(be.get("per_unit") or be.get("rent")) if isinstance(be, dict) else "—"])
+        rec = pl.get("recommendation") or {}
+        secs.append({"kind": "table", "h": "What to do with it", "cols": ["Option", "Equity IRR", "NPV at hurdle", "Peak cash", "Rent needed (hurdle)"],
+                     "rows": rows, "text_cols": [0]})
+        if rec.get("reasons"):
+            secs.append(_note("; ".join(rec["reasons"]), "" if rec.get("clears_hurdle") else "warn"))
+        if pl.get("excluded"):
+            secs.append(_note("Not priced (inputs missing): " + "; ".join(f"{k}: {v}" for k, v in pl["excluded"].items()), "warn"))
+    if p.get("sensitivities"):
+        secs.append({"kind": "table", "h": "What-ifs", "cols": ["Change", "Best option", "Its IRR", "Build studios IRR", "Sell & deposit IRR"],
+                     "rows": [[s["name"], s.get("best") or "—", pct(s.get("irr")), pct(s.get("build_studios")), pct(s.get("sell_deposit"))]
+                              for s in p["sensitivities"]], "text_cols": [0, 1]})
+    pr = p.get("projection") or {}
+    mc, pth = pr.get("monte_carlo") or {}, pr.get("paths") or {}
+    if mc.get("years"):
+        v0 = p.get("value") or 0
+        series = [{"name": "p50 (Monte Carlo)", "data": mc["p50"]}, {"name": "p10", "data": mc["p10"], "dash": True},
+                  {"name": "p90", "data": mc["p90"], "dash": True}]
+        if pth.get("base") and v0:
+            series.append({"name": "base path (catalysts at their chance)", "data": [v0 * m for m in pth["base"]][:len(mc["years"])]})
+        secs.append({"kind": "chart", "h": "Where the price could go", "labels": [str(y) for y in mc["years"]], "series": series, "yfmt": "b",
+                     "cap": f"Drift and volatility: {(pr.get('market') or {}).get('basis', 'own index')}; catalysts within reach: "
+                            + (", ".join((pth.get('contrib') or {}).keys()) or "none")})
+    hv = (pr.get("hold_vs_sell") or {}) if isinstance(pr.get("hold_vs_sell"), dict) else {}
+    if hv.get("rows"):
+        secs.append({"kind": "table", "h": "Sell now, or hold?", "cols": ["Year", "Price (base)", "Take-home if sold", "Sell now + deposit", "Hold vs sell now"],
+                     "rows": [[str(r["year"]), vnd(r["price"]), vnd(r["take_home"]), vnd(r["deposit"]), signed(r["edge"])] for r in hv["rows"]],
+                     "text_cols": [], "cap": "Take-home is your share after the 2% transfer tax and selling costs."})
+    if p.get("funding"):
+        secs.append({"kind": "table", "h": "How it was paid for", "cols": ["Source", "Amount", "Yours"],
+                     "rows": [[f.get("source", ""), vnd(f.get("amount")), "yes" if f.get("yours") else "no"] for f in p["funding"]], "text_cols": [0]})
+    if p.get("txns"):
+        secs.append({"kind": "table", "h": f"Money in and out ({p.get('txns_source')})", "cols": ["Date", "Category", "Amount", "Note"],
+                     "rows": [[str(t.get("at", "")), t.get("category", ""), signed(t.get("amount")), t.get("memo") or t.get("note") or ""]
+                              for t in p["txns"]], "text_cols": [0, 1, 3]})
+    if p.get("leases"):
+        secs.append({"kind": "table", "h": "Leases", "cols": ["Tenant", "Start", "End", "Rent", "Deposit", "Status"],
+                     "rows": [[l.get("tenant") or "", l.get("start") or "", l.get("end") or "", vnd(l.get("rent")), vnd(l.get("deposit")),
+                               l.get("status") or ""] for l in p["leases"]], "text_cols": [0, 1, 2, 5]})
+    if p.get("timeline"):
+        secs.append({"kind": "table", "h": "Timeline", "cols": ["When", "What", "Source"],
+                     "rows": [[str(e.get("date", "")), e.get("event", ""), e.get("source", "")] for e in p["timeline"]], "text_cols": [0, 1, 2]})
+    lg = p.get("legal") or {}
+    if lg.get("items"):
+        secs.append({"kind": "table", "h": f"Due diligence — {lg.get('overall', '')}", "cols": ["Item", "Status", "Note"],
+                     "rows": [[i.get("label_en") or i.get("item") or i.get("id", ""), {"v": i.get("status", "open"), "cls": "neg" if i.get("status") == "issue" else ("pos" if i.get("status") == "ok" else "warnc")},
+                               i.get("note") or ""] for i in lg["items"]], "text_cols": [0, 1, 2]})
+    if p.get("journal"):
+        secs.append({"kind": "table", "h": "Notes", "cols": ["When", "Kind", "Note"],
+                     "rows": [[str(j["at"])[:10], j["kind"], j["body"]] for j in p["journal"]], "text_cols": [0, 1, 2]})
+    imgs = [{"src": v, "caption": k} for k, v in (p.get("images") or {}).items() if isinstance(v, str)]
+    if imgs:
+        secs.append({"kind": "images", "h": "Images", "items": imgs})
+    pts = []
+    if u.get("lat") is not None and u.get("lng") is not None:
+        pts.append({"lat": u["lat"], "lng": u["lng"], "label": u.get("name") or u["id"], "layer": "this unit", "r": 9})
+    pts += [{"lat": x["lat"], "lng": x["lng"], "label": f"{x.get('name_en') or x.get('name_vi') or x['id']} ({x.get('status') or ''})", "layer": "projects"}
+            for x in p.get("projects", []) if x.get("lat") is not None and x.get("lng") is not None]
+    if pts:
+        secs.append({"kind": "map", "h": "Location and nearby projects", "points": pts})
+    if p.get("gaps"):
+        secs.append(_note("Known gaps: " + "; ".join(str(g) for g in p["gaps"]), "warn"))
+    if p.get("documents"):
+        secs.append({"kind": "table", "h": "Documents (local, private)", "cols": ["Document", "Where"],
+                     "rows": [[d.get("name", ""), d.get("path", "")] for d in p["documents"]], "text_cols": [0, 1]})
+    return {"title": u.get("name") or u["id"], "subtitle": f"Owned unit {u['id']} · {u.get('address') or u.get('ward_code') or ''}",
+            "meta": _meta(as_of, "PRIVATE — contains owner records; do not publish."), "sections": secs}

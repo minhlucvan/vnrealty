@@ -6,7 +6,8 @@ A report is plain data, built by the CLI from library outputs:
 
 Section kinds: ``kpis`` (items: [[label, cell]]), ``table`` (cols, rows, text_cols?), ``chart`` (type, labels,
 series: [{name, data, dash?, fill?}], yfmt: 'b'|'m'|'pct'|None), ``note`` (text, tone: ''|'warn'|'bad'), ``grade``
-(grade, score, text), ``cites`` (items: [{title, url, date}]), ``map`` (points: [{lat, lng, label, layer, r?}] on OpenStreetMap). Every section may have ``h``, ``p`` and ``cap``.
+(grade, score, text), ``cites`` (items: [{title, url, date}]), ``map`` (points: [{lat, lng, label, layer, r?}] on OpenStreetMap), ``images`` (items: [{src, caption}], paths relative
+to the report). Every section may have ``h``, ``p`` and ``cap``.
 Cells are strings or {"v": text, "cls": "pos"|"neg"|"warnc"}. Formatting is done before this point (report/fmt.py).
 """
 from __future__ import annotations
@@ -63,6 +64,8 @@ def render_md(report: dict) -> str:
             out += [f"**Grade {s['grade']}** ({s.get('score', '')}) — {s['text']}", ""]
         elif k == "chart":
             out += [f"_Chart: {', '.join(d['name'] for d in s['series'])} over {len(s['labels'])} points (see the HTML report)._", ""]
+        elif k == "images":
+            out += [f"![{m.get('caption', '')}]({m['src']})" for m in s.get("items", [])] + [""]
         elif k == "map":
             out += [f"_Map: {len(s.get('points', []))} points (see the HTML report)._", ""]
         elif k == "cites":

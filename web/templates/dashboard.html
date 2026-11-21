@@ -21,7 +21,7 @@ td{padding:5px 8px;border-bottom:1px solid var(--rule);font-family:var(--mono);f
 .pos{color:var(--gain)}.neg{color:var(--loss)}.warnc{color:var(--warn)}
 .note{border-left:2px solid var(--ink);padding:4px 0 4px 14px;font:15px/1.55 var(--serif);max-width:86ch;margin:0}
 .note.warn{border-color:var(--warn)}.note.bad{border-color:var(--loss)}
-.chart{position:relative;height:300px}.map{height:420px;border:1px solid var(--rule)}.cap{font-size:13px;color:var(--muted)}
+.chart{position:relative;height:300px}.map{height:420px;border:1px solid var(--rule)}.imgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}.imgs figure{margin:0}.imgs img{width:100%;height:auto;display:block;border:1px solid var(--rule)}.imgs figcaption{font-size:12.5px;color:var(--muted)}.cap{font-size:13px;color:var(--muted)}
 .grade{display:inline-block;font:600 28px var(--mono);border:2px solid var(--ink);padding:2px 12px}
 ul.cites{font-size:13px;color:var(--muted);padding-left:18px;margin:0}ul.cites a{color:inherit}
 footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);padding-top:12px}
@@ -43,6 +43,7 @@ function section(s, i) {
   if (s.kind === 'table') h += `<div class="tablewrap"><table><tr>${s.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr>${s.rows.map(r => `<tr>${r.map((c, j) => `<td class="${(s.text_cols || [0]).includes(j) ? 't' : ''}">${cell(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
   if (s.kind === 'chart') h += `<div class="chart"><canvas id="c${i}"></canvas></div>`;
   if (s.kind === 'map') h += `<div class="map" id="m${i}"></div>`;
+  if (s.kind === 'images') h += `<div class="imgs">${s.items.map(m => `<figure><img src="${esc(m.src)}" alt="${esc(m.caption || '')}" loading="lazy"><figcaption>${esc(m.caption || '')}</figcaption></figure>`).join('')}</div>`;
   if (s.kind === 'note') h += `<p class="note ${esc(s.tone || '')}">${esc(s.text)}</p>`;
   if (s.kind === 'grade') h += `<div><span class="grade">${esc(s.grade)}</span> <span class="meta">${esc(s.score ?? '')}</span></div><p class="note">${esc(s.text)}</p>`;
   if (s.kind === 'cites') h += `<ul class="cites">${s.items.map(c => `<li>${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title || c.url)}</a>` : esc(c.title)}${c.date ? ' · ' + esc(c.date) : ''}</li>`).join('')}</ul>`;
