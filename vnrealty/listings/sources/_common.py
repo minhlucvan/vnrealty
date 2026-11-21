@@ -149,7 +149,8 @@ def normalize(site: str, seen_at: str, fields: dict, deal: str | None = None, ex
         x["phone_hash"] = phone
     if x_placeholder is not None:
         x["placeholder_price"] = x_placeholder
-    for k in ("project", "street", "district_raw", "land_type", "house_type", "apartment_type", "furnishing", "category_raw"):
+    for k in ("project", "street", "district_raw", "land_type", "house_type", "apartment_type", "furnishing", "category_raw",
+              "coord_basis", "listing_source"):   # provenance: where a coordinate and a hand-entered listing came from
         if f.get(k):
             x[k] = f[k]
     x.update(extra or {})

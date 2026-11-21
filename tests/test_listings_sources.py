@@ -191,3 +191,12 @@ class TestMainStreetFlag(unittest.TestCase):
         a, b = from_capture(cap)
         self.assertEqual(a.alley_m, 0.0)
         self.assertIsNone(b.alley_m)
+
+
+class TestProvenance(unittest.TestCase):
+    def test_coordinate_and_source_provenance_kept(self):
+        from vnrealty.listings.sources import from_capture
+        (o,) = from_capture({"site": "manual", "url": "x", "seen_at": "2026-11-01T00:00:00+07:00", "kind": "search", "deal": "sale",
+                             "items": [{"site_id": "m1", "ptype": "land", "price_text": "3000000000", "area_m2": 100, "lat": 16.0, "lng": 108.2,
+                                        "coord_basis": "street centroid", "listing_source": "example.org, kiệt 1"}]})
+        self.assertEqual((o.extra["coord_basis"], o.extra["listing_source"]), ("street centroid", "example.org, kiệt 1"))
