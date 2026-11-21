@@ -1,0 +1,11 @@
+# fixture: synthetic
+# url: https://nhadat.example.vn/tin/cho-thue-phong-tro-hoa-khanh-55555.html
+# site: nhadat
+# seen_at: 2026-11-05T09:00:00
+# kind: detail
+# deal: rent
+
+Cho thuê phòng trọ khép kín gần ĐH Bách Khoa, Hòa Khánh Nam
+Giá thuê: 2,5 triệu/tháng
+Diện tích: 20 m2
+Địa chỉ: Kiệt 50 Ngô Sĩ Liên, Hòa Khánh Bắc, Liên Chiểu, Đà Nẵng

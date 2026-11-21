@@ -1,0 +1,26 @@
+# fixture: synthetic
+# url: https://alonhadat.com.vn/ban-dat-hoa-xuan-cam-le-12345678.html
+# site: alonhadat
+# seen_at: 2026-11-09T14:00:00
+# kind: detail
+# deal: sale
+
+Bán đất đường 7m5 khu Nam cầu Cẩm Lệ, Hòa Xuân
+Giá: 4,1 tỷ
+Diện tích: 125 m2
+Địa chỉ: Đường Văn Tiến Dũng, Phường Hòa Xuân, Quận Cẩm Lệ, Đà Nẵng
+Mã tin
+12345678
+Hướng
+Nam
+Loại BĐS
+Đất thổ cư
+Đường trước nhà
+7,5m
+Pháp lý
+Sổ đỏ
+Chiều ngang
+5m
+Chiều dài
+25m
+Ngày đăng: 07/11/2026

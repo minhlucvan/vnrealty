@@ -1,0 +1,2010 @@
+{
+  "city": "da-nang",
+  "effective": "2025-07-01",
+  "sources": [
+    {
+      "url": "https://fptshop.com.vn/tin-tuc/thu-thuat/huong-dan-tra-cuu-nhanh-94-phuong-xa-cua-thanh-pho-da-nang-181285",
+      "title": "Cập nhật tên xã, phường mới của Đà Nẵng sau sáp nhập: Danh sách 94 đơn vị hành chính (reproduces Điều 1, clauses 1–92 of the resolution verbatim)",
+      "resolution": "1659/NQ-UBTVQH15",
+      "accessed": "2026-11-21"
+    },
+    {
+      "url": "https://thuviennhadat.vn/phap-ly-nha-dat/phuong-cam-le-moi-duoc-sap-nhap-tu-cac-phuong-nao-tp-da-nang-theo-nghi-quyet-1659-696093.html",
+      "title": "Phường Cẩm Lệ mới được sáp nhập từ các phường nào TP Đà Nẵng theo Nghị quyết 1659 (plus sibling thuviennhadat.vn pages on An Khê / Thanh Bình; corroborate clauses 1–7, 11)",
+      "resolution": "1659/NQ-UBTVQH15",
+      "accessed": "2026-11-21"
+    },
+    {
+      "url": "https://thuviennhadat.vn/phap-ly-nha-dat/quan-lien-chieu-tp-da-nang-doi-thanh-nhung-phuong-nao-sau-sap-nhap-691620.html",
+      "title": "Quận Liên Chiểu TP Đà Nẵng đổi thành những phường nào sau sáp nhập? (corroborates clauses 8–10)",
+      "resolution": "1659/NQ-UBTVQH15",
+      "accessed": "2026-11-21"
+    }
+  ],
+  "notes": "Resolution number confirmed: Nghị quyết 1659/NQ-UBTVQH15 dated 16/06/2025 (effective on signing; new commune-level governments operate from 01/07/2025), based on Đề án 403/ĐA-CP of 09/05/2025. Result: 94 commune-level units = 23 phường, 70 xã, 1 đặc khu (Hoàng Sa); 92 formed by the resolution's clauses plus 2 communes not rearranged (Tam Hải, Tân Hiệp, both ex-Quảng Nam). The official text (luatvietnam, hoatieu, thuvienphapluat, moj.gov.vn) was paywalled/403/404 to automated fetch, so the clause text was read from a verbatim reproduction (source 0) and the old-Đà Nẵng clauses were cross-checked against thuviennhadat.vn (sources 1–2); all matched. Not independently corroborated: clauses 12 (Hòa Xuân) and 24–26 (Hòa Vang, Hòa Tiến, Bà Nà). old_wards are the units as they existed on 30/06/2025, i.e. AFTER the 2023–2025 ward mergers in Hải Châu/Thanh Khê (e.g. Hải Châu I/II, Nam Dương, Bình Hiên, Hòa Thuận Đông, Tam Thuận, Tân Chính, Vĩnh Trung, Hòa Khê etc. no longer existed as separate wards and are absent here); a lookup from older addresses needs that earlier merger layer too. old_district attribution for old-Đà Nẵng units is from the pre-2025 district structure (corroborated by thuviennhadat page titles for Thanh Bình/Hải Châu, An Khê/Thạc Gián/Xuân Hà/Thanh Khê, An Hải Bắc/Sơn Trà, Mỹ An/Ngũ Hành Sơn); for ex-Quảng Nam units it is assigned from the district structure and flagged per entry. Former thị trấn (towns) are marked '(thị trấn)' in old_wards; 'Hòa Liên (một phần)' / '(phần còn lại)' mark the one split commune. No source gave coordinates; all lat/lng are null.",
+  "wards": [
+    {
+      "code": "hai-chau",
+      "name_vi": "Phường Hải Châu",
+      "kind": "phuong",
+      "old_district": "Hải Châu",
+      "old_districts": [
+        "Hải Châu"
+      ],
+      "old_wards": [
+        "Thanh Bình",
+        "Thuận Phước",
+        "Thạch Thang",
+        "Phước Ninh",
+        "Hải Châu"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        1
+      ]
+    },
+    {
+      "code": "hoa-cuong",
+      "name_vi": "Phường Hòa Cường",
+      "kind": "phuong",
+      "old_district": "Hải Châu",
+      "old_districts": [
+        "Hải Châu"
+      ],
+      "old_wards": [
+        "Bình Thuận",
+        "Hòa Thuận Tây",
+        "Hòa Cường Bắc",
+        "Hòa Cường Nam"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        1
+      ]
+    },
+    {
+      "code": "thanh-khe",
+      "name_vi": "Phường Thanh Khê",
+      "kind": "phuong",
+      "old_district": "Thanh Khê",
+      "old_districts": [
+        "Thanh Khê"
+      ],
+      "old_wards": [
+        "Xuân Hà",
+        "Chính Gián",
+        "Thạc Gián",
+        "Thanh Khê Tây",
+        "Thanh Khê Đông"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        1
+      ]
+    },
+    {
+      "code": "an-khe",
+      "name_vi": "Phường An Khê",
+      "kind": "phuong",
+      "old_district": "Thanh Khê",
+      "old_districts": [
+        "Thanh Khê",
+        "Cẩm Lệ"
+      ],
+      "old_wards": [
+        "Hòa An",
+        "Hòa Phát",
+        "An Khê"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        1
+      ],
+      "note": "An Khê ward was in Thanh Khê; Hòa An and Hòa Phát were in Cẩm Lệ. Main district chosen as the namesake ward's district."
+    },
+    {
+      "code": "an-hai",
+      "name_vi": "Phường An Hải",
+      "kind": "phuong",
+      "old_district": "Sơn Trà",
+      "old_districts": [
+        "Sơn Trà"
+      ],
+      "old_wards": [
+        "Phước Mỹ",
+        "An Hải Bắc",
+        "An Hải Nam"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        1
+      ]
+    },
+    {
+      "code": "son-tra",
+      "name_vi": "Phường Sơn Trà",
+      "kind": "phuong",
+      "old_district": "Sơn Trà",
+      "old_districts": [
+        "Sơn Trà"
+      ],
+      "old_wards": [
+        "Thọ Quang",
+        "Nại Hiên Đông",
+        "Mân Thái"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        1
+      ]
+    },
+    {
+      "code": "ngu-hanh-son",
+      "name_vi": "Phường Ngũ Hành Sơn",
+      "kind": "phuong",
+      "old_district": "Ngũ Hành Sơn",
+      "old_districts": [
+        "Ngũ Hành Sơn"
+      ],
+      "old_wards": [
+        "Mỹ An",
+        "Khuê Mỹ",
+        "Hòa Hải",
+        "Hòa Quý"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        1
+      ]
+    },
+    {
+      "code": "hoa-khanh",
+      "name_vi": "Phường Hòa Khánh",
+      "kind": "phuong",
+      "old_district": "Liên Chiểu",
+      "old_districts": [
+        "Liên Chiểu",
+        "Hòa Vang"
+      ],
+      "old_wards": [
+        "Hòa Khánh Nam",
+        "Hòa Minh",
+        "Hòa Sơn"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        2
+      ],
+      "note": "Hòa Sơn was a commune (xã) of Hòa Vang district; the other two were wards of Liên Chiểu."
+    },
+    {
+      "code": "hai-van",
+      "name_vi": "Phường Hải Vân",
+      "kind": "phuong",
+      "old_district": "Liên Chiểu",
+      "old_districts": [
+        "Liên Chiểu",
+        "Hòa Vang"
+      ],
+      "old_wards": [
+        "Hòa Hiệp Bắc",
+        "Hòa Hiệp Nam",
+        "Hòa Bắc",
+        "Hòa Liên (một phần)"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        2
+      ],
+      "note": "Hòa Bắc and Hòa Liên were communes of Hòa Vang; only PART of Hòa Liên went here (the rest went to phường Liên Chiểu). Hòa Bắc is large in area, so by area most of this ward is former Hòa Vang; main district chosen as Liên Chiểu because its urban wards carry the population."
+    },
+    {
+      "code": "lien-chieu",
+      "name_vi": "Phường Liên Chiểu",
+      "kind": "phuong",
+      "old_district": "Liên Chiểu",
+      "old_districts": [
+        "Liên Chiểu",
+        "Hòa Vang"
+      ],
+      "old_wards": [
+        "Hòa Khánh Bắc",
+        "Hòa Liên (phần còn lại)"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        2
+      ],
+      "note": "Formed from Hòa Khánh Bắc ward (Liên Chiểu) plus the remainder of Hòa Liên commune (Hòa Vang) after clause 9."
+    },
+    {
+      "code": "cam-le",
+      "name_vi": "Phường Cẩm Lệ",
+      "kind": "phuong",
+      "old_district": "Cẩm Lệ",
+      "old_districts": [
+        "Cẩm Lệ"
+      ],
+      "old_wards": [
+        "Hòa Thọ Tây",
+        "Hòa Thọ Đông",
+        "Khuê Trung"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0,
+        1
+      ]
+    },
+    {
+      "code": "hoa-xuan",
+      "name_vi": "Phường Hòa Xuân",
+      "kind": "phuong",
+      "old_district": "Cẩm Lệ",
+      "old_districts": [
+        "Cẩm Lệ",
+        "Hòa Vang"
+      ],
+      "old_wards": [
+        "Hòa Xuân",
+        "Hòa Châu",
+        "Hòa Phước"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Hòa Xuân was a ward of Cẩm Lệ; Hòa Châu and Hòa Phước were communes of Hòa Vang. Mapping read only from source 0 (not independently corroborated)."
+    },
+    {
+      "code": "hoa-vang",
+      "name_vi": "Xã Hòa Vang",
+      "kind": "xa",
+      "old_district": "Hòa Vang",
+      "old_districts": [
+        "Hòa Vang"
+      ],
+      "old_wards": [
+        "Hòa Phong",
+        "Hòa Phú"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Mapping read only from source 0."
+    },
+    {
+      "code": "hoa-tien",
+      "name_vi": "Xã Hòa Tiến",
+      "kind": "xa",
+      "old_district": "Hòa Vang",
+      "old_districts": [
+        "Hòa Vang"
+      ],
+      "old_wards": [
+        "Hòa Khương",
+        "Hòa Tiến"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Mapping read only from source 0."
+    },
+    {
+      "code": "ba-na",
+      "name_vi": "Xã Bà Nà",
+      "kind": "xa",
+      "old_district": "Hòa Vang",
+      "old_districts": [
+        "Hòa Vang"
+      ],
+      "old_wards": [
+        "Hòa Ninh",
+        "Hòa Nhơn"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Mapping read only from source 0."
+    },
+    {
+      "code": "hoang-sa",
+      "name_vi": "Đặc khu Hoàng Sa",
+      "kind": "dac_khu",
+      "old_district": "Hoàng Sa",
+      "old_districts": [
+        "Hoàng Sa"
+      ],
+      "old_wards": [
+        "huyện Hoàng Sa (toàn bộ)"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Formed from the whole of the former Hoàng Sa district (huyện), which had no commune-level units; old_wards holds the district itself."
+    },
+    {
+      "code": "tam-ky",
+      "name_vi": "Phường Tam Kỳ",
+      "kind": "phuong",
+      "old_district": "Tam Kỳ",
+      "old_districts": [
+        "Tam Kỳ"
+      ],
+      "old_wards": [
+        "An Mỹ",
+        "An Xuân",
+        "Trường Xuân"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tam Kỳ) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "quang-phu",
+      "name_vi": "Phường Quảng Phú",
+      "kind": "phuong",
+      "old_district": "Tam Kỳ",
+      "old_districts": [
+        "Tam Kỳ"
+      ],
+      "old_wards": [
+        "An Phú",
+        "Tam Thanh",
+        "Tam Phú"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tam Kỳ) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "huong-tra",
+      "name_vi": "Phường Hương Trà",
+      "kind": "phuong",
+      "old_district": "Tam Kỳ",
+      "old_districts": [
+        "Tam Kỳ"
+      ],
+      "old_wards": [
+        "An Sơn",
+        "Hòa Hương",
+        "Tam Ngọc"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tam Kỳ) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "ban-thach",
+      "name_vi": "Phường Bàn Thạch",
+      "kind": "phuong",
+      "old_district": "Tam Kỳ",
+      "old_districts": [
+        "Tam Kỳ"
+      ],
+      "old_wards": [
+        "Tân Thạnh",
+        "Hòa Thuận",
+        "Tam Thăng"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tam Kỳ) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "dien-ban",
+      "name_vi": "Phường Điện Bàn",
+      "kind": "phuong",
+      "old_district": "Điện Bàn",
+      "old_districts": [
+        "Điện Bàn"
+      ],
+      "old_wards": [
+        "Điện Phương",
+        "Điện Minh",
+        "Vĩnh Điện"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Điện Bàn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "dien-ban-dong",
+      "name_vi": "Phường Điện Bàn Đông",
+      "kind": "phuong",
+      "old_district": "Điện Bàn",
+      "old_districts": [
+        "Điện Bàn"
+      ],
+      "old_wards": [
+        "Điện Nam Đông",
+        "Điện Nam Trung",
+        "Điện Dương",
+        "Điện Ngọc",
+        "Điện Nam Bắc"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Điện Bàn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "an-thang",
+      "name_vi": "Phường An Thắng",
+      "kind": "phuong",
+      "old_district": "Điện Bàn",
+      "old_districts": [
+        "Điện Bàn"
+      ],
+      "old_wards": [
+        "Điện An",
+        "Điện Thắng Nam",
+        "Điện Thắng Trung"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Điện Bàn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "dien-ban-bac",
+      "name_vi": "Phường Điện Bàn Bắc",
+      "kind": "phuong",
+      "old_district": "Điện Bàn",
+      "old_districts": [
+        "Điện Bàn"
+      ],
+      "old_wards": [
+        "Điện Thắng Bắc",
+        "Điện Hòa",
+        "Điện Tiến"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Điện Bàn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "dien-ban-tay",
+      "name_vi": "Xã Điện Bàn Tây",
+      "kind": "xa",
+      "old_district": "Điện Bàn",
+      "old_districts": [
+        "Điện Bàn"
+      ],
+      "old_wards": [
+        "Điện Hồng",
+        "Điện Thọ",
+        "Điện Phước"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Điện Bàn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "go-noi",
+      "name_vi": "Xã Gò Nổi",
+      "kind": "xa",
+      "old_district": "Điện Bàn",
+      "old_districts": [
+        "Điện Bàn"
+      ],
+      "old_wards": [
+        "Điện Phong",
+        "Điện Trung",
+        "Điện Quang"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Điện Bàn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "hoi-an",
+      "name_vi": "Phường Hội An",
+      "kind": "phuong",
+      "old_district": "Hội An",
+      "old_districts": [
+        "Hội An"
+      ],
+      "old_wards": [
+        "Minh An",
+        "Cẩm Phô",
+        "Sơn Phong",
+        "Cẩm Nam",
+        "Cẩm Kim"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Hội An) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "hoi-an-dong",
+      "name_vi": "Phường Hội An Đông",
+      "kind": "phuong",
+      "old_district": "Hội An",
+      "old_districts": [
+        "Hội An"
+      ],
+      "old_wards": [
+        "Cẩm Châu",
+        "Cửa Đại",
+        "Cẩm Thanh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Hội An) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "hoi-an-tay",
+      "name_vi": "Phường Hội An Tây",
+      "kind": "phuong",
+      "old_district": "Hội An",
+      "old_districts": [
+        "Hội An"
+      ],
+      "old_wards": [
+        "Thanh Hà",
+        "Tân An",
+        "Cẩm An",
+        "Cẩm Hà"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Hội An) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tan-hiep",
+      "name_vi": "Xã Tân Hiệp",
+      "kind": "xa",
+      "old_district": "Hội An",
+      "old_districts": [
+        "Hội An"
+      ],
+      "old_wards": [
+        "Tân Hiệp"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Not rearranged: unit kept as-is (resolution names it as one of 2 communes not reorganized). Former Quảng Nam province. old_wards read from source 0; old_district (Hội An) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "nui-thanh",
+      "name_vi": "Xã Núi Thành",
+      "kind": "xa",
+      "old_district": "Núi Thành",
+      "old_districts": [
+        "Núi Thành"
+      ],
+      "old_wards": [
+        "Núi Thành (thị trấn)",
+        "Tam Quang",
+        "Tam Nghĩa",
+        "Tam Hiệp",
+        "Tam Giang"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Núi Thành) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tam-my",
+      "name_vi": "Xã Tam Mỹ",
+      "kind": "xa",
+      "old_district": "Núi Thành",
+      "old_districts": [
+        "Núi Thành"
+      ],
+      "old_wards": [
+        "Tam Mỹ Đông",
+        "Tam Mỹ Tây",
+        "Tam Trà"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Núi Thành) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tam-anh",
+      "name_vi": "Xã Tam Anh",
+      "kind": "xa",
+      "old_district": "Núi Thành",
+      "old_districts": [
+        "Núi Thành"
+      ],
+      "old_wards": [
+        "Tam Hòa",
+        "Tam Anh Bắc",
+        "Tam Anh Nam"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Núi Thành) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "duc-phu",
+      "name_vi": "Xã Đức Phú",
+      "kind": "xa",
+      "old_district": "Núi Thành",
+      "old_districts": [
+        "Núi Thành"
+      ],
+      "old_wards": [
+        "Tam Sơn",
+        "Tam Thạnh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Núi Thành) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tam-xuan",
+      "name_vi": "Xã Tam Xuân",
+      "kind": "xa",
+      "old_district": "Núi Thành",
+      "old_districts": [
+        "Núi Thành"
+      ],
+      "old_wards": [
+        "Tam Xuân I",
+        "Tam Xuân II",
+        "Tam Tiến"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Núi Thành) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tam-hai",
+      "name_vi": "Xã Tam Hải",
+      "kind": "xa",
+      "old_district": "Núi Thành",
+      "old_districts": [
+        "Núi Thành"
+      ],
+      "old_wards": [
+        "Tam Hải"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Not rearranged: unit kept as-is (resolution names it as one of 2 communes not reorganized). Former Quảng Nam province. old_wards read from source 0; old_district (Núi Thành) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tay-ho",
+      "name_vi": "Xã Tây Hồ",
+      "kind": "xa",
+      "old_district": "Phú Ninh",
+      "old_districts": [
+        "Phú Ninh"
+      ],
+      "old_wards": [
+        "Tam An",
+        "Tam Thành",
+        "Tam Phước",
+        "Tam Lộc"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Phú Ninh) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "chien-dan",
+      "name_vi": "Xã Chiên Đàn",
+      "kind": "xa",
+      "old_district": "Phú Ninh",
+      "old_districts": [
+        "Phú Ninh"
+      ],
+      "old_wards": [
+        "Phú Thịnh (thị trấn)",
+        "Tam Đàn",
+        "Tam Thái"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Phú Ninh) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "phu-ninh",
+      "name_vi": "Xã Phú Ninh",
+      "kind": "xa",
+      "old_district": "Phú Ninh",
+      "old_districts": [
+        "Phú Ninh"
+      ],
+      "old_wards": [
+        "Tam Dân",
+        "Tam Đại",
+        "Tam Lãnh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Phú Ninh) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "lanh-ngoc",
+      "name_vi": "Xã Lãnh Ngọc",
+      "kind": "xa",
+      "old_district": "Tiên Phước",
+      "old_districts": [
+        "Tiên Phước"
+      ],
+      "old_wards": [
+        "Tiên Lãnh",
+        "Tiên Ngọc",
+        "Tiên Hiệp"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tiên Phước) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tien-phuoc",
+      "name_vi": "Xã Tiên Phước",
+      "kind": "xa",
+      "old_district": "Tiên Phước",
+      "old_districts": [
+        "Tiên Phước"
+      ],
+      "old_wards": [
+        "Tiên Kỳ (thị trấn)",
+        "Tiên Mỹ",
+        "Tiên Phong",
+        "Tiên Thọ"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tiên Phước) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thanh-binh",
+      "name_vi": "Xã Thạnh Bình",
+      "kind": "xa",
+      "old_district": "Tiên Phước",
+      "old_districts": [
+        "Tiên Phước"
+      ],
+      "old_wards": [
+        "Tiên Lập",
+        "Tiên Lộc",
+        "Tiên An",
+        "Tiên Cảnh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tiên Phước) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "son-cam-ha",
+      "name_vi": "Xã Sơn Cẩm Hà",
+      "kind": "xa",
+      "old_district": "Tiên Phước",
+      "old_districts": [
+        "Tiên Phước"
+      ],
+      "old_wards": [
+        "Tiên Sơn",
+        "Tiên Hà",
+        "Tiên Châu"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tiên Phước) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-lien",
+      "name_vi": "Xã Trà Liên",
+      "kind": "xa",
+      "old_district": "Bắc Trà My",
+      "old_districts": [
+        "Bắc Trà My"
+      ],
+      "old_wards": [
+        "Trà Đông",
+        "Trà Nú",
+        "Trà Kót"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Bắc Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-giap",
+      "name_vi": "Xã Trà Giáp",
+      "kind": "xa",
+      "old_district": "Bắc Trà My",
+      "old_districts": [
+        "Bắc Trà My"
+      ],
+      "old_wards": [
+        "Trà Ka",
+        "Trà Giáp"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Bắc Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-tan",
+      "name_vi": "Xã Trà Tân",
+      "kind": "xa",
+      "old_district": "Bắc Trà My",
+      "old_districts": [
+        "Bắc Trà My"
+      ],
+      "old_wards": [
+        "Trà Giác",
+        "Trà Tân"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Bắc Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-doc",
+      "name_vi": "Xã Trà Đốc",
+      "kind": "xa",
+      "old_district": "Bắc Trà My",
+      "old_districts": [
+        "Bắc Trà My"
+      ],
+      "old_wards": [
+        "Trà Bui",
+        "Trà Đốc"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Bắc Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-my",
+      "name_vi": "Xã Trà My",
+      "kind": "xa",
+      "old_district": "Bắc Trà My",
+      "old_districts": [
+        "Bắc Trà My"
+      ],
+      "old_wards": [
+        "Trà My (thị trấn)",
+        "Trà Sơn",
+        "Trà Giang",
+        "Trà Dương"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Bắc Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "nam-tra-my",
+      "name_vi": "Xã Nam Trà My",
+      "kind": "xa",
+      "old_district": "Nam Trà My",
+      "old_districts": [
+        "Nam Trà My"
+      ],
+      "old_wards": [
+        "Trà Mai",
+        "Trà Don"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-tap",
+      "name_vi": "Xã Trà Tập",
+      "kind": "xa",
+      "old_district": "Nam Trà My",
+      "old_districts": [
+        "Nam Trà My"
+      ],
+      "old_wards": [
+        "Trà Cang",
+        "Trà Tập"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-van",
+      "name_vi": "Xã Trà Vân",
+      "kind": "xa",
+      "old_district": "Nam Trà My",
+      "old_districts": [
+        "Nam Trà My"
+      ],
+      "old_wards": [
+        "Trà Vinh",
+        "Trà Vân"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-linh",
+      "name_vi": "Xã Trà Linh",
+      "kind": "xa",
+      "old_district": "Nam Trà My",
+      "old_districts": [
+        "Nam Trà My"
+      ],
+      "old_wards": [
+        "Trà Nam",
+        "Trà Linh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tra-leng",
+      "name_vi": "Xã Trà Leng",
+      "kind": "xa",
+      "old_district": "Nam Trà My",
+      "old_districts": [
+        "Nam Trà My"
+      ],
+      "old_wards": [
+        "Trà Dơn",
+        "Trà Leng"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Trà My) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thang-binh",
+      "name_vi": "Xã Thăng Bình",
+      "kind": "xa",
+      "old_district": "Thăng Bình",
+      "old_districts": [
+        "Thăng Bình"
+      ],
+      "old_wards": [
+        "Hà Lam (thị trấn)",
+        "Bình Nguyên",
+        "Bình Quý",
+        "Bình Phục"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Thăng Bình) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thang-an",
+      "name_vi": "Xã Thăng An",
+      "kind": "xa",
+      "old_district": "Thăng Bình",
+      "old_districts": [
+        "Thăng Bình"
+      ],
+      "old_wards": [
+        "Bình Triều",
+        "Bình Giang",
+        "Bình Đào",
+        "Bình Minh",
+        "Bình Dương"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Thăng Bình) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thang-truong",
+      "name_vi": "Xã Thăng Trường",
+      "kind": "xa",
+      "old_district": "Thăng Bình",
+      "old_districts": [
+        "Thăng Bình"
+      ],
+      "old_wards": [
+        "Bình Nam",
+        "Bình Hải",
+        "Bình Sa"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Thăng Bình) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thang-dien",
+      "name_vi": "Xã Thăng Điền",
+      "kind": "xa",
+      "old_district": "Thăng Bình",
+      "old_districts": [
+        "Thăng Bình"
+      ],
+      "old_wards": [
+        "Bình An",
+        "Bình Trung",
+        "Bình Tú"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Thăng Bình) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thang-phu",
+      "name_vi": "Xã Thăng Phú",
+      "kind": "xa",
+      "old_district": "Thăng Bình",
+      "old_districts": [
+        "Thăng Bình"
+      ],
+      "old_wards": [
+        "Bình Phú",
+        "Bình Quế"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Thăng Bình) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "dong-duong",
+      "name_vi": "Xã Đồng Dương",
+      "kind": "xa",
+      "old_district": "Thăng Bình",
+      "old_districts": [
+        "Thăng Bình"
+      ],
+      "old_wards": [
+        "Bình Lãnh",
+        "Bình Trị",
+        "Bình Định"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Thăng Bình) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "que-son-trung",
+      "name_vi": "Xã Quế Sơn Trung",
+      "kind": "xa",
+      "old_district": "Quế Sơn",
+      "old_districts": [
+        "Quế Sơn"
+      ],
+      "old_wards": [
+        "Quế Mỹ",
+        "Quế Hiệp",
+        "Quế Thuận",
+        "Quế Châu"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Quế Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "que-son",
+      "name_vi": "Xã Quế Sơn",
+      "kind": "xa",
+      "old_district": "Quế Sơn",
+      "old_districts": [
+        "Quế Sơn"
+      ],
+      "old_wards": [
+        "Đông Phú (thị trấn)",
+        "Quế Minh",
+        "Quế An",
+        "Quế Long",
+        "Quế Phong"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Quế Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "xuan-phu",
+      "name_vi": "Xã Xuân Phú",
+      "kind": "xa",
+      "old_district": "Quế Sơn",
+      "old_districts": [
+        "Quế Sơn"
+      ],
+      "old_wards": [
+        "Hương An (thị trấn)",
+        "Quế Xuân 1",
+        "Quế Xuân 2",
+        "Quế Phú"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Quế Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "nong-son",
+      "name_vi": "Xã Nông Sơn",
+      "kind": "xa",
+      "old_district": "Nông Sơn",
+      "old_districts": [
+        "Nông Sơn"
+      ],
+      "old_wards": [
+        "Trung Phước (thị trấn)",
+        "Quế Lộc"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nông Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "que-phuoc",
+      "name_vi": "Xã Quế Phước",
+      "kind": "xa",
+      "old_district": "Nông Sơn",
+      "old_districts": [
+        "Nông Sơn"
+      ],
+      "old_wards": [
+        "Quế Lâm",
+        "Phước Ninh",
+        "Ninh Phước"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nông Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "duy-nghia",
+      "name_vi": "Xã Duy Nghĩa",
+      "kind": "xa",
+      "old_district": "Duy Xuyên",
+      "old_districts": [
+        "Duy Xuyên"
+      ],
+      "old_wards": [
+        "Duy Thành",
+        "Duy Hải",
+        "Duy Nghĩa"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Duy Xuyên) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "nam-phuoc",
+      "name_vi": "Xã Nam Phước",
+      "kind": "xa",
+      "old_district": "Duy Xuyên",
+      "old_districts": [
+        "Duy Xuyên"
+      ],
+      "old_wards": [
+        "Nam Phước (thị trấn)",
+        "Duy Phước",
+        "Duy Vinh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Duy Xuyên) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "duy-xuyen",
+      "name_vi": "Xã Duy Xuyên",
+      "kind": "xa",
+      "old_district": "Duy Xuyên",
+      "old_districts": [
+        "Duy Xuyên"
+      ],
+      "old_wards": [
+        "Duy Trung",
+        "Duy Sơn",
+        "Duy Trinh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Duy Xuyên) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thu-bon",
+      "name_vi": "Xã Thu Bồn",
+      "kind": "xa",
+      "old_district": "Duy Xuyên",
+      "old_districts": [
+        "Duy Xuyên"
+      ],
+      "old_wards": [
+        "Duy Châu",
+        "Duy Hòa",
+        "Duy Phú",
+        "Duy Tân"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Duy Xuyên) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "dai-loc",
+      "name_vi": "Xã Đại Lộc",
+      "kind": "xa",
+      "old_district": "Đại Lộc",
+      "old_districts": [
+        "Đại Lộc"
+      ],
+      "old_wards": [
+        "Ái Nghĩa (thị trấn)",
+        "Đại Hiệp",
+        "Đại Hòa",
+        "Đại An",
+        "Đại Nghĩa"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đại Lộc) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "ha-nha",
+      "name_vi": "Xã Hà Nha",
+      "kind": "xa",
+      "old_district": "Đại Lộc",
+      "old_districts": [
+        "Đại Lộc"
+      ],
+      "old_wards": [
+        "Đại Đồng",
+        "Đại Hồng",
+        "Đại Quang"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đại Lộc) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thuong-duc",
+      "name_vi": "Xã Thượng Đức",
+      "kind": "xa",
+      "old_district": "Đại Lộc",
+      "old_districts": [
+        "Đại Lộc"
+      ],
+      "old_wards": [
+        "Đại Lãnh",
+        "Đại Hưng",
+        "Đại Sơn"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đại Lộc) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "vu-gia",
+      "name_vi": "Xã Vu Gia",
+      "kind": "xa",
+      "old_district": "Đại Lộc",
+      "old_districts": [
+        "Đại Lộc"
+      ],
+      "old_wards": [
+        "Đại Phong",
+        "Đại Minh",
+        "Đại Cường"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đại Lộc) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "phu-thuan",
+      "name_vi": "Xã Phú Thuận",
+      "kind": "xa",
+      "old_district": "Đại Lộc",
+      "old_districts": [
+        "Đại Lộc"
+      ],
+      "old_wards": [
+        "Đại Tân",
+        "Đại Thắng",
+        "Đại Chánh",
+        "Đại Thạnh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đại Lộc) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "thanh-my",
+      "name_vi": "Xã Thạnh Mỹ",
+      "kind": "xa",
+      "old_district": "Nam Giang",
+      "old_districts": [
+        "Nam Giang"
+      ],
+      "old_wards": [
+        "Thạnh Mỹ (thị trấn)"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "ben-giang",
+      "name_vi": "Xã Bến Giằng",
+      "kind": "xa",
+      "old_district": "Nam Giang",
+      "old_districts": [
+        "Nam Giang"
+      ],
+      "old_wards": [
+        "Cà Dy",
+        "Tà Bhing",
+        "Tà Pơơ"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "nam-giang",
+      "name_vi": "Xã Nam Giang",
+      "kind": "xa",
+      "old_district": "Nam Giang",
+      "old_districts": [
+        "Nam Giang"
+      ],
+      "old_wards": [
+        "Zuôih",
+        "Chà Vàl"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "dac-pring",
+      "name_vi": "Xã Đắc Pring",
+      "kind": "xa",
+      "old_district": "Nam Giang",
+      "old_districts": [
+        "Nam Giang"
+      ],
+      "old_wards": [
+        "Đắc Pre",
+        "Đắc Pring"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "la-dee",
+      "name_vi": "Xã La Dêê",
+      "kind": "xa",
+      "old_district": "Nam Giang",
+      "old_districts": [
+        "Nam Giang"
+      ],
+      "old_wards": [
+        "Đắc Tôi",
+        "La Dêê"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "la-ee",
+      "name_vi": "Xã La Êê",
+      "kind": "xa",
+      "old_district": "Nam Giang",
+      "old_districts": [
+        "Nam Giang"
+      ],
+      "old_wards": [
+        "Chơ Chun",
+        "La Êê"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Nam Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "song-vang",
+      "name_vi": "Xã Sông Vàng",
+      "kind": "xa",
+      "old_district": "Đông Giang",
+      "old_districts": [
+        "Đông Giang"
+      ],
+      "old_wards": [
+        "Tư",
+        "Ba"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đông Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "song-kon",
+      "name_vi": "Xã Sông Kôn",
+      "kind": "xa",
+      "old_district": "Đông Giang",
+      "old_districts": [
+        "Đông Giang"
+      ],
+      "old_wards": [
+        "A Ting",
+        "Jơ Ngây",
+        "Sông Kôn"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đông Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "dong-giang",
+      "name_vi": "Xã Đông Giang",
+      "kind": "xa",
+      "old_district": "Đông Giang",
+      "old_districts": [
+        "Đông Giang"
+      ],
+      "old_wards": [
+        "Prao (thị trấn)",
+        "Tà Lu",
+        "A Rooi",
+        "Zà Hung"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đông Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "ben-hien",
+      "name_vi": "Xã Bến Hiên",
+      "kind": "xa",
+      "old_district": "Đông Giang",
+      "old_districts": [
+        "Đông Giang"
+      ],
+      "old_wards": [
+        "Kà Dăng",
+        "Mà Cooih"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Đông Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "avuong",
+      "name_vi": "Xã Avương",
+      "kind": "xa",
+      "old_district": "Tây Giang",
+      "old_districts": [
+        "Tây Giang"
+      ],
+      "old_wards": [
+        "Bhalêê",
+        "Avương"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tây Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "tay-giang",
+      "name_vi": "Xã Tây Giang",
+      "kind": "xa",
+      "old_district": "Tây Giang",
+      "old_districts": [
+        "Tây Giang"
+      ],
+      "old_wards": [
+        "Atiêng",
+        "Dang",
+        "Anông",
+        "Lăng"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tây Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "hung-son",
+      "name_vi": "Xã Hùng Sơn",
+      "kind": "xa",
+      "old_district": "Tây Giang",
+      "old_districts": [
+        "Tây Giang"
+      ],
+      "old_wards": [
+        "Ch'ơm",
+        "Gari",
+        "Tr'hy",
+        "Axan"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Tây Giang) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "hiep-duc",
+      "name_vi": "Xã Hiệp Đức",
+      "kind": "xa",
+      "old_district": "Hiệp Đức",
+      "old_districts": [
+        "Hiệp Đức"
+      ],
+      "old_wards": [
+        "Tân Bình (thị trấn)",
+        "Quế Tân",
+        "Quế Lưu"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Hiệp Đức) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "viet-an",
+      "name_vi": "Xã Việt An",
+      "kind": "xa",
+      "old_district": "Hiệp Đức",
+      "old_districts": [
+        "Hiệp Đức"
+      ],
+      "old_wards": [
+        "Thăng Phước",
+        "Bình Sơn",
+        "Quế Thọ",
+        "Bình Lâm"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Hiệp Đức) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "phuoc-tra",
+      "name_vi": "Xã Phước Trà",
+      "kind": "xa",
+      "old_district": "Hiệp Đức",
+      "old_districts": [
+        "Hiệp Đức"
+      ],
+      "old_wards": [
+        "Sông Trà",
+        "Phước Gia",
+        "Phước Trà"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Hiệp Đức) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "kham-duc",
+      "name_vi": "Xã Khâm Đức",
+      "kind": "xa",
+      "old_district": "Phước Sơn",
+      "old_districts": [
+        "Phước Sơn"
+      ],
+      "old_wards": [
+        "Khâm Đức (thị trấn)",
+        "Phước Xuân"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Phước Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "phuoc-nang",
+      "name_vi": "Xã Phước Năng",
+      "kind": "xa",
+      "old_district": "Phước Sơn",
+      "old_districts": [
+        "Phước Sơn"
+      ],
+      "old_wards": [
+        "Phước Đức",
+        "Phước Mỹ",
+        "Phước Năng"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Phước Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "phuoc-chanh",
+      "name_vi": "Xã Phước Chánh",
+      "kind": "xa",
+      "old_district": "Phước Sơn",
+      "old_districts": [
+        "Phước Sơn"
+      ],
+      "old_wards": [
+        "Phước Công",
+        "Phước Chánh"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Phước Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "phuoc-thanh",
+      "name_vi": "Xã Phước Thành",
+      "kind": "xa",
+      "old_district": "Phước Sơn",
+      "old_districts": [
+        "Phước Sơn"
+      ],
+      "old_wards": [
+        "Phước Lộc",
+        "Phước Kim",
+        "Phước Thành"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Phước Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    },
+    {
+      "code": "phuoc-hiep",
+      "name_vi": "Xã Phước Hiệp",
+      "kind": "xa",
+      "old_district": "Phước Sơn",
+      "old_districts": [
+        "Phước Sơn"
+      ],
+      "old_wards": [
+        "Phước Hòa",
+        "Phước Hiệp"
+      ],
+      "lat": null,
+      "lng": null,
+      "verified": true,
+      "source_idx": [
+        0
+      ],
+      "note": "Former Quảng Nam province. old_wards read from source 0; old_district (Phước Sơn) assigned from the pre-2025 district structure, not read from a fetched source."
+    }
+  ]
+}

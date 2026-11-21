@@ -1,0 +1,23 @@
+{
+ "site": "chotot",
+ "url": "https://www.nhatot.com/thue-can-ho-da-nang",
+ "seen_at": "2026-11-11T10:30:00Z",
+ "kind": "search",
+ "warnings": [],
+ "items": [
+  {
+   "site": "chotot",
+   "url": "https://www.nhatot.com/223456789.htm",
+   "site_id": "223456789",
+   "title": "Cho thuê căn hộ 2PN view sông Hàn",
+   "price_text": "12 triệu/tháng",
+   "area_text": "70 m2",
+   "address": "Phước Mỹ, Sơn Trà, Đà Nẵng",
+   "ward_raw": "Phước Mỹ, Sơn Trà",
+   "lat": 16.0712,
+   "lng": 108.2401,
+   "deal": "rent",
+   "ptype_text": "Căn hộ/Chung cư"
+  }
+ ]
+}

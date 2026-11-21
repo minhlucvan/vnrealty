@@ -1,0 +1,23 @@
+{
+ "site": "facebook",
+ "url": "https://www.facebook.com/groups/000000/",
+ "seen_at": "2026-11-04T20:00:00Z",
+ "kind": "social",
+ "warnings": [],
+ "items": [
+  {
+   "text": "Bán nhà 2 tầng kiệt 3m Khuê Mỹ 72m2 giá 3,1 tỷ, sổ đỏ",
+   "permalink": "https://www.facebook.com/groups/000000/posts/1234567890/",
+   "time_text": "2 ngày trước",
+   "post_id": "1234567890",
+   "phone_hash": null
+  },
+  {
+   "text": "Chúc mọi người cuối tuần vui vẻ!",
+   "permalink": null,
+   "time_text": null,
+   "post_id": null,
+   "phone_hash": null
+  }
+ ]
+}

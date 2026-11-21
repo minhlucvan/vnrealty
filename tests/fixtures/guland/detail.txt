@@ -1,0 +1,14 @@
+# fixture: synthetic
+# url: https://guland.vn/post/ban-dat-hoa-vang-654321
+# site: guland
+# seen_at: 2026-11-08T08:00:00
+# kind: detail
+# deal: sale
+
+Bán đất vườn Hòa Phong giá rẻ
+Giá: 850 triệu
+Diện tích: 300 m²
+Mặt tiền: 10 m
+Đường trước: 4 m
+Pháp lý: Sổ hồng
+Địa chỉ: Thôn Dương Lâm, Xã Hòa Phong, Huyện Hòa Vang, Đà Nẵng

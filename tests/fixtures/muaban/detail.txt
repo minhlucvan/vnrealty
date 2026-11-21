@@ -1,0 +1,18 @@
+# fixture: synthetic
+# url: https://muaban.net/bat-dong-san/ban-can-ho-monarchy-id71234567
+# site: muaban
+# seen_at: 2026-11-07T11:00:00
+# kind: detail
+# deal: sale
+
+Bán căn hộ Monarchy 2PN view sông
+Giá
+2.500.000.000 đ
+Diện tích
+68 m2
+Số phòng ngủ
+2
+Pháp lý
+Hợp đồng mua bán
+Địa chỉ
+Đường Trần Hưng Đạo, Phường An Hải Tây, Quận Sơn Trà, Đà Nẵng

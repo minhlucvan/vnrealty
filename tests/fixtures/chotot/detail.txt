@@ -1,0 +1,22 @@
+# fixture: synthetic
+# url: https://www.nhatot.com/mua-ban-nha-dat-quan-son-tra-da-nang/123456789.htm
+# site: chotot
+# seen_at: 2026-11-11T10:00:00
+# kind: detail
+# deal: sale
+
+Nhà Tốt
+Bán nhà 2 tầng kiệt 3m An Hải Bắc, Sơn Trà
+1,95 tỷ
+Phường An Hải Bắc, Quận Sơn Trà, Đà Nẵng
+Đặc điểm bất động sản
+Diện tích đất: 62 m²
+Chiều ngang: 4,2 m
+Chiều dài: 14,8 m
+Giấy tờ pháp lý: Đã có sổ
+Hướng cửa chính: Tây Bắc
+Tổng số tầng: 2
+Số phòng ngủ: 3 phòng
+Loại hình nhà ở: Nhà ngõ, hẻm
+Mô tả
+Nhà kiệt 3m, sổ hồng riêng, gọi 0900.000.002

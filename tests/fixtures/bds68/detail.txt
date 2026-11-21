@@ -1,0 +1,12 @@
+# fixture: synthetic
+# url: https://bds68.com.vn/ban-nha-mat-tien-hai-chau-p987654.html
+# site: bds68
+# seen_at: 2026-11-06T09:00:00
+# kind: detail
+# deal: sale
+
+Bán nhà mặt tiền đường Lê Duẩn, Hải Châu
+Giá: 18,5 tỷ
+Diện tích: 90 m²
+Số tầng: 4
+Địa chỉ: Đường Lê Duẩn, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng

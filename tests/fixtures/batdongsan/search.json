@@ -1,0 +1,38 @@
+{
+ "site": "batdongsan",
+ "url": "https://batdongsan.com.vn/ban-dat-da-nang",
+ "seen_at": "2026-11-12T08:00:00Z",
+ "kind": "search",
+ "search": "dn-land",
+ "warnings": [],
+ "items": [
+  {
+   "site": "batdongsan",
+   "url": "https://batdongsan.com.vn/ban-dat-nen-khu-do-thi-fpt-pr40000001",
+   "site_id": "40000001",
+   "title": "Bán đất nền KĐT FPT City 5x20",
+   "price_text": "45 tr/m²",
+   "area_text": "100 m²",
+   "address": "Hòa Hải, Ngũ Hành Sơn, Đà Nẵng",
+   "ward_raw": "Hòa Hải, Ngũ Hành Sơn, Đà Nẵng",
+   "posted_text": "Hôm qua",
+   "deal": "sale"
+  },
+  {
+   "site": "batdongsan",
+   "url": "https://batdongsan.com.vn/ban-nha-rieng-pr40000002",
+   "site_id": "40000002",
+   "title": "Bán nhà riêng kiệt 3m Thạc Gián",
+   "price_text": "2 tỷ 350",
+   "area_text": "60 m²",
+   "address": "Thạc Gián, Thanh Khê, Đà Nẵng",
+   "ward_raw": "Thạc Gián, Thanh Khê, Đà Nẵng",
+   "deal": "sale"
+  },
+  {
+   "site": "batdongsan",
+   "url": "https://batdongsan.com.vn/x-pr40000003",
+   "title": "No numbers here"
+  }
+ ]
+}
