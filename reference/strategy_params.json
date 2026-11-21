@@ -1,0 +1,102 @@
+{
+  "_about": "Defaults and scoring parameters for vnrealty/strategy/. Only conventions and judgement live here — market numbers (rents, ADR, occupancy, prices, growth, rates, hurdle, build cost) are NEVER defaulted: a strategy missing them returns Insufficient naming the keys. Each entry carries `basis`: 'sourced' (a cited document states the number), 'partly_sourced' (a cited document supports part of it, the rest is judgement), or 'judgement' (the desk's prior, to be replaced by evidence). `market_reference` holds cited market ranges for orientation only; the library does not read them as defaults. Rates are fractions, money VND, durations months unless named _years.",
+  "verified_at": "2026-11-21",
+  "sources": {
+    "vn_tax_fees": {"title": "reference/vn_tax_fees.json (this repo): registration fee 0.5%, seller PIT 2%, notary tiers, broker 1-2% judgement", "url": "reference/vn_tax_fees.json"},
+    "tt40_2021": {"title": "Thông tư 40/2021/TT-BTC — VAT + PIT for individual lessors (5% + 5%) and accommodation household businesses (5% + 2%)", "url": null, "note": "same citation as vnrealty/plan/options.py Lot.rent_tax / business_tax"},
+    "vietnambooking_ota": {"title": "Các trang web bán phòng khách sạn (vietnambooking.com) — Booking.com commission from 15%, Agoda ~15-25%", "url": "https://www.vietnambooking.com/khach-san/tin-tuc-khach-san/cac-trang-web-ban-phong-khach-san.html"},
+    "guesty_booking_fees": {"title": "How much does Booking.com charge hosts? (Guesty) — 15% typical; Preferred Partner adds ~3 points (≈18%)", "url": "https://www.guesty.com/blog/how-much-does-booking-com-charge-hosts/"},
+    "airbnb_simplified_fees": {"title": "Simplifying Airbnb service fees (Airbnb, 2025) — move of software-connected hosts to a single host-only fee", "url": "https://www.airbnb.com.vn/resources/hosting-homes/a/simplifying-airbnb-service-fees-746"},
+    "qd75_2026_danang": {"title": "Quyết định 75/2026/QĐ-UBND Đà Nẵng (effective 10/6/2026) — Điều 6 + Phụ lục III: minimum area and side for tách thửa", "url": "https://luatvietnam.vn/dat-dai/quyet-dinh-75-2026-qd-ubnd-da-nang-quy-dinh-noi-dung-linh-vuc-dat-dai-438499-d2.html"},
+    "thuviennhadat_tach_thua_2026": {"title": "Diện tích tối thiểu tách thửa đất tại Đà Nẵng từ 10/6/2026 (thuviennhadat.vn)", "url": "https://thuviennhadat.vn/phap-luat/dien-tich-toi-thieu-tach-thua-dat-tai-da-nang-tu-10-6-2026-740625.html"},
+    "tvpl_chi_phi_tach_thua": {"title": "Tách thửa đất thổ cư năm 2026 hết bao nhiêu tiền (thuvienphapluat.vn)", "url": "https://thuvienphapluat.vn/phap-luat-nha-dat/tach-thua-dat-tho-cu-nam-2026-het-bao-nhieu-tien-theo-quy-dinh-15661.html"},
+    "thuviennhadat_chi_phi_tach_thua": {"title": "Chi phí tách thửa đất thổ cư từ 01/7/2025 (thuviennhadat.vn) — cites Nghị định 151/2025/NĐ-CP: survey cost borne by the State", "url": "https://thuviennhadat.vn/phap-luat/chi-phi-tach-thua-dat-tho-cu-tu-01-7-2025-696666.html"},
+    "vtc_build_cost_2025": {"title": "Chi phí xây nhà 7 tầng hết bao nhiêu (VTC News, 2025-08) — turnkey 5.5-8M VND/m², shell+labour 3.5-4.2M", "url": "https://vtcnews.vn/chi-phi-xay-nha-7-tang-het-bao-nhieu-ar960588.html"},
+    "vtc_renovation_2024": {"title": "Chi phí cải tạo nhà hai tầng cũ hết bao nhiêu tiền (VTC News, 2024-04) — 0.5-1B VND for an old 2-storey house", "url": "https://vtcnews.vn/chi-phi-cai-tao-nha-hai-tang-cu-het-bao-nhieu-tien-ar866181.html"},
+    "muaban_chdv_danang": {"title": "Cho thuê căn hộ Đà Nẵng (muaban.net listings) — studio / 1BR asking rents", "url": "https://muaban.net/bat-dong-san/cho-thue-can-ho-chung-cu-da-nang"},
+    "nhadautu_chdv_danang": {"title": "Làn sóng đầu tư căn hộ cho thuê nở rộ ở Đà Nẵng (Nhà Đầu Tư) — 10-20 room CHDV buildings, monthly/quarterly tenants; hotel occupancy near 100% at peaks (anecdote)", "url": "https://nhadautu.vn/lan-song-dau-tu-can-ho-cho-thue-no-ro-o-da-nang-d106817.html"}
+  },
+  "common": {
+    "buy_costs": {"value": 0.015, "basis": "partly_sourced", "sources": ["vn_tax_fees"], "note": "0.5% registration (sourced) + notary + ~1% buyer-side costs (judgement)"},
+    "sell_costs": {"value": 0.03, "basis": "partly_sourced", "sources": ["vn_tax_fees"], "note": "2% seller PIT (sourced) + ~1% broker (judgement)"},
+    "rent_tax": {"value": 0.10, "basis": "sourced", "sources": ["tt40_2021"], "note": "individual lessor: 5% VAT + 5% PIT"},
+    "business_tax": {"value": 0.07, "basis": "sourced", "sources": ["tt40_2021"], "note": "accommodation household business: 5% VAT + 2% PIT"},
+    "loan_ltv": {"value": 0.0, "basis": "judgement", "note": "convention: unlevered unless the investor states a loan; a positive loan_ltv then requires mortgage_rate"},
+    "term_years": {"value": 15, "basis": "judgement"},
+    "cost_growth": {"value": 0.04, "basis": "judgement", "note": "VN construction / running-cost inflation (same as plan.options.Lot)"}
+  },
+  "defaults": {
+    "buy_hold": {
+      "vacancy": {"value": 0.08, "basis": "judgement"},
+      "management": {"value": 0.05, "basis": "judgement"},
+      "lease_up_months": {"value": 2, "basis": "judgement"}
+    },
+    "buy_rent_long": {
+      "vacancy": {"value": 0.03, "basis": "judgement", "note": "multi-year lease, one tenant"},
+      "management": {"value": 0.0, "basis": "judgement", "note": "owner-managed single lease"},
+      "lease_up_months": {"value": 3, "basis": "judgement"},
+      "long_lease_rent_factor": {"value": 0.92, "basis": "judgement", "note": "a long lease trades ~8% of the monthly rent for certainty; used only when long_lease_rent is not given"}
+    },
+    "build_to_rent": {},
+    "fix_flip": {
+      "flip_months": {"value": 6, "basis": "judgement", "note": "renovate ~2-3 months, market ~3 months"},
+      "flip_price_growth": {"value": 0.0, "basis": "judgement", "note": "a flip is underwritten on the after-repair value, not on market drift"}
+    },
+    "land_bank": {
+      "holding_cost_rate": {"value": 0.001, "basis": "judgement", "note": "per year, share of price: non-agricultural land use tax (0.03-0.15% of the official-table value) + fencing/clearing; conservative against market price"}
+    },
+    "subdivide": {
+      "sell_months": {"value": 6, "basis": "judgement", "note": "after the new certificates issue, months to sell all lots; modelled as one sale at the horizon"},
+      "holding_cost_rate": {"value": 0.001, "basis": "judgement", "note": "per year, share of price, as land_bank"}
+    },
+    "rental_arbitrage": {
+      "deposit_months": {"value": 3, "basis": "judgement", "note": "master-lease deposit, months of master rent; 2-3 is common in landlord listings"},
+      "master_rent_escalation": {"value": 0.05, "basis": "judgement", "note": "per year; carried by the engine's cost_growth, which also grows staff and other fixed costs"},
+      "fit_out_months": {"value": 2, "basis": "judgement"},
+      "other_running_costs": {"value": 0.0, "basis": "judgement", "note": "utilities/upkeep the operator pays beyond the master rent; pass a real number"}
+    },
+    "buy_to_homestay": {
+      "ota_commission": {"value": 0.15, "basis": "sourced", "sources": ["vietnambooking_ota", "guesty_booking_fees", "airbnb_simplified_fees"], "note": "Booking.com from 15% (≈18% with Preferred Partner); Airbnb host-only fee ~15%. Carried as `management`"},
+      "homestay_cogs": {"value": 0.10, "basis": "judgement", "note": "cleaning supplies, linen, amenities"},
+      "ramp_months": {"value": 6, "basis": "judgement"}
+    },
+    "buy_to_chdv": {
+      "chdv_management": {"value": 0.08, "basis": "judgement"},
+      "chdv_cogs": {"value": 0.05, "basis": "judgement"},
+      "ramp_months": {"value": 4, "basis": "judgement"}
+    },
+    "joint_venture": {}
+  },
+  "liquidity_months": {
+    "_basis": "judgement: months to turn the position back into cash at a fair price, from the decision to exit",
+    "buy_hold": 6, "buy_rent_long": 8, "build_to_rent": 12, "fix_flip": 3, "land_bank": 12, "subdivide": 9,
+    "rental_arbitrage": 2, "joint_venture": 24, "buy_to_homestay": 8, "buy_to_chdv": 9
+  },
+  "complexity": {
+    "_basis": "judgement: execution difficulty 1 (passive) .. 5 (hard, many failure points)",
+    "buy_hold": 1, "buy_rent_long": 1, "build_to_rent": 4, "fix_flip": 4, "land_bank": 1, "subdivide": 4,
+    "rental_arbitrage": 3, "joint_venture": 3, "buy_to_homestay": 4, "buy_to_chdv": 3
+  },
+  "bear_overrides": {
+    "_basis": "judgement: extra shock merged into ev.default_scenarios' bear scenario for strategies whose value is mostly the resale",
+    "fix_flip": {"value_after": {"x": 0.9}}, "land_bank": {"value_after": {"x": 0.9}}, "subdivide": {"value_after": {"x": 0.9}}
+  },
+  "score_weights": {
+    "_basis": "judgement: score = w_eff·E[NPV]/K − w_bear·max(0,−bear NPV)/K − w_ploss·P(loss) − w_liq·liquidity_months/12 − w_cx·(complexity−1)/4, K = peak cash",
+    "w_eff": 1.0, "w_bear": 0.5, "w_ploss": 0.25, "w_liq": 0.02, "w_cx": 0.05
+  },
+  "tach_thua_da_nang": {
+    "status": "unverified",
+    "rule": "Quyết định 75/2026/QĐ-UBND (effective 10/6/2026) Điều 6 khoản 1 sets the minimum residential area and side per ward in Phụ lục III — the per-ward table was NOT read, so no per-ward minimum is recorded. Khoản 2 (land inside a planned recovery/conversion area whose plan lapsed): 100 m² / side 5.0 m where the khoản-1 minimum is ≤ 60 m²; 150 m² / 5.0 m where it is 70-80 m²; 200 m² / 6.0 m elsewhere.",
+    "sources": ["qd75_2026_danang", "thuviennhadat_tach_thua_2026"],
+    "use": "strategy subdivide REQUIRES `min_lot_m2` for the parcel's ward (read Phụ lục III or ask the land office); it is never defaulted. Also subject to Nghị quyết 254/2025/QH15 Điều 11 khoản 3 and roads/infrastructure obligations for lots created for sale."
+  },
+  "market_reference": {
+    "_note": "orientation only, not read as defaults",
+    "chdv_studio_rent_danang_month": {"range": [3.8e6, 18e6], "kind": "asking", "sources": ["muaban_chdv_danang"], "note": "studio/1BR, Sơn Trà 6.8-13M, Ngũ Hành Sơn 3.8-15M, Hải Châu 5.5-18M (listing aggregation, asking)"},
+    "build_cost_turnkey_m2": {"range": [5.5e6, 8e6], "sources": ["vtc_build_cost_2025"]},
+    "renovation_old_2_storey_house": {"range": [5e8, 1e9], "sources": ["vtc_renovation_2024"]},
+    "tach_thua_admin_cost": {"range": [2e6, 8e6], "sources": ["tvpl_chi_phi_tach_thua", "thuviennhadat_chi_phi_tach_thua"], "note": "administrative fees for a plain split; infrastructure, road surrender and land-use conversion fees for lots created for sale are extra and dominate"},
+    "homestay_occupancy_danang": {"range": null, "sources": ["nhadautu_chdv_danang"], "note": "no published occupancy statistic found; hotels near 100% at peak (anecdote). Supply occupancy from your own comps"}
+  }
+}
