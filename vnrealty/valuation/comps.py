@@ -86,7 +86,8 @@ def _in_place(subject: dict, row: dict, radius_km: float | None) -> tuple[bool, 
 
 def select_comps(con: sqlite3.Connection, subject: dict, as_of: str, radius_km: float | None = None,
                  area_band: tuple[float, float] = (0.75, 1.3), months: int = 12) -> list[Comp]:
-    """Comparables for ``subject`` visible at ``as_of`` (unadjusted: ``adj_price_m2 == price_m2``).
+    """Comparables for ``subject`` visible at ``as_of`` (unadjusted: ``adj_price_m2 == price_m2``). When ``subject``
+    carries ``listing_id``, that listing (and its own sale evidence) is excluded.
 
     Same ``ptype``; same ward (or within ``radius_km`` when given — then both sides need coordinates); area within
     ``area_band`` × subject area (m²); observed within ``months`` before ``as_of``. Sales (``kind='sale'``) come from
@@ -145,7 +146,8 @@ def select_comps(con: sqlite3.Connection, subject: dict, as_of: str, radius_km: 
                         adj_price_m2=ppm, kind="asking", seen_at=r["seen_at"], distance_km=dist,
                         adjustments={"attrs": {k: r.get(k) for k in ATTRS}},
                         source=f"{r['site']} {r['url'] or ''}".strip()))
-    return out
+    own = subject.get("listing_id")   # a listing is never its own comparable
+    return [c for c in out if own is None or c.listing_id != own]
 
 
 def alley_factor(alley_m: float, curve: list[list[float]]) -> float:

@@ -135,3 +135,19 @@ def tearDownModule():
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestSelfExclusion(unittest.TestCase):
+    def test_listing_is_not_its_own_comp(self):
+        from vnrealty.store.db import connect
+        from vnrealty.valuation.comps import select_comps
+        con = connect(":memory:")
+        con.execute("INSERT INTO ward(code, name_vi) VALUES ('w', 'W')")
+        for i in range(1, 4):
+            con.execute("INSERT INTO listing(id, fingerprint, ptype, ward_code, area_m2, first_seen, last_seen) VALUES (?, ?, 'land', 'w', 100, '2026-10-01', '2026-11-01')", (i, f"f{i}"))
+            con.execute("INSERT INTO listing_obs(listing_id, seen_at, site, kind, price, price_m2) VALUES (?, '2026-11-01', 's', 'asking', ?, ?)", (i, 3e9 + i, (3e9 + i) / 100))
+        subj = {"ptype": "land", "ward_code": "w", "area_m2": 100, "listing_id": 2}
+        ids = {c.listing_id for c in select_comps(con, subj, "2026-11-21")}
+        self.assertNotIn(2, ids)
+        self.assertEqual(ids, {1, 3})
+        con.close()
