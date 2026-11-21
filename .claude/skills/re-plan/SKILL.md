@@ -13,4 +13,4 @@ allowed-tools: Read, Grep, Glob, Bash(python3 -m vnrealty.cli:*), WebSearch, Web
    for the hurdle, and a ranked recommendation with reasons.
 3. Add `project <unit>` for sell timing. Constraints the numbers do not see: co-owner consent, a loan due, a planning
    red flag. Name them.
-4. Run `report plan <unit>`.
+4. Run `report plan <lot.json>` (add `"subject": "unit:<id>"` to the lot so it is valued).

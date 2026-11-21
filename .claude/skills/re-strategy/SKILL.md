@@ -27,12 +27,12 @@ allowed-tools: Read, Grep, Glob, Bash(python3 -m vnrealty.cli:*), WebSearch
 4. **Explain the winner and the runner-up:**
    - why it wins (yield, growth, speed, capital efficiency);
    - what kills it (its kill triggers);
-   - what would flip the ranking. Run `strategy tornado` and `strategy break-even <field>` to find, for example, the
+   - what would flip the ranking. Run `strategy tornado <opportunity.json>` and `strategy break-even <opportunity.json> <field>` to find, for example, the
      rent or exit price at which the winner stops working.
 5. **Several candidates, limited cash.** Collect the evaluated candidates, then run `strategy allocate
    candidates.json --cash <liquid cash> --json`. It returns the chosen set, totals, the binding constraint (cash,
    concentration, risk budget, liquidity) and the best candidate that did not fit, with the reason.
-6. **Record** the decision as a paper deal (`ledger open …`) and offer `report strategy <subject>`.
+6. **Record** the decision as a paper deal (`ledger open …`) and offer `report strategy <opportunity.json>`.
 
 Rental arbitrage and flips are fast and capital-light, but they are operating businesses with execution risk. The
 complexity weight and the profile account for that. Never present a strategy's IRR without its bear case.

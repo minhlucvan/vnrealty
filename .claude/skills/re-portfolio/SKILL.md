@@ -8,7 +8,7 @@ allowed-tools: Read, Grep, Glob, Bash(python3 -m vnrealty.cli:*), WebSearch, Web
 # re-portfolio
 
 - Setup:
-  - `unit add …`
+  - `unit add <id> <name> --ptype … --ward … --cost … --bought-at … --loan …`
   - `lease add <unit> --tenant <alias> --rent … --start …`
   - `txn add <unit> <amount> <category> --at …`
 

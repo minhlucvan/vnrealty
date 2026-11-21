@@ -16,7 +16,7 @@ allowed-tools: Read, Grep, Glob, Bash(python3 -m vnrealty.cli:*), WebSearch, Web
 
    Brief each with the listing id and the user's goal.
 3. When they finish, verify their claims against `vnr … --json` yourself.
-4. Run `score <listing> --json`. It computes the grade from library outputs; a missing core component withholds the
+4. Run `score <listing> --deal <deal.json> --json`; IRR is a core component. It computes the grade from library outputs; a missing core component withholds the
    grade.
 5. Send the dossier to `re-reviewer` for GO / HOLD / CUT.
 6. Run `report listing <id>`. Record a paper deal with the verdict.
