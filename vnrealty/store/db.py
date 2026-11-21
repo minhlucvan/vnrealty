@@ -112,6 +112,8 @@ CREATE TABLE IF NOT EXISTS forecast (
   as_of TEXT NOT NULL, model TEXT NOT NULL, horizon_months INTEGER NOT NULL, target_month TEXT NOT NULL,
   p10 REAL, p50 REAL, p90 REAL, inputs TEXT, created_at TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS ix_series ON price_series(scope_kind, scope, ptype, month);
+-- SQLite treats NULLs as distinct in UNIQUE, so a NULL ptype needs its own uniqueness guard
+CREATE UNIQUE INDEX IF NOT EXISTS ux_series_nullsafe ON price_series(source, scope_kind, scope, COALESCE(ptype, ''), kind, month, seen_at);
 CREATE INDEX IF NOT EXISTS ix_forecast ON forecast(subject, as_of);
 
 CREATE INDEX IF NOT EXISTS ix_obs_listing ON listing_obs(listing_id, seen_at);

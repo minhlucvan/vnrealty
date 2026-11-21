@@ -18,7 +18,8 @@ URLS = {"batdongsan": "https://batdongsan.com.vn/nha-dat-ban-da-nang",
         "muaban": "https://muaban.net/bat-dong-san/ban-nha-id71234567", "bds68": "https://bds68.com.vn/ban-nha/12345678",
         "generic": "https://nhadat.example.vn/tin/123456.html",
         "maps": "https://www.google.com/maps/place/X/@16.0,108.2,17z/data=!3d16.0612!4d108.2234",
-        "zoning": "https://guland.vn/soi-quy-hoach/da-nang", "social": "https://www.facebook.com/groups/1/"}
+        "zoning": "https://guland.vn/soi-quy-hoach/da-nang", "social": "https://www.facebook.com/groups/1/",
+        "pricehistory": "https://batdongsan.com.vn/gia-dat-da-nang"}
 
 
 class TestBundling(unittest.TestCase):
@@ -100,7 +101,7 @@ class TestNode(unittest.TestCase):
                 if isinstance(env, str):                                  # scripts may return JSON.stringify(env)
                     env = json.loads(env)
                 self.assertLessEqual({"site", "url", "seen_at", "kind", "items", "warnings"}, set(env), n)
-                self.assertIn(env["kind"], ("detail", "search", "srp", "map", "zoning", "social"))
+                self.assertIn(env["kind"], ("detail", "search", "srp", "map", "zoning", "social", "series"))
                 self.assertNotIn("0900000001", r.stdout, n)
             # detail pages read the label table from body text
             bd = json.loads(subprocess.run([NODE, str(ROOT / "tests" / "js" / "smoke_bundle.js"), os.path.join(d, "batdongsan_detail.js"),
