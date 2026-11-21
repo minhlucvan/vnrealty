@@ -1,0 +1,253 @@
+{
+  "_about": "Parameters for vnrealty/pricing/ (peers, metrics, score, screen). Every parameter carries value(s), unit, `basis` ('sourced' = a cited document states the number; 'partly_sourced' = a cited document supports part of it, the rest is the desk's judgement; 'judgement' = the desk's prior, to be replaced by evidence) and source ids. Market numbers that vary by listing (rents, ADR, occupancy) are NOT here: they come from rent peers or are passed in ctx, and a metric whose input is missing is Insufficient. Rates are fractions, money VND, area m², widths m, durations months unless named _years.",
+  "verified_at": "2026-11-21",
+  "sources": {
+    "qcvn01_2021_luatvietnam": {
+      "title": "Người dân có được xây nhà ở kín mảnh đất? — table of QCVN 01:2021/BXD (Thông tư 01/2021/TT-BXD) maximum net building density for individual houses (luatvietnam.vn)",
+      "url": "https://luatvietnam.vn/dat-dai-nha-o/co-duoc-xay-nha-o-kin-manh-dat-567-34507-article.html",
+      "claim": "Mật độ xây dựng thuần tối đa nhà ở riêng lẻ: ≤90 m² 100%, 100 m² 90%, 200 m² 70%, 300 m² 60%, 500 m² 50%, ≥1000 m² 40%; land-use coefficient ≤ 7."
+    },
+    "qcvn01_2021_thuviennhadat": {
+      "title": "Cách tính mật độ xây dựng 2026 theo QCVN 01:2021/BXD (thuviennhadat.vn)",
+      "url": "https://thuviennhadat.vn/phap-ly-nha-dat/cach-tinh-mat-do-xay-dung-2026-toan-bo-quy-dinh-ve-mat-do-xay-dung-theo-thong-tu-01-2021-tt-bxd-qcvn-735861.html",
+      "claim": "Lots between table rows are interpolated between the two nearest values; lots ≤100 m² with height ≤25 m may reach 100% subject to setbacks (not applied here — conservative)."
+    },
+    "tuoitre_qd07_2026": {
+      "title": "Đà Nẵng cho xây nhà 7 tầng ở đường 5,5m, xây 9 tầng ở đường 7,5m (Tuổi Trẻ, 2026-01-23)",
+      "url": "https://tuoitre.vn/da-nang-cho-xay-nha-7-tang-o-duong-5-5m-xay-9-tang-o-duong-7-5m-20260123120551959.htm",
+      "claim": "From 25/01/2026 (QĐ 07/2026 amending the architecture regulation QĐ 63/2023/QĐ-UBND): kiệt lộ giới <2.5 m: 3 floors / 13 m; 2.5–<7 m: 4 floors / 16.5 m; ≥7 m: 5 floors / 20 m (5th set back 3 m). Streets by existing carriageway: <5.5 m (with sidewalk) 6 floors; <7.5 m 7 floors; 7.5–<10.5 m 9 floors; ≥10.5 m by zoning plan."
+    },
+    "vneconomy_qd07_2026": {
+      "title": "Đà Nẵng điều chỉnh quy định chiều cao công trình xây dựng và cấm xây công trình lớn trong kiệt, hẻm (VnEconomy, 2026-01-26)",
+      "url": "https://vneconomy.vn/da-nang-dieu-chinh-quy-dinh-chieu-cao-cong-trinh-xay-dung-va-cam-xay-cong-trinh-lon-trong-kiet-hem.htm",
+      "claim": "Same bands; applies to Hải Châu, Hòa Cường, Thanh Khê, An Khê, An Hải, Sơn Trà, Ngũ Hành Sơn, Hòa Khánh, Hải Vân, Liên Chiểu, Cầm Lệ, Hòa Xuân, Hòa Vang, Hòa Tiến, Bà Nà. Notes that the press bands overlap near 5.5 m / 7.5 m — check the decision text."
+    },
+    "vbpl_qd07_2026": {
+      "title": "Quyết định 07/2026/QĐ-UBND TP Đà Nẵng (text, vbpl.moj.gov.vn)",
+      "url": "https://vbpl.moj.gov.vn/TW/Lists/vbpq/Attachments/186601/07.2026.QD.UBND.docx",
+      "claim": "Primary text of the amendment (not parsed by the desk; the bands above are as reported by the press)."
+    },
+    "vtc_build_cost_2025": {
+      "title": "Turnkey build cost range cited in reference/strategy_params.json (vtc_build_cost_2025): 5.5–8.0 M VND/m²",
+      "url": "reference/strategy_params.json",
+      "claim": "Turnkey (trọn gói) residential build 5.5–8.0 M VND/m² of floor area."
+    },
+    "baohatinh_xay_nha_danang": {
+      "title": "Danh sách 15 công ty xây dựng nhà trọn gói Đà Nẵng (Báo Hà Tĩnh, contractor round-up)",
+      "url": "https://baohatinh.vn/danh-sach-15-cong-ty-xay-dung-nha-tron-goi-da-nang-uy-tin-hang-dau-post277770.html",
+      "claim": "Basic package (structure + finishing labour) 5.7–7.2 M VND/m²; design 150–250 k VND/m² (undated contractor quotes)."
+    },
+    "realhouse_2026_quote": {
+      "title": "Xây dựng nhà trọn gói Đà Nẵng — contractor list citing 2026 quotes (scrapbox page, contractor marketing)",
+      "url": "https://scrapbox.io/xaynharealhouse/xay-dung-nha-tron-goi-da-nang-danh-sach-da-kiem-chung",
+      "claim": "2026 turnkey quotes 5.8–9.2 M VND/m² (one contractor's marketing; weak evidence)."
+    },
+    "tt45_2013_mof": {
+      "title": "Bộ Tài chính hỏi đáp: khung khấu hao nhà cửa loại kiên cố theo Thông tư 45/2013/TT-BTC (portal.mof.gov.vn)",
+      "url": "https://portal.mof.gov.vn/hoidapcstc/home/cthoidap/158669",
+      "claim": "Depreciation life for permanent buildings (nhà cửa loại kiên cố): minimum 25, maximum 50 years (Phụ lục I)."
+    },
+    "qd78_2026_baophapluat": {
+      "title": "Đà Nẵng quy định phí quản lý vận hành chung cư mới cao nhất 13.200 đồng/m²/tháng (Báo Pháp Luật) — QĐ 78/2026/QĐ-UBND, effective 2026-06-10",
+      "url": "https://doanhnhan.baophapluat.vn/da-nang-quy-dinh-phi-quan-ly-van-hanh-chung-cu-moi-cao-nhat-13-200-dong-m2-thang.html",
+      "claim": "Without lift 1,600–7,500 VND/m²/month; with lift 4,400–13,200 VND/m²/month."
+    },
+    "bds_q3_2026_yield": {
+      "title": "Giá leo thang, căn hộ ở Đà Nẵng có thực sự 'ngon ăn'? (VnBusiness) — citing Batdongsan.com.vn Q3/2026",
+      "url": "https://vnbusiness.vn/gia-leo-thang-can-ho-o-da-nang-co-thuc-su-ngon-an.html",
+      "claim": "Đà Nẵng apartment gross rental yield about 4.5%/year, typical rent ~17 M VND/month (portal data, asking); short-stay 6–7% (press)."
+    },
+    "cbre_danang_yield": {
+      "title": "Nguồn cung hạng sang áp đảo, lợi suất cao hút dòng tiền ngoại tỉnh (Thương hiệu & Công luận) — citing CBRE / VARS IRE",
+      "url": "https://thuonghieucongluan.com.vn/can-ho-da-nang-tang-gia-manh-co-hoi-dau-tu-hay-bay-ky-vong-a316337.html",
+      "claim": "Đà Nẵng apartment yields 'can reach 8–9%' vs 2–3% in Hà Nội/HCMC (prime examples, gross)."
+    },
+    "nhadautu_chdv_danang": {
+      "title": "Làn sóng đầu tư căn hộ cho thuê nở rộ ở Đà Nẵng (Nhà Đầu Tư)",
+      "url": "https://nhadautu.vn/lan-song-dau-tu-can-ho-cho-thue-no-ro-o-da-nang-d106817.html",
+      "claim": "Rental-apartment (CHDV) investment wave in Đà Nẵng; yields quoted by operators (promotional, not statistics)."
+    },
+    "vietnambooking_ota": {
+      "title": "Các trang web bán phòng khách sạn (vietnambooking.com) — Booking.com commission from 15%, Agoda ~15–25%",
+      "url": "https://www.vietnambooking.com/khach-san/tin-tuc-khach-san/cac-trang-web-ban-phong-khach-san.html",
+      "claim": "OTA commission 15–25%."
+    },
+    "guesty_booking_fees": {
+      "title": "How much does Booking.com charge hosts? (Guesty)",
+      "url": "https://www.guesty.com/blog/how-much-does-booking-com-charge-hosts/",
+      "claim": "15% typical; Preferred Partner ≈18%."
+    }
+  },
+  "params": {
+    "buildable_ratio_by_lot": {
+      "points": [[90, 1.0], [100, 0.9], [200, 0.7], [300, 0.6], [500, 0.5], [1000, 0.4]],
+      "unit": "fraction of lot area (footprint / lot) vs lot area m²; linear between points, flat outside",
+      "basis": "sourced: QCVN 01:2021/BXD table for individual houses, interpolation allowed by the code. The ≤100 m² / ≤25 m 100% exception is not applied (conservative). A detailed plan (QHCT) can be stricter — verify per lot.",
+      "basis_kind": "sourced",
+      "sources": ["qcvn01_2021_luatvietnam", "qcvn01_2021_thuviennhadat"]
+    },
+    "floors_by_alley": {
+      "bands": [[0.0, 2.5, 3, 13.0], [2.5, 7.0, 4, 16.5], [7.0, null, 5, 20.0]],
+      "unit": "[min_width_m inclusive, max_width_m exclusive (null = no max), max floors, max height m] for a lot in a kiệt/hẻm (alley_m > 0)",
+      "basis": "sourced (press report of QĐ 07/2026/QĐ-UBND amending QĐ 63/2023/QĐ-UBND, effective 2026-01-25). The rule keys on lộ giới (planned width); listings state the current width, which is used as the proxy — verify the lộ giới at the ward office.",
+      "basis_kind": "sourced",
+      "sources": ["tuoitre_qd07_2026", "vneconomy_qd07_2026", "vbpl_qd07_2026"]
+    },
+    "floors_by_street": {
+      "bands": [[0.0, 5.5, 6], [5.5, 7.5, 7], [7.5, 10.5, 9]],
+      "unit": "[min carriageway m, max carriageway m (exclusive), max floors] for street frontage (alley_m = 0); ≥10.5 m set by the zoning plan (Insufficient)",
+      "street_unknown_floors": 6,
+      "street_unknown_meaning": "When a street-front lot's carriageway width is unknown, the rule's LOWEST street band (6 floors) is used as a lower bound and the metric's basis says so (bound='lower'). It understates GFA, so residual values err low.",
+      "basis": "sourced (press report of QĐ 07/2026/QĐ-UBND); the press bands overlap near 5.5 / 7.5 m — check the decision before relying on a boundary.",
+      "basis_kind": "sourced",
+      "sources": ["tuoitre_qd07_2026", "vneconomy_qd07_2026"]
+    },
+    "build_cost_m2": {
+      "basic": 6000000, "standard": 7000000, "premium": 9000000, "default_level": "standard",
+      "unit": "VND per m² of gross floor area, turnkey (trọn gói), 2026",
+      "basis": "partly sourced: quoted ranges 5.5–8.0 M (vtc_build_cost_2025), 5.7–7.2 M basic (baohatinh_xay_nha_danang), 5.8–9.2 M 2026 (realhouse_2026_quote, contractor marketing). Level points inside those ranges are judgement.",
+      "basis_kind": "partly_sourced",
+      "sources": ["vtc_build_cost_2025", "baohatinh_xay_nha_danang", "realhouse_2026_quote"]
+    },
+    "soft_cost_share": {
+      "value": 0.05,
+      "unit": "fraction of build cost (design, permit, supervision, connections)",
+      "basis": "partly sourced: design 150–250 k VND/m² ≈ 2–4% of build cost (baohatinh_xay_nha_danang); permits and supervision judgement.",
+      "basis_kind": "partly_sourced",
+      "sources": ["baohatinh_xay_nha_danang"]
+    },
+    "building_life_years": {
+      "house": 40, "shophouse": 40, "villa": 40, "chdv": 30, "room": 25, "apartment": 50,
+      "unit": "years, straight-line economic life for the depreciated replacement cost",
+      "basis": "partly sourced: tax depreciation life for permanent buildings is 25–50 years (tt45_2013_mof); the per-type point is judgement (intensively used rooms/CHDV wear faster).",
+      "basis_kind": "partly_sourced",
+      "sources": ["tt45_2013_mof"]
+    },
+    "developer_margin": {
+      "value": 0.15,
+      "unit": "fraction of gross development value (GDV) required as profit",
+      "basis": "judgement: small-builder margin for a 3–6 floor build; no Đà Nẵng source found.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "build_months": {
+      "value": 8,
+      "unit": "months from start to completion of a simple townhouse build",
+      "basis": "judgement (same as plan.options.Lot.build_months).",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "finance_rate": {
+      "value": 0.09,
+      "unit": "annual rate on money tied up in the build (average draw = half the build + soft cost over build_months, plus the sale period)",
+      "basis": "judgement: near floating VND mortgage rates; see reference/bank_lending.json for bank practice.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "sale_months": {
+      "value": 6,
+      "unit": "months after completion to sell (finance cost keeps running)",
+      "basis": "judgement.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "studio": {
+      "unit_size_m2": 25, "efficiency": 0.75, "vacancy": 0.10, "opex_share": 0.20,
+      "unit": "studio build for the land residual: net m² per studio, lettable/gross, vacancy fraction, opex as a fraction of effective rent (management, upkeep, rent tax)",
+      "basis": "judgement: efficiency/vacancy as plan.options.Lot; opex 20% = 10% rent tax (TT 40/2021, sourced in strategy_params.json) + 10% upkeep/management (judgement).",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "cap_rate": {
+      "house": 0.045, "apartment": 0.05, "shophouse": 0.05, "chdv": 0.08, "room": 0.08, "homestay": 0.10, "studio_build": 0.08,
+      "unit": "net operating income / value, annual fraction",
+      "basis": "partly sourced: Đà Nẵng apartment gross yield ≈4.5% (bds_q3_2026_yield) and 8–9% for prime examples (cbre_danang_yield); short-stay 6–7% (bds_q3_2026_yield); CHDV yields are operator-quoted (nhadautu_chdv_danang). Net cap rates per type are judgement inside those ranges, with an operating-risk premium for homestay. Always reported beside the implied cap rate (NOI / asking), which is the comparable number.",
+      "basis_kind": "partly_sourced",
+      "sources": ["bds_q3_2026_yield", "cbre_danang_yield", "nhadautu_chdv_danang"]
+    },
+    "ota_fee_share": {
+      "value": 0.15,
+      "unit": "fraction of room revenue paid to OTAs",
+      "basis": "sourced: Booking.com 15% typical (guesty_booking_fees), Agoda 15–25% (vietnambooking_ota).",
+      "basis_kind": "sourced",
+      "sources": ["guesty_booking_fees", "vietnambooking_ota"]
+    },
+    "opex_share": {
+      "homestay": 0.35, "chdv": 0.25,
+      "unit": "fraction of revenue (after OTA fee for homestay) for staff, utilities, cleaning, upkeep, business tax",
+      "basis": "judgement: includes 7% accommodation business tax (TT 40/2021, sourced in strategy_params.json); the rest is the desk's prior.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "chdv_vacancy": {
+      "value": 0.10,
+      "unit": "fraction of room-months unlet",
+      "basis": "judgement.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "apartment_mgmt_fee_m2": {
+      "value": 8800, "lo": 4400, "hi": 13200,
+      "unit": "VND per m² per month (building with lift); value = midpoint of the official band",
+      "basis": "sourced band (QĐ 78/2026/QĐ-UBND: with lift 4,400–13,200; without lift 1,600–7,500); the midpoint is judgement.",
+      "basis_kind": "sourced",
+      "sources": ["qd78_2026_baophapluat"]
+    },
+    "rent_tax": {
+      "value": 0.10,
+      "unit": "fraction of rent (individual lessor 5% VAT + 5% PIT, Thông tư 40/2021/TT-BTC — same citation as strategy_params.json)",
+      "basis": "sourced.",
+      "basis_kind": "sourced",
+      "sources": []
+    },
+    "stale_days": {
+      "value": 120,
+      "unit": "days on market after which a listing is flagged stale",
+      "basis": "judgement.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "z_too_cheap": {
+      "value": -2.5,
+      "unit": "robust z-score of the type's key price metric at or below which the listing is flagged 'too cheap: verify'",
+      "basis": "judgement: a robust z of −2.5 is far outside the peer body; it usually means a data error, a hidden defect or a different product.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "min_alley_m": {
+      "value": 2.0,
+      "unit": "m; kiệt narrower than this is flagged (no car, fire access, resale discount)",
+      "basis": "judgement, consistent with the <2.5 m 3-floor band of QĐ 07/2026.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "project_min_n": {
+      "value": 5,
+      "unit": "apartment listings of the same matched project needed to use project-level peers",
+      "basis": "judgement.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "score_min_confidence": {
+      "value": 0.5,
+      "unit": "share of weight computed below which the score is withheld",
+      "basis": "judgement.",
+      "basis_kind": "judgement",
+      "sources": []
+    },
+    "score_weights": {
+      "land": {"price_m2": 0.25, "price_per_buildable_m2": 0.20, "residual_vs_asking": 0.30, "price_per_frontage_m": 0.10, "hedonic_residual": 0.10, "value_gap": 0.05},
+      "house": {"price_m2": 0.20, "price_m2_floor": 0.15, "cost_value_vs_asking": 0.25, "gross_yield_vs_ward": 0.15, "hedonic_residual": 0.15, "value_gap": 0.10},
+      "villa": {"price_m2": 0.25, "price_m2_floor": 0.15, "cost_value_vs_asking": 0.25, "gross_yield_vs_ward": 0.10, "hedonic_residual": 0.15, "value_gap": 0.10},
+      "apartment": {"price_m2_floor": 0.40, "price_to_rent": 0.15, "net_yield": 0.15, "gross_yield_vs_ward": 0.10, "hedonic_residual": 0.10, "value_gap": 0.10},
+      "shophouse": {"price_per_frontage_m": 0.35, "price_m2": 0.20, "gross_yield_vs_ward": 0.25, "hedonic_residual": 0.10, "value_gap": 0.10},
+      "chdv": {"price_per_room": 0.35, "income_value_vs_asking": 0.35, "gross_yield_vs_ward": 0.10, "hedonic_residual": 0.10, "value_gap": 0.10},
+      "room": {"price_per_room": 0.35, "income_value_vs_asking": 0.35, "gross_yield_vs_ward": 0.10, "hedonic_residual": 0.10, "value_gap": 0.10},
+      "rent": {"rent_m2": 1.0},
+      "unit": "relative weights per metric per property type (normalised by the scorer)",
+      "basis": "judgement: the type's key unit price and its fundamental cross-check (residual / cost / income approach) carry most weight; independent model checks (hedonic, triangulated) smaller. Not scored (shown only): price_to_land_value, revenue_multiple, implied_cap_rate (each restates a scored metric), official_ratio (ambiguous: a flag when < 1), days on market and price cuts (motivation signals).",
+      "basis_kind": "judgement",
+      "sources": []
+    }
+  }
+}
